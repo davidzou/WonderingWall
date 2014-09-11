@@ -1,9 +1,14 @@
 #!/bin/bash
+################################################################################################################
+## Feature：For ipaddress lookup Raspberry devices exist in the same network.
+## Requirment:		<a href="http://www.nta-monitor.com/tools-resources/security-tools/arp-scan">arp-scan</a> 
+##					or <a href="https://github.com/royhills/arp-scan">arp-scan</a>
+################################################################################################################
 arp-scan -I en0 -l | grep e8:4e
 
 exit 0
+## @Deprecated
 ##	查找网段内的IP地址
-
 clear
 ipLine="`ifconfig | grep "inet 192.168" `"
 preIp=${ipLine:5:12}
