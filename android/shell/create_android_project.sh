@@ -30,10 +30,10 @@ fi
 
 case "$1" in
 	lib)
-		android create lib-project -n $PROJECT_NAME -t android-19 -p ../$PROJECT_NAME -k com.test.$PROJECT_NAME -v 1.1 -g
+		android create lib-project -n $PROJECT_NAME -t android-19 -p ../$PROJECT_NAME -k com.wonderingwall.$PROJECT_NAME
 	;;
 	*)
-		android create project -n $PROJECT_NAME -t android-19 -p ../$PROJECT_NAME -k com.test.$PROJECT_NAME -a MainActivity -v 1.1 -g
+		android create project -n $PROJECT_NAME -t android-19 -p ../$PROJECT_NAME -k com.wonderingwall.$PROJECT_NAME -a MainActivity
 	;;
 esac
 
