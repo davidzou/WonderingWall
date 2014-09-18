@@ -1,31 +1,31 @@
-# Raspberry Pi Documentation
+# 树莓派文档
 
 [![Build Status](https://travis-ci.org/raspberrypi/documentation.svg?branch=master)](https://travis-ci.org/raspberrypi/documentation)
 
-This is the official documentation for the Raspberry Pi, written by the [Raspberry Pi Foundation](http://raspberrypi.org).
+这是一份翻译文档, 源文档源自 [Raspberry Pi Foundation](http://raspberrypi.org).
 
-## Contents
+## 相关内容
 
-- [Setup / Quickstart](setup/README.md)
-    - Getting started with your Raspberry Pi, including what you need and how to get it booted
-- [Installation](installation/README.md)
-    - Installing an operating system on your Raspberry Pi
-- [Usage Guide](usage/README.md)
-    - Explore the desktop and try out all the main applications
-- [Configuration](configuration/README.md)
-    - Configuring the Pi's settings to suit your needs
-- [Remote Access](remote-access/README.md)
-    - Accessing your Pi remotely via SSH, VNC or over the web
+- [设置 / 快速启动](setup/README.md)
+    - 开始使用您的树莓派，包括你需要什么和如何得到它并启动它
+- [安装](installation/README.md)
+    - 安装一个操作系统到你的树莓派
+- [用户手册](usage/README.md)
+    - 探索桌面和尝试所有的主要应用
+- [配置](configuration/README.md)
+    - 配置树莓派的设置以适应您的需求
+- [远程访问](remote-access/README.md)
+    - 通过SSH、VNC或者网络方式远程访问您的树莓派
 - [Linux](linux/README.md)
-    - Fundamental Linux usage for beginners and more advanced information for power users
+    - 面向初学者的基本Linux使用和针对高级用户的更高级信息
 - [Raspbian](raspbian/README.md)
-    - Information about the recommended operating system for Raspberry Pi
-- [Hardware](hardware/README.md)
-    - Technical specifications about the Raspberry Pi hardware and the camera module
-- [Troubleshooting](troubleshooting/README.md)
-    - Got a problem with your Pi? Start here
+    - 关于树莓派推荐系统的一些信息
+- [硬件](hardware/README.md)
+    - 关于树莓派硬件和摄像头模块的技术规范
+- [故障排除](troubleshooting/README.md)
+    - 您的Pi遇到问题了？从这里开始
 
-## Contributions
+## 贡献
 
 If you have anything to fix or details to add, first [file an issue](http://github.com/raspberrypi/documentation/issues) on GitHub to see if it is likely to be accepted, then file a pull request with your change (one PR per issue).
 
