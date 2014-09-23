@@ -32,7 +32,7 @@ public interface BaseService {
 	 * 
 	 * @param t 
 	 */ 
-	<T> void bind(T t);
+	<T extends BaseModel> void bind(T... t);
 	
 	void onCreate(Bundle savedInstanceState, Intent intent);
 

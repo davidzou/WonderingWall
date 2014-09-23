@@ -6,6 +6,7 @@
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -25,5 +26,12 @@
             android:text="Hello World, MainActivity"
             android:textColor="#f0f" />
     </RelativeLayout>
+    
+    <Button 
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="gotoServiceActivity"
+        android:onClick="onClickButton"/>
 
 </RelativeLayout>

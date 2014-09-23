@@ -8,7 +8,7 @@
 
 ### 购买一块原先安装的SD卡
 
-最简单的途径就是否买预装好NOOBS的SD卡，需要花费£4在 [swag store](http://swag.raspberrypi.org/collections/frontpage/products/noobs-8gb-sd-card).
+最简单的途径就是购买预装好NOOBS的SD卡，需要花费£4在 [swag store](http://swag.raspberrypi.org/collections/frontpage/products/noobs-8gb-sd-card).
 
 ### 下载（个人推荐）
 
@@ -22,26 +22,24 @@
 
 - 以FAT方式格式化至少4GB的SD卡。怎样做请参照下面的说明。
 - 下载并解压文件NOOBS。
-- Copy the extracted files onto the SD card that you just formatted so that this file is at the root directory of the SD card. Please note that in some cases it may extract the files into a folder; if this is the case then please copy across the files from inside the folder rather than the folder itself.
-- On first boot the "RECOVERY" FAT partition will be automatically resized to a minimum, and a list of OSs that are available to install will be displayed.
+- 解压并拷贝到SD卡的更目录下。请请注意，在某些情况下将文件可能提取到一个文件夹；如果是这样的话，请从文件夹内复制整个文件，而不是文件夹本身。
+- 第一次启动“RECOVERY”项，将自动调整FAT分区的大小，并将可安装的系统列表显示出来。
 
 #### 如何以FAT文件格式来格式化SD卡
 
 ##### Windows
-Windows用户我们推荐使用
-For Windows users we recommend formatting your SD card using the SD Association's Formatting Tool, which can be downloaded from [sdcard.org](https://www.sdcard.org/downloads/formatter_4/). You will need to set "FORMAT SIZE ADJUSTMENT" option to "ON" in the "Options" menu to ensure that the entire SD card volume is formatted, and not just a single partition.
+Windows用户我们推荐使用“SD Association's Formatting Tool”来格式化SD卡，可以从这里下载到[sdcard.org](https://www.sdcard.org/downloads/formatter_4/)。
+您需要选择菜单“选项（Options）”，将设置项“FORMAT SIZE ADJUSTMENT”设为“ON”状态来格式化整个SD卡卷，而非一个单独的分区。
 
 ##### Mac OS
-
-The [SD Association's Formatting Tool](https://www.sdcard.org/downloads/formatter_4/) is also available for Mac users, although the default OSX Disk Utility is also capable of formatting the entire disk. To do this, select the SD card volume and choose `Erase` with `MS-DOS` format.
+Mac用户同样可以使用改工具[SD Association's Formatting Tool](https://www.sdcard.org/downloads/formatter_4/), 尽管系统默认的磁盘工具也可以格式化整个磁盘。 为此请选择“擦除”并以“MS-DOS”方式格式化。
 
 ##### Linux
+Linux用户推荐使用“gparted”（命令行版本“parted”）. Norman Dunbar 曾写有 [instructions](http://qdosmsq.dunbar-it.co.uk/blog/2013/06/noobs-for-raspberry-pi/)。
 
-For Linux users we recommend `gparted` (or the command line version `parted`). Norman Dunbar has written up [instructions](http://qdosmsq.dunbar-it.co.uk/blog/2013/06/noobs-for-raspberry-pi/) for Linux users.
+## NOOBS包含什么？
 
-## What's included in NOOBS
-
-The following Operating Systems are currently included in NOOBS:
+NOOBS包含以下操作系统:
 
 - [Raspbian](http://raspbian.org/)
 - [Pidora](http://pidora.ca/)
@@ -50,26 +48,26 @@ The following Operating Systems are currently included in NOOBS:
 - [RISC OS](https://www.riscosopen.org/wiki/documentation/show/Welcome%20to%20RISC%20OS%20Pi)
 - [Arch Linux](http://archlinuxarm.org/platforms/armv6/raspberry-pi)
 
-As of NOOBS v1.3.10 (September 2014), only Raspbian is installed by default in NOOBS. The others can be installed with a network connection.
+自NOOBS v1.3.10 (September 2014)起, 仅有Raspbian作为NOOBS的默认安装。 其他安装都需要网络连接。
 
 ## NOOBS and NOOBS Lite
 
-NOOBS is available in two forms: offline and network install; or network install only.
+NOOBS的两种安装形式: 离线和网络安装；或者仅仅网络安装。
 
-The full version has the images of each of the operating systems included, so they can be installed from the SD card while offline, whereas NOOBS Lite requires an internet connection to download the selected operating system.
+完整的版本还有每个操作系统的镜像文件，他们都可以独立离线安装到SD卡上，然而NOOBS Lite需要网络连接来下载被选择的操作系统。
 
-Note that the operating system images on the full version can be outdated if a new version of the OS is released, but if connected to the internet you will be shown the option of downloading the latest version of the OS if there is a newer one available.
+注意：完整的版本中的操作系统镜像版本号过时的，如果连接到互联网后如果有更新的，会显示最新版本的操作系统。
 
-## NOOBS Development
+## NOOBS开发
 
 ### NOOBS最新稳定版
 
-The latest NOOBS release is **v1.3.10**, released on **12th September 2014**.
+最新稳定版为 **v1.3.10**, 发布于 **12日 9月 2014**.
 
 ### NOOBS文档
 
-A more comprehensive documentation, including more advanced configuration of NOOBS, is available on [GitHub](https://github.com/raspberrypi/noobs/blob/master/README.md).
+NOOBS包含更多配置，更综合的文档，可以在这找到[GitHub](https://github.com/raspberrypi/noobs/blob/master/README.md).
 
 ### NOOBS源码
 
-See the NOOBS source code on [GitHub](https://github.com/raspberrypi/noobs).
+NOOBS源码，可在这里找到 [GitHub](https://github.com/raspberrypi/noobs).
