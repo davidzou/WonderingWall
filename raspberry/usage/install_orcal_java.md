@@ -23,3 +23,9 @@
 	export CLASSPATH=.:$JAVA_HOME/lib
 	export PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin
 	```
+- 激活并查看<br>
+	```
+	source /etc/profile
+	```
+- Good Luck！
+	
