@@ -18,11 +18,13 @@
 	```
 	(个人习惯设置，全局或者当前用户--.barhrc)<br>
 	![设置环境变量](images/evn_profile.png)<br>
-	```
+	<pre>
+	<code>
 	export JAVA_HOME=/usr/lib/jvm/jdk-7-oracle-armhf
 	export CLASSPATH=.:$JAVA_HOME/lib
 	export PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin
-	```
+	</code>
+	</pre>
 - 激活并查看<br>
 	```
 	source /etc/profile
