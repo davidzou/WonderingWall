@@ -1,39 +1,39 @@
-# Installing Operating System Images on Linux
+# 使用Linux安装系统
 
-Please note that the use of the `dd` tool can overwrite any partition of your machine. If you specify the wrong device in the instructions below you could delete your primary Linux partition. Please be careful.
+请注意，使用`dd`工具能覆盖机器上得任何分区，如果指定错误分区将可能删除你主Linux分区。请小心使用。
 
-- Run `df -h` to see what devices are currently mounted.
+- 运行`df -h`来查看设备是否被正确挂载。
 
-- If your computer has a slot for SD cards, insert the card. If not, insert the card into an SD card reader, then connect the reader to your computer.
+- 如果你得电脑有SD卡槽，请插入，没有，则使用读卡器插入，来保证电脑能读取内容。
 
-- Run `df -h` again. The new device that has appeared is your SD card. The left column gives the device name of your SD card; it will be listed as something like `/dev/mmcblk0p1` or `/dev/sdd1`. The last part (`p1` or `1` respectively) is the partition number but you want to write to the whole SD card, not just one partition. Therefore you need to remove that part from the name (getting, for example, `/dev/mmcblk0` or `/dev/sdd`) as the device for the whole SD card. Note that the SD card can show up more than once in the output of df; it will do this if you have previously written a Raspberry Pi image to this SD card, because the Raspberry Pi SD images have more than one partition.
+- 再次运行`df -h`. 显示的新设备即为SD卡.左边一列显示的SD卡设备名称；列出的内容类似`/dev/mmcblk0p1`或者`/dev/sdd1`. 最后一部分(`p1` 或者 `1` respectively)是分区号，但你需要写入整个SD卡而非一个分区。因此去除这一部分作为SD卡设备名(如`/dev/mmcblk0` 或者 `/dev/sdd`)。请注意，SD卡可以显示不止一次在DF的输出; 您之前已经烧入过树莓派镜像到SD卡后再进行此操作的，因为树莓派镜像会有多个分区。
 
-- Now that you've noted what the device name is, you need to unmount it so that files can't be read or written to the SD card while you are copying over the SD image.
+- 现在你已经知道设备名称，你需要卸载它，因为这样才能将镜像拷贝到SD卡上，否则无法对其操作。
 
-- Run `umount /dev/sdd1`, replacing `sdd1` with whatever your SD card's device name is (including the partition number).
+- 运行`umount /dev/sdd1`, 替换`sdd1`为你的SD卡设备名名称 (包含分区号).
 
-- If your SD card shows up more than once in the output of `df` due to having multiple partitions on the SD card, you should unmount all of these partitions.
+- SD卡有多个分区而导致`df`输出不止一个，你应当卸载所有的这些分区。
 
-- In the terminal, write the image to the card with the command below, making sure you replace the input file `if=` argument with the path to your `.img` file, and the `/dev/sdd` in the output file `of=` argument with the right device name. This is very important, as you will lose all data on the hard drive if you provide the wrong device name. Make sure the device name is the name of the whole SD card as described above, not just a partition of it; for example `sdd`, not `sdds1` or `sddp1`; or `mmcblk0`, not `mmcblk0p1`.
+- 在终端命令行下烧入镜像到SD卡, 确保替换`if=`你的`.img`文件路径, 和替换`/dev/sdd`为文件输出`of=正确的设备名`. 这点非常重要，由于你提供了错误的设备名而导致丢失所有硬盘驱动器中得数据。确保如以上描述的整个SD卡设备名，而不是其中一个分区；如 `sdd`, 而不是`sdds1` 或者 `sddp1`; `mmcblk0`, 而不是 `mmcblk0p1`.
 
     ```bash
     dd bs=4M if=2014-09-09-wheezy-raspbian.img of=/dev/sdd
     ```
 
-- Please note that block size set to `4M` will work most of the time; if not, please try `1M`, although this will take considerably longer.
+- 请注意，将块大小设置为`4M`大部分情况运行良好；如果不是，请尝试`1M`，尽管这将需要相当长的时间。
 
-- Also note that if you are not logged in as root you will need to prefix this with `sudo`.
+- 还要注意如果你不是使用root登录的请使用前缀`sudo`。
 
-- The `dd` command does not give any information of its progress and so may appear to have frozen; it could take more than five minutes to finish writing to the card. If your card reader has an LED it may blink during the write process. To see the progress of the copy operation you can run `pkill -USR1 -n -x dd` in another terminal, prefixed with `sudo` if you are not logged in as root. The progress will be displayed in the original window and not the window with the `pkill` command; it may not display immediately, due to buffering.
+- 命令`dd`不会给出任何进度信息，而且可能出现卡死状态; 这个过程可能需要超过5分钟才能完成。你可以根据观察带有LED灯的读卡器闪烁转台来判断写入的进度。需要打开另一个终端并运行`pkill -USR1 -n -x dd`来查看安装进度, 非root用户登录的需要在前面添加`sudo`。 进度将被现实在原窗口而并非键入`pkill`命令所在的窗口; 由于缓冲的问题，它可能不会立即被显示。
 
-- Instead of `dd` you can use `dcfldd`; it will give a progress report about how much has been written.
+- 您可以使用`dcfldd`来替换`dd`; 它将给出关于写入多少的进度报告。
 
 - You can check what's written to the SD card by `dd`-ing from the card back to another image on your hard disk, and then running `diff` (or `md5sum`) on those two images. There should be no difference.
 
-- Run `sync`; this will ensure the write cache is flushed and that it is safe to unmount your SD card.
+- 运行`sync`; 这将确保写高速缓存结束，可以安全退出你的SD卡。
 
-- Remove the SD card from the card reader.
+- 移除SD卡
 
 ---
 
-*This article uses content from the eLinux wiki page [RPi_Easy_SD_Card_Setup](http://elinux.org/RPi_Easy_SD_Card_Setup), which is shared under the [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/)*
+*此文件内容源于eLinux wiki页 [RPi_Easy_SD_Card_Setup](http://elinux.org/RPi_Easy_SD_Card_Setup), 分享基于 [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/)*

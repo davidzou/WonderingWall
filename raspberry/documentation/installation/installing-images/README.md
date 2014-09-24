@@ -1,20 +1,20 @@
-# Installing Operating System Images
+# 安装系统镜像
 
-How to install a Raspberry Pi Operating System image on an SD card. You will need another computer with an SD card reader to install the image.
+如何烧入一个镜像系统到SD卡。你需要另外使用一台电脑进行安装。
 
-We recommend most users download [NOOBS](../noobs.md) which is designed to be very easy to use. However more advanced users looking to install a particular image should use this guide.
+我们推荐多数用户下载[NOOBS](../noobs.md) ，它是为便于使用而设计的. 然而更高级用户希望使用手册来安装特别的镜像文件。
 
-## Download the image
+## 下载镜像
 
-Official images for recommended Operating Systems are available to download from the Raspberry Pi website: [raspberrypi.org/downloads](http://www.raspberrypi.org/downloads/)
+官方推荐的系统镜像可以从树莓派网站获取：[raspberrypi.org/downloads](http://www.raspberrypi.org/downloads/)
 
-Alternative distributions are available from third party vendors.
+尽管也可以从第三方供应商处获得。
 
-## Writing an image to the SD card
+## 镜像写入SD卡
 
-With the image file of the distribution of your choice, you need to use an image writing tool to install it on your SD card.
+您选择独立镜像文件需要使用一个镜像烧入工具来写入到SD卡上。
 
-See our guide for your system:
+不同系统的安装指南:
 
 - [Linux](linux.md)
 - [Mac OS](mac.md)

@@ -1,13 +1,13 @@
-# Installing Operating System Images using Windows
+# 使用Windows安装系统
 
-- Insert the SD card into your SD card reader and check which drive letter was assigned. You can easily see the drive letter (for example `G:`) by looking in the left column of Windows Explorer. You can use the SD Card slot (if you have one) or a cheap SD adaptor in a USB port.
-- Download the Win32DiskImager utility from the [Sourceforge Project page](http://sourceforge.net/projects/win32diskimager/) (it is also a zip file); you can run this from a USB drive.
-- Extract the executable from the zip file and run the `Win32DiskImager` utility; you may need to run the utility as administrator. Right-click on the file, and select **Run as administrator**.
-- Select the image file you extracted above.
-- Select the drive letter of the SD card in the device box. Be careful to select the correct drive; if you get the wrong one you can destroy your data on the computer's hard disk! If you are using an SD card slot in your computer and can't see the drive in the Win32DiskImager window, try using a cheap SD adaptor in a USB port.
-- Click `Write` and wait for the write to complete.
-- Exit the imager and eject the SD card.
+- 插入SD卡并检查是否正常分配驱动器。你何以轻松看到驱动器显示窗口浏览器左边显示卷的位置（如`G:`）。可以使用SD卡槽或者读卡器连接USB口。
+- 下载Win32DiskImager工具， 可以从[Sourceforge Project page](http://sourceforge.net/projects/win32diskimager/) (通常应该是一个zip压缩文件); 你可以从USB驱动。
+- 解压并执行文件`Win32DiskImager`; 您需要使用管理员权限运行工具。右击文件，并选择**作为管理员运行（Run as administrator）**.
+- 选择你先前下载的镜像文件.
+- 选择SD卡所在的驱动器。小心选择正确的驱动器；如果选择错误可能销毁你电脑硬盘中得数据！如果你使用电脑SD卡槽但不能被Win32DiskImager识别, 查实使用SD卡USB读卡器。
+- 点击`写（Write）`直到烧入完成。
+- 推出镜像文件和SD卡。
 
 ---
 
-*This article uses content from the eLinux wiki page [RPi_Easy_SD_Card_Setup](http://elinux.org/RPi_Easy_SD_Card_Setup), which is shared under the [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/)*
+*此文件内容源于eLinux wiki页 [RPi_Easy_SD_Card_Setup](http://elinux.org/RPi_Easy_SD_Card_Setup), 分享基于 [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/)*

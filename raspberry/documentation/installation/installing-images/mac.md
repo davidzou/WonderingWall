@@ -1,28 +1,28 @@
-# Installing Operating System Images on Mac OS
+# MacOS安装系统
 
-On Mac OS you have the choice of the command line `dd` tool or using the graphical tool ImageWriter to write the image to your SD card.
+在苹果系统上你可以选择命令行工具`dd`或者使用图形化工具ImageWriter来讲镜像烧入到你的SD卡。
 
-## (Mostly) graphical interface
+## (多数情形) 图形化接口s
 
-- Connect the SD card reader with the SD card inside. Note that it must be formatted in FAT32.
-- From the Apple menu, choose About This Mac, then click on More info...; if you are using Mac OS X 10.8.x Mountain Lion then click on System Report.
-- Click on USB (or Card Reader if using a built-in SD card reader) then search for your SD card in the upper right section of the window. Click on it, then search for the BSD name in the lower right section; it will look something like 'diskn' where n is a number (for example, disk4). Make sure you take a note of this number.
-- Unmount the partition so that you will be allowed to overwrite the disk; to do this, open Disk Utility and unmount it (do not eject it, or you will have to reconnect it). Note that On Mac OS X 10.8.x Mountain Lion, "Verify Disk" (before unmounting) will display the BSD name as "/dev/disk1s1" or similar, allowing you to skip the previous two steps.
-- From the terminal run:
+- 连接包含SD卡的读卡器，注意的是必须为FAT32格式。
+- 从苹果菜单上选择“关于苹果”项，点击“更多信息”；10.8.x以上版本的系统请点击“系统报告”。
+- 点击“USB”项(或者“读卡器”，你使用内置读卡器的话) 然后搜索你的SD卡在窗口的右上部分。点击它, 右下窗口来查找它的BSD名称；它看起来类似'diskn'，其中n是数字(如, disk4). 要确保记住这个数字。
+- 退出分区，你可以重写这个磁盘。 步骤如下, 打开磁盘工具并卸载它(不是退出, 否者你不得不重连它). 注意的时10.8.x山狮系统中，"Verify Disk" (卸载之前)BSD名会被以"/dev/disk1s1"或者更短的形式展现, 以此可以跳过上面2步。
+- 在终端中键入:
 
     ```
     sudo dd bs=1m if=path_of_your_image.img of=/dev/diskn
     ```
 
-    Remember to replace `n` with the number that you noted before!
+    记住替换`n`这个数值，之前曾提示你记住的！
 
-## Command line
+## 命令行
 
-- If you are comfortable with the command line, you can image a card without any additional software. Run:
+- 如果你对命令行驾轻就熟，那么烧入时就不需要额外的软件。运行：
 
     `diskutil list`
 
-- Identify the disk (not partition) of your SD card e.g. `disk4` (not `disk4s1`):
+- 没有分区的SD卡的磁盘被标示为，如：`disk4` (而不是`disk4s1`):
 
     `diskutil unmountDisk /dev/<disk# from diskutil>`
 
@@ -32,52 +32,51 @@ On Mac OS you have the choice of the command line `dd` tool or using the graphic
 
     e.g. `sudo dd bs=1m if=2014-09-09-wheezy-raspbian.img of=/dev/disk4`
 
-    This may result in an ``dd: invalid number '1m'`` error if you have GNU
-    coreutils installed. In that case you need to use ``1M``:
+    这可能会得到这么一个``dd: invalid number '1m'``错误的结果，原因是你安装了GNU coreutils . 在这种情形下你只要将其改为``1M``:
 
     `sudo dd bs=1M if=image.img of=/dev/DISK`
 
-    This will take a few minutes.
+    你将花上较长时间.
 
-## Alternative method
+## 替代的方式
 
-**Note: Some users have reported issues with using Mac OS X to create SD cards.**
+**提示: 一些用户的反馈中提到关于使用Max OS X来创建SD卡。**
 
-These commands and actions need to be performed from an account that has administrator privileges.
+这些命令和操作都需要管理员权限才能够执行。
 
-- From the terminal run `df -h`.
-- Connect the SD card reader with the SD card inside.
-- Run `df -h` again and look for the new device that wasn't listed last time. Record the device name of the filesystem's partition, for example `/dev/disk3s1`.
-- Unmount the partition so that you will be allowed to overwrite the disk:
+- 在终端中运行`df -h`.
+- 连接SD卡通过内置读卡器
+- 再次运行`df -h`，查看最新连接的设备而不是列表最下的。记入下设备名的绝对路径，如`/dev/disk3s1`.
+- 卸载分区来允许对磁盘的写操作：
 
     ```
     sudo diskutil unmount /dev/disk3s1
     ```
 
-    (or open Disk Utility and unmount the partition of the SD card (do not eject it, or you will have to reconnect it)
-- Using the device name of the partition, work out the raw device name for the entire disk by omitting the final "s1" and replacing "disk" with "rdisk". This is very important as you will lose all data on the hard drive if you provide the wrong device name. Make sure the device name is the name of the whole SD card as described above, not just a partition of it (for example, rdisk3, not rdisk3s1). Similarly, you might have another SD drive name/number like rdisk2 or rdisk4; you can check again by using the `df -h` command both before and after you insert your SD card reader into your Mac. For example, `/dev/disk3s1` becomes `/dev/rdisk3`.
-- In the terminal, write the image to the card with this command, using the raw disk device name from above. Read the above step carefully to be sure you use the correct rdisk number here:
+    (或者打开磁盘工具并卸载SD卡分区（而不是退出它，否者你将不得不重连）)
+- 使用设备分区名，省略“s1”和替换"disk"为"rdisk"以此解决系统盘和扩展盘的问题. 这非常重要，如果提供了错误的盘符名称，可能会丢失所有的数据。确保设备名和SD卡上的描述是一致的，而不仅仅是一个分区(如, rdisk3, 而不是 rdisk3s1). 同样的, 你可能有另一个SD设备名/号（类似rdisk2 或者 rdisk4）; 你可以再次使用`df -h`命令比较插入SD卡前后两者的区别。例如, `/dev/disk3s1`变为`/dev/rdisk3`.
+- 通过终端烧入到SD卡的，使用上述扩展设备名的。仔细阅读上述步骤以确保你使用正确的rdisk的号码:
     ```
     sudo dd bs=1m if=2014-06-20-wheezy-raspbian/2014-09-09-wheezy-raspbian.img of=/dev/rdisk3
     ```
 
-    If the above command reports an error (`dd: bs: illegal numeric value`), please change `bs=1M` to `bs=1m`.
+    如果命令行提示错误 (`dd: bs: illegal numeric value`), 请修改 `bs=1M` 为 `bs=1m`.
     
-    If the above command reports an error `dd: /dev/rdisk3: Permission denied` then that is because the partition table of the SD card is being protected against being overwritten by MacOS. Erase the SD card's partition table using this command:
+    如果命令行提示错误 `dd: /dev/rdisk3: Permission denied` 那是因为SD卡的分区表被保护防止被复写在MacOS下。檫除SD卡分区表使用命令：
     ```
     sudo diskutil partitionDisk /dev/disk3 1 MBR "Free Space" "%noformat%" 100%
     ```
-    That command will also set the permissions on the device to allow writing. Now try the `dd` command again.
+    那个命令还可以设置设备的访问权限。现在再次尝试`dd`.
 
-    Note that `dd` will not feedback any information until there is an error or it is finished; information will be shown and the disk will re-mount when complete. However if you wish to view the progress you can use 'ctrl-T'; this generates SIGINFO, the status argument of your tty, and will display information on the process.
-- After the `dd` command finishes, eject the card:
+    值得注意的是`dd`不会有任何反馈直到有错误发生或者完成；磁盘被重新挂载成功后这些信息将被显示。无论如何都想查看进度的你可以使用'ctrl-T'; 这是一个通常的信号状态（SIGINFO）, 作为tty状态参数就可以显示进度信息。
+- `dd`命令完成, 退出SD卡：
 
     ```
     sudo diskutil eject /dev/rdisk3
     ```
 
-    (or: open Disk Utility and eject the SD card)
+    (或: 打开磁盘工具并退出SD卡)
 
 ---
 
-*This article uses content from the eLinux wiki page [RPi_Easy_SD_Card_Setup](http://elinux.org/RPi_Easy_SD_Card_Setup), which is shared under the [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/)*
+*此文件内容源于eLinux wiki页 [RPi_Easy_SD_Card_Setup](http://elinux.org/RPi_Easy_SD_Card_Setup), 分享基于 [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/)*
