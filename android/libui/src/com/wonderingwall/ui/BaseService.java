@@ -17,7 +17,11 @@ import android.os.Bundle;
  * Function: TODO ADD FUNCTION. <br/>
  * Reason: TODO ADD REASON. <br/>
  * Date: Sep 18, 2014 4:42:37 PM <br/>
- * 
+ * <pre>
+ * +--------------------------------------------------------------------------------------------------------------+
+ * | onCreate | onRestoreInstanceState | onStart | onResume | onPause | onSaveInstanceState | onStop | onDestrory |
+ * +--------------------------------------------------------------------------------------------------------------+
+ * </pre>
  * @author DavidZou
  * @version
  * @see
@@ -53,4 +57,19 @@ public interface BaseService {
 	void onStop();
 
 	void onDestroy();
+	
+	/** 
+	 * ClassName: CallBack <br/> 
+	 * Function: TODO ADD FUNCTION. <br/> 
+	 * Reason: TODO ADD REASON(Option). <br/> 
+	 * date: Sep 24, 2014 <br/> 
+	 * 
+	 * @author DavidZou -- spt_genius@hotmail.com
+	 * @version BaseService 
+	 */  
+	public interface CallBack{
+		void onCallBack();
+		void onSuccessBack();
+		void onErrorBack();
+	}
 }
