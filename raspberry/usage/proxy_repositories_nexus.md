@@ -1,3 +1,6 @@
+# Why install it
+
+
 # Require
 1. [Sonatype Nexus](http://www.sonatype.org/nexus/go),下载后最为.tgz文件, 而不是war包。
    <br>![Sonatype Nexus Download](images/sonatype_nexus_download.png)
@@ -38,3 +41,5 @@
 8081为默认的端口号，要修改端口号可进入$NEXUS_HOME\conf\打开nexus.properties文件，修改application-port属性值就可以了。
 默认的用户名和密码：admin/admin123，登录后看到图所示：
 <br>![Login](images/sonatype_login.png)
+
+**Gook Luck!**
