@@ -1,8 +1,8 @@
-# Remote Access
+# 远程访问
 
-Sometimes you need access to a Raspberry Pi without connecting a monitor to it: for example, if the Pi is embedded in something like a robot; if you want to view some information from it from elsewhere; or maybe if you just don't have a monitor spare!
+有时访问树莓派不需要连接显示器：例如，一些如机器人的Pi嵌入，如果你像查看一些信息的时候，或者可能您没有一个显示设备。
 
-## Contents
+## 相关内容
 
 - [VNC](vnc/README.md)
     - Remote access to the Pi's graphical interface, viewed in a window on another computer
