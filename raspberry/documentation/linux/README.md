@@ -1,50 +1,50 @@
 # Linux
 
-一些基本的Linux用法、树莓派上的命令、文件管理和用户的诠释。
+Explanation of some fundamental Linux usage and commands for getting around the Pi and managing its filesystem and users
 
-## 相关内容
+## Contents
 
-- [文件系统](filesystem/README.md)
+- [Filesystem](filesystem/README.md)
     - [Home](filesystem/home.md)
-        - 树莓派的用户主目录 - 存放用户文件的地方
+        - Your user's home folder on the Pi - where you keep your files
     - [Whole Filesystem](filesystem/whole-filesystem.md)
-        - Linux其余的文件系统
+        - The rest of the Linux filesystem
     - [Backup](filesystem/backup.md)
-        - 备份文件和操作系统。
-- [用法](usage/README.md)
+        - Backing up your files and your Operating System image
+- [Usage](usage/README.md)
     - [Commands](usage/commands.md)
-        - 一些基础和更高级的Linux命令
+        - Some basic and more advanced Linux commands
     - [Text editors](usage/text-editors.md)
-        - 树莓派的的文本编辑器。
+        - A selection of text editors available on the Pi
     - [Users](usage/users.md)
-        - Pi系统上设置多用户
+        - Setting up multiple Linux users on your Pi system
     - [Root](usage/root.md)
-        - `root`用户和`sudo`前缀
+        - The `root` user and the `sudo` prefix
     - [Scripting](usage/scripting.md)
-        - 结合命令实现更复杂的功能。
+        - Combining commands to produce more complex actions
     - [Cron / Crontab](usage/cron.md)
-        - 设置计划任务
+        - Setting up scheduled tasks
     - [.bashrc and .bash_aliases](usage/bashrc.md)
-        - 配置脚本和别名
+        - Your shell configuration and aliases
     - [rc.local](usage/rc-local.md)
-        - 初始化配置
-- [软件](software/README.md)
+        - Configuration of initialisation
+- [Software](software/README.md)
     - [APT](software/apt.md)
-        - 使用APT安装软件
+        - Installing software with APT
     - [Pi Store](software/pi-store.md)
-        - 从树莓商店安装软件
+        - Installing software from the Pi Store
     - [Python](software/python.md)
-        - 使用`pip`Python包管理器安装软件
+        - Installing software using a Python package manager such as `pip`
     - [Ruby](software/ruby.md)
-        - 适用`ruby gems`Ruby的包管理器安装软件
-- [内核](kernel/README.md)
+        - Installing software with Ruby's package manager `ruby gems`
+- [Kernel](kernel/README.md)
     - [Updating](kernel/updating.md)
-        - 更新树莓派Linux内核
+        - Updating your Linux kernel on Raspberry Pi
     - [Building](kernel/building.md)
-        - 构建树莓派Linux内核
+        - Building the Linux kernel on Raspberry Pi
     - [Configuring](kernel/configuring.md)
-        - 配置树莓派Linux内核
+        - Configuring the Linux kernel on Raspberry Pi
     - [Patching](kernel/patching.md)
-        - 应用树莓派Linux内核补丁
+        - Applying patches to the Linux kernel on Raspberry Pi
     - [Headers](kernel/headers.md)
-        - 获得内核头文件
+        - Getting the kernel headers
