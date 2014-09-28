@@ -81,12 +81,12 @@ Setup Options
 <a name="change-keyboard-layout"></a>
 #### 修改键盘布局（Change keyboard layout）
 
-This option opens another menu which allows you to select your keyboard layout. It will take a long time to display while it reads all the keyboard types. Changes usually take effect immediately, but may require a reboot.
+这个选项弹出另一个允许你选择键盘布局的菜单。将花费较长时间来显示读取到的所有键盘类型。修改通常立即生效，但需要重启。
 
 <a name="enable-camera"></a>
-### 开启摄像头（Enable camera）
+### 开启相机（Enable camera）
 
-In order to use the Raspberry Pi camera module, you must enable it here. Select the option and proceed to `Enable`. This will make sure at least 128MB of RAM is dedicated to the GPU.
+为了使用树莓派相机模块，您必须在这里开启它。选择选项并设置为`Enable`. 这个需要至少128M的内存分配各GPU使用。
 
 <a name="add-to-rastrack"></a>
 ### Add to Rastrack
@@ -98,7 +98,7 @@ You can use this option to add your location to the map.
 <a name="overclock"></a>
 ### 超频（Overclock）
 
-It is possible to overclock your Raspberry Pi's CPU. The default is 700MHz but it can be set up to 1000MHz. The overclocking you can achieve will vary; overclocking too high may result in instability. Selecting this option shows the following warning:
+树莓派CPU是可以超频的. 默认频率为700MHz但可以设置到1000MHz. 超频后将会有所不同; 超频过高可能导致不稳定性。选择此选项会显示下面的警告：
 
 ```
 Be aware that overclocking may reduce the lifetime of your Raspberry Pi. If overclocking at a certain level causes system instability, try a more modest overclock. Hold down `shift` during boot to temporarily disable overclock.
@@ -118,17 +118,17 @@ On some displays, particularly monitors, disabling overscan will make the pictur
 <a name="hostname"></a>
 #### 主机名（Hostname）
 
-Set the visible name for this Pi on a network.
+为Pi设置一个可见的名称应用于网路上。
 
 <a name="memory-split"></a>
 #### 内存划分（Memory split）
 
-Change the amount of memory made available to the GPU.
+改变内存量给GPU使用。
 
 <a name="ssh"></a>
 #### 安全外壳协议（SSH）
 
-Enable/disable remote command line access to your Pi using SSH.
+开启/关闭，通过SSH远程命令行访问Pi。
 
 SSH allows you to remotely access the command line of the Raspberry Pi from another computer. Disabling this ensures the SSH service does not start on boot, freeing up processing resources. Read more about using [SSH](../remote-access/ssh/README.md). Note that SSH is enabled by default. If connecting your Pi directly to a public network, you should disable SSH unless you have set up secure passwords for all users.
 
@@ -167,5 +167,5 @@ See this tool's source at [github.com/asb/raspi-config](https://github.com/asb/r
 
 ---
 
-*This article uses content from the eLinux wiki page [RPi raspi-config](http://elinux.org/RPi_raspi-config), which is shared under the [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/)*
+*此文件内容源于eLinux wiki页 [RPi raspi-config](http://elinux.org/RPi_raspi-config), 分享基于 [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/)*
 
