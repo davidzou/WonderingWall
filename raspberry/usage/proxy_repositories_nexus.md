@@ -6,13 +6,8 @@
 ![Sonatype Nexus Download](images/sonatype_nexus_download.png)
    
 2. [Wrapper](http://wrapper.tanukisoftware.com/doc/english/download.jsp), 使用版本学习用的，其他的你懂得。
-<<<<<<< HEAD
-   <br>![Wrapper Download](images/wrapper_download.png)
-   
-=======
 ![Wrapper Download](images/wrapper_download.png)
 
->>>>>>> FETCH_HEAD
 # Install
 1. 上传文件到树莓派
 ```
