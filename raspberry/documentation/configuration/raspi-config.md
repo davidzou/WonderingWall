@@ -1,23 +1,23 @@
 # raspi-config
 
-`raspi-config` is the Raspberry Pi configuration tool written and maintained by [Alex Bradbury](https://github.com/asb). It targets Raspbian.
+`raspi-config` 是树莓派的配置工具，它的编写和维护由 [Alex Bradbury](https://github.com/asb). 它工作在Raspbian.
 
 <a name="usage"></a>
-## Usage
+## 用法
 
-You will be shown `raspi-config` on first booting into Raspbian. To open the configuration tool after this, simply run the following from the command line:
+第一次启动Raspbian时会显示`raspi-config`n. 这之后需要打开配置工具只要在命令行输入以下命令：
 
 ```
 sudo raspi-config
 ```
 
-The `sudo` is required because you will be changing files that you do not own as the `pi` user.
+因为用户`pi`自己不能改变文件，所以必须加上`sudo`前缀
 
-You should see a blue screen with options in a grey box in the centre, like so:
+你可以看到一个蓝色屏幕中间灰色方框中的选项，如图:
 
-![raspi-config main screen](images/raspi-config.png)
+![raspi-config主界面](images/raspi-config.png)
 
-It has the following options available:
+它包含了以下可选项：
 
 ```
                         Raspberry Pi Software Configuration Tool (raspi-config)
@@ -37,54 +37,54 @@ Setup Options
                                    <Select>                                  <Finish>
 ```
 
-### Moving around the menu
+### 选择菜单，在菜单中移动
 
-Use the up and down arrow keys to move the highlighted selection between the options available. Pressing the right arrow key will jump out of the options menu and take you to the `<Select>` and `<Finish>` buttons. Pressing left will take you back to the options. Alternatively, use the `Tab` key to switch between these.
+使用向上和向下箭头键移动高亮区域进行选择。按向右箭头键会跳出选择菜单，出现`<选择>`和`<完成>`按钮。按向左箭头键则返回选项菜单。另外，使用`Tab`键也可以上述状态的切换。
 
-Note that in long lists of option values (like the list of timezone cities), you can also type a letter to skip to that section of the list. For example, entering `L` will skip you to Lisbon, just two options away from London, to save you scrolling all the way through the alphabet.
+注意，那里很长的列表选项（就像城市时区列表），你能只输入一个单词通过字母滚动方式来保存选择。如输入`L`将跳到Lisbon，到London仅仅间隔2个选项。
 
-### What raspi-config does
+### raspi-config做什么
 
-Generally speaking, `raspi-config` aims to provide the functionality to make the most common configuration changes. This may result in automated edits to `/boot/config.txt` and various standard Linux configuration files. Some options require a reboot to take effect. If you changed any of those, raspi-config will ask if you wish to reboot now when you select the `<Finish>` button.
+一般来说, `raspi-config`的功能旨在提供更改最常用的配置。 可能只是自动编辑`/boot/config.txt`和各种标准的Linux配置文件。一些选项需要重启才能生效。如果你改变了那些需要重启的设置，`raspi-congif`会在你点击`完成（Finish）`按钮之后弹出提示。
 
-## Menu options
+## 菜单选项
 
 <a name="expand-filesystem"></a>
-### Expand filesystem
+### 扩展文件系统（Expand filesystem）
 
-If you installed Raspbian using NOOBS, you can ignore this section as the file system was expanded automatically during installation. However, if you wrote the image to an SD card yourself, then a portion of the card will be unused; this can be any amount over 3GB. Choosing this option will expand your installation to fill the rest of the SD card, giving you more space to use for files. You will need to reboot the Raspberry Pi to make this available. Note there is no confirmation; selecting the option begins the partition expansion immediately.
+如果使用NOOBS安装Raspbian的，文件系统已被自动安装，你可以忽略这一步。然而, 使用SD卡烧入的方式，那么卡上有一部分不被使用；这需要耗费3GB以上的剩余空间。这一选项将填充你的SD卡剩余空间，是的你有更多空间使用文件。 您需要重启树莓派使其生效。请注意，选择后立即执行，没有提醒。
 
 <a name="change-user-password"></a>
-### Change user password
+### 修改用户密码（Change user password）
 
-The default user on Raspbian is `pi` with the password `raspberry`. You can change that here. Read about other [users](../linux/usage/users.md).
+默认用户为`pi`密码为`raspberry`. 您可以修改它。可以参考[users](../linux/usage/users.md).
 
 <a name="change-boot-to-desktop"></a>
-### Enable boot to desktop or Scratch
+### 开启桌面或者Scratch开机启动（Enable boot to desktop or Scratch）
 
-You can change what happens when your Pi boots. Use this option to change your boot preference to command line, desktop, or straight to Scratch.
+您能改变Pi启动时做些什么。使用这一选项修改您的启动偏好，命令行、图形桌面或者Scratch。
 
-### Internationalisation options
+### 国际化（Internationalisation options）
 
-Select `Internationalisation Options` and hit `Enter` to be taken to a sub-menu containing the following options:
+选择`Internationalisation Options`并点击`Enter`调出子菜单包含以下选项：
 
 <a name="change-locale"></a>
-#### Change locale
+#### 修改区域设置（Change locale）
 
-Select a locale, for example `en_GB.UTF-8 UTF-8`.
+选择一个区域, 例如`en_GB.UTF-8 UTF-8`.
 
 <a name="change-timezone"></a>
-#### Change timezone
+#### 修改时区（Change timezone）
 
-Select your local timezone, starting with the region such as `Europe`; then select a city, for example `London`. Type a letter to skip down the list to that point in the alphabet.
+选择您所在的时区, 开始选择区域如`Europe`; 然后选择城市如`London`. 键入首字母快速调转；
 
 <a name="change-keyboard-layout"></a>
-#### Change keyboard layout
+#### 修改键盘布局（Change keyboard layout）
 
 This option opens another menu which allows you to select your keyboard layout. It will take a long time to display while it reads all the keyboard types. Changes usually take effect immediately, but may require a reboot.
 
 <a name="enable-camera"></a>
-### Enable camera
+### 开启摄像头（Enable camera）
 
 In order to use the Raspberry Pi camera module, you must enable it here. Select the option and proceed to `Enable`. This will make sure at least 128MB of RAM is dedicated to the GPU.
 
@@ -96,7 +96,7 @@ Rastrack is a user-contributed Google Map to which Pi users in the community hav
 You can use this option to add your location to the map.
 
 <a name="overclock"></a>
-### Overclock
+### 超频（Overclock）
 
 It is possible to overclock your Raspberry Pi's CPU. The default is 700MHz but it can be set up to 1000MHz. The overclocking you can achieve will vary; overclocking too high may result in instability. Selecting this option shows the following warning:
 
@@ -104,7 +104,7 @@ It is possible to overclock your Raspberry Pi's CPU. The default is 700MHz but i
 Be aware that overclocking may reduce the lifetime of your Raspberry Pi. If overclocking at a certain level causes system instability, try a more modest overclock. Hold down `shift` during boot to temporarily disable overclock.
 ```
 
-### Advanced options
+### 高级选项（Advanced options）
 
 <a name="overscan"></a>
 #### Overscan
@@ -116,39 +116,39 @@ Any changes will take effect after a reboot. You can have greater control over t
 On some displays, particularly monitors, disabling overscan will make the picture fill the whole screen and correct the resolution. For other displays, it may be necessary to leave overscan enabled and adjust its values.
 
 <a name="hostname"></a>
-#### Hostname
+#### 主机名（Hostname）
 
 Set the visible name for this Pi on a network.
 
 <a name="memory-split"></a>
-#### Memory split
+#### 内存划分（Memory split）
 
 Change the amount of memory made available to the GPU.
 
 <a name="ssh"></a>
-#### SSH
+#### 安全外壳协议（SSH）
 
 Enable/disable remote command line access to your Pi using SSH.
 
 SSH allows you to remotely access the command line of the Raspberry Pi from another computer. Disabling this ensures the SSH service does not start on boot, freeing up processing resources. Read more about using [SSH](../remote-access/ssh/README.md). Note that SSH is enabled by default. If connecting your Pi directly to a public network, you should disable SSH unless you have set up secure passwords for all users.
 
 <a name="spi"></a>
-#### SPI
+#### 串行外设接口（SPI）
 
 Enable/disable automatic loading of SPI kernel module, needed for products such as PiFace.
 
 <a name="audio"></a>
-#### Audio
+#### 音频（Audio）
 
 Force audio out through HDMI or a 3.5mm jack. Read more about [audio configuration](audio-config.md).
 
 <a name="update"></a>
-#### Update
+#### 更新（Update）
 
 Update this tool to the latest version.
 
 <a name="about"></a>
-### About raspi-config
+### 关于（About raspi-config）
 
 Selecting this option shows the following text:
 
@@ -157,7 +157,7 @@ This tool provides a straight-forward way of doing initial configuration of the 
 ```
 
 <a name="finish"></a>
-### Finish
+### 完成（Finish）
 
 Use this button when you have completed your changes. You will be asked whether you want to reboot or not. When used for the first time it's best to reboot. There will be a delay in rebooting if you have chosen to resize your SD card.
 
