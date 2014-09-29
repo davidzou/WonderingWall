@@ -1,5 +1,5 @@
-# Changing the default pin configuration
-*This feature is intended for advanced users.*
+# 修改默认Pin配置
+*此功能面向高级用户。*
 
 As of July 15th 2014, the Raspberry Pi firmware supports custom default pin configurations through a user-provided device tree blob file. In order to ensure that your firmware is recent enough, please run `vcgencmd version`.
 ## Providing a custom device tree blob

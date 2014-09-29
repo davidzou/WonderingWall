@@ -107,7 +107,7 @@ Be aware that overclocking may reduce the lifetime of your Raspberry Pi. If over
 ### 高级选项（Advanced options）
 
 <a name="overscan"></a>
-#### Overscan
+#### 过扫描（Overscan）
 
 Old TV sets had a significant variation in the size of the picture they produced; some had cabinets that overlapped the screen. TV pictures were therefore given a black border so that none of the picture was lost; this is called overscan. Modern TVs and monitors don't need the border, and the signal doesn't allow for it. If the initial text shown on the screen disappears off the edge, you need to enable overscan to bring the border back.
 
@@ -130,40 +130,39 @@ On some displays, particularly monitors, disabling overscan will make the pictur
 
 开启/关闭，通过SSH远程命令行访问Pi。
 
-SSH allows you to remotely access the command line of the Raspberry Pi from another computer. Disabling this ensures the SSH service does not start on boot, freeing up processing resources. Read more about using [SSH](../remote-access/ssh/README.md). Note that SSH is enabled by default. If connecting your Pi directly to a public network, you should disable SSH unless you have set up secure passwords for all users.
+SSH允许你通过另一台计算机的使用命令行远程访问树莓派。关闭它则使得SSH服务不会开机启动，以此释放资源。更多使用请阅读 [SSH](../remote-access/ssh/README.md). 请注意SSH默认开启。如果你将Pi直接连接在公网上，在开启前确保你已经为所有用户设置了密码。
 
 <a name="spi"></a>
 #### 串行外设接口（SPI）
 
-Enable/disable automatic loading of SPI kernel module, needed for products such as PiFace.
+开启/关闭 SPI内核模块的自动加载，需要如PiFace的支持。
 
 <a name="audio"></a>
 #### 音频（Audio）
 
-Force audio out through HDMI or a 3.5mm jack. Read more about [audio configuration](audio-config.md).
+通过HDMI或者3.5毫米接口输出音频。阅读更多关于 [音频配置](audio-config.md).
 
 <a name="update"></a>
 #### 更新（Update）
 
-Update this tool to the latest version.
+更新到最新版本的工具。
 
 <a name="about"></a>
 ### 关于（About raspi-config）
 
-Selecting this option shows the following text:
+选择此项将显示以下信息：
 
 ```
-This tool provides a straight-forward way of doing initial configuration of the Raspberry Pi. Although it can be run at any time, some of the options may have difficulties if you have heavily customised your installation.
+这个工具为树莓派提供了一种直观的方式初始化配置。尽管任何时间都可以被执行，有些选项会因大量的自定义安装有所不同。
 ```
 
 <a name="finish"></a>
 ### 完成（Finish）
+当你完成了你的修改之后使用此按钮。你会被问之是否要重新启动或不。当第一次使用它时最好重新启动。如果您选择改变您的SD卡容量，重新启动会有一个延迟。
 
-Use this button when you have completed your changes. You will be asked whether you want to reboot or not. When used for the first time it's best to reboot. There will be a delay in rebooting if you have chosen to resize your SD card.
+## 工具的开发
 
-## Development of this tool
-
-See this tool's source at [github.com/asb/raspi-config](https://github.com/asb/raspi-config), where you can open issues and create pull requests.
+查看工具源码在 [github.com/asb/raspi-config](https://github.com/asb/raspi-config), 你可以在那里提交问题和查看解答。
 
 ---
 
