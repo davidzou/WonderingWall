@@ -1,23 +1,24 @@
 /** 
- * Project Name:libui 
+ * Project Name:libcomm 
  * File Name:BaseModel.java 
- * Package Name:com.wonderingwall.ui 
- * Date:Sep 19, 20145:32:03 PM 
+ * Package Name:com.wonderingwall.base 
+ * Date:Oct 8, 201411:35:43 AM 
  * Copyright (c) 2014, spt_genius@hotmail.com All Rights Reserved. 
  * 
  */  
  
-package com.wonderingwall.ui;  
+package com.wonderingwall.base;  
+
+
 /** 
  * ClassName:BaseModel <br/> 
  * Function: TODO ADD FUNCTION. <br/> 
  * Reason:   TODO ADD REASON. <br/> 
- * Date:     Sep 19, 2014 5:32:03 PM <br/> 
+ * Date:     Oct 8, 2014 11:35:43 AM <br/> 
  * @author   DavidZou
  * @version   
  * @see       
  */
 public interface BaseModel {
-
 }
  

@@ -13,6 +13,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.wonderingwall.base.BaseModel;
+import com.wonderingwall.base.BaseService;
+
 /**
  * ClassName:BaseActivity <br/>
  * Function: 基础类. <br/>
@@ -40,7 +43,7 @@ public class BaseServiceActivity<T extends BaseService> extends Activity {
 	 * 
 	 * @param t 
 	 */ 
-	public <M extends BaseModel> void bindService(T t, M... m) {
+	public <M extends BaseModel> void bindService(T t, M m) {
 		this._service = t;
 		this._service.bind(m);
 	}

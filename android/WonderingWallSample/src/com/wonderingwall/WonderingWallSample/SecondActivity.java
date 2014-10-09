@@ -10,6 +10,7 @@
 package com.wonderingwall.WonderingWallSample;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.wonderingwall.ui.BaseServiceActivity;
 
@@ -47,6 +48,8 @@ public class SecondActivity extends BaseServiceActivity<SecondService> {
 	@Override
 	protected void onResume() {
 	    super.onResume();
+//	    SecondModel model = getService().getModel(0);
+//	    Log.e("1234", "" + model.getId());
 	}
 	
 	protected void onPullMore(){

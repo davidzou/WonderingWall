@@ -9,7 +9,7 @@
  
 package com.wonderingwall.WonderingWallSample;  
 
-import com.wonderingwall.ui.BaseModel;
+import com.wonderingwall.base.BaseModel;
 
 /** 
  * ClassName:SecondModel <br/> 

@@ -7,7 +7,7 @@
  * 
  */
 
-package com.wonderingwall.ui;
+package com.wonderingwall.base;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +36,7 @@ public interface BaseService {
 	 * 
 	 * @param t 
 	 */ 
-	<T extends BaseModel> void bind(T... t);
+	<T extends BaseModel> void bind(T t);
 	
 	void onCreate(Bundle savedInstanceState, Intent intent);
 

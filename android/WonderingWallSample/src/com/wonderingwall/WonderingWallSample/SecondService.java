@@ -12,7 +12,7 @@ package com.wonderingwall.WonderingWallSample;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.wonderingwall.ui.AbstractBaseService;
+import com.wonderingwall.base.AbstractBaseService;
 
 /** 
  * ClassName:SecondService <br/> 
