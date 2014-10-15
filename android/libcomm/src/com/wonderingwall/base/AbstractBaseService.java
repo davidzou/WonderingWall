@@ -10,8 +10,6 @@
 package com.wonderingwall.base;  
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Intent;
@@ -31,10 +29,10 @@ public abstract class AbstractBaseService implements BaseService {
 	protected ArrayList<? extends BaseModel> _model = new ArrayList();
 	
     @Override
-	public <T> void bind(T t) {
+	public <T extends BaseModel> void bind(T t) {
 	    // TODO 绑定数据对象
 		// Service中可以有多个数据对象来处理界面数据，比如局部刷新的数据，和整体显示的数据等，但可能对应的数据请求也是不一样的
-			_model.add(t);
+//			_model.add(t);
 	}
 	
 	@Override

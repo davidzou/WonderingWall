@@ -8,6 +8,9 @@
  */  
  
 package com.wonderingwall.data;  
+
+import com.wonderingwall.base.BaseModel;
+
 /** 
  * ClassName:Converionable <br/> 
  * Function: TODO 可转换的数据对象. <br/> 
@@ -18,7 +21,27 @@ package com.wonderingwall.data;
  * @see       
  */
 public interface Conversionable<T> {
-	void convert(T t);
+	/**
+	 * Description(描述): 转换数据为对象模型<br/> 
+	 * Conditions(适用条件):<br/> 
+	 * Execution flow(执行流程):<br/> 
+	 * Usage(用法):<br/> 
+	 * Cautions(注意事项):<br/> 
+	 * 
+	 * @param t
+	 * @param model 
+	 */ 
+	void convert(T t, BaseModel model);
+	
+	/**
+	 * Description(描述): 转换数据模型对象<br/> 
+	 * Conditions(适用条件):<br/> 
+	 * Execution flow(执行流程):<br/> 
+	 * Usage(用法):<br/> 
+	 * Cautions(注意事项):<br/> 
+	 * 
+	 * @return 
+	 */ 
 	T reconvert();
 }
  
