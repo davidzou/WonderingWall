@@ -28,10 +28,10 @@ public interface Conversionable<T> {
 	 * Usage(用法):<br/> 
 	 * Cautions(注意事项):<br/> 
 	 * 
-	 * @param t
-	 * @param model 
+	 * @param t			Data what for convert to model. It like {@link org.json.JSONObject}, {@link android.os.Bundle}, etc.
+	 * @param model 	Model what bean object.
 	 */ 
-	void convert(T t, BaseModel model);
+	<B extends BaseModel> B convert(T t, Class<B> model);
 	
 	/**
 	 * Description(描述): 转换数据模型对象<br/> 

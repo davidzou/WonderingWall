@@ -7,7 +7,7 @@
  * 
  */  
  
-package com.wonderingwall.data;  
+package com.wonderingwall.data.annotation;  
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -28,7 +28,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface ConvertName {
-	String name() default "";
+	String value() default "";
+	
+	String type() default "string";
 	
 	DATA_TYPE[] types() default DATA_TYPE.ALL;
 	

@@ -50,7 +50,7 @@ public class ConversionFactory {
 			c = (Class<T>) Class.forName(clazz.getName());
 			t = c.newInstance();
 			
-			con.convert(data, t);
+//			con.convert(data, t);
 			
 		} catch (ClassNotFoundException e) {
 	        e.printStackTrace();

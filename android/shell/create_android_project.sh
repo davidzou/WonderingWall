@@ -32,6 +32,9 @@ case "$1" in
 	lib)
 		android create lib-project -n $PROJECT_NAME -t android-19 -p ../$PROJECT_NAME -k com.wonderingwall.$PROJECT_NAME
 	;;
+	#test)
+	#	android create test-project -n $PROJECT_NAME -p ../$PROJECT_NAME -m com.wonderingwall.WonderingWallSample.MainActivity
+	#;;
 	*)
 		android create project -n $PROJECT_NAME -t android-19 -p ../$PROJECT_NAME -k com.wonderingwall.$PROJECT_NAME -a MainActivity
 	;;

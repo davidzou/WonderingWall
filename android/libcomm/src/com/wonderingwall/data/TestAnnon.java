@@ -10,7 +10,8 @@
 package com.wonderingwall.data;  
 
 import com.wonderingwall.base.BaseModel;
-import com.wonderingwall.data.ConvertName.DATA_TYPE;
+import com.wonderingwall.data.annotation.ConvertName;
+import com.wonderingwall.data.annotation.ConvertName.DATA_TYPE;
 
 /** 
  * ClassName:TestAnnon <br/> 
@@ -36,7 +37,7 @@ public class TestAnnon implements BaseModel{
 		this.name = name;
 	}
 
-	@ConvertName(name="age", types={DATA_TYPE.JSONOBJECT, DATA_TYPE.DATA})
+	@ConvertName(value="age", types={DATA_TYPE.JSONOBJECT, DATA_TYPE.DATA})
 	public int getAge() {
 		return age;
 	}
