@@ -1,4 +1,4 @@
-# config.txt
+# config.txt（配置文件）
 
 As it's an embedded platform, the Raspberry Pi doesn't have a [BIOS](https://en.wikipedia.org/wiki/BIOS) like you'd find on a conventional PC. The various system configuration parameters, which would traditionally be edited and stored using a BIOS, are stored in an optional text file named `config.txt`. This is read by the GPU before the ARM CPU (and Linux) is initialised; therefore it must be located on the first (boot) partition of your SD card, alongside `bootcode.bin` and `start.elf`. This file is normally accessible as `/boot/config.txt` from Linux and must be edited as [root](../linux/usage/root.md); but from Windows or OS X it is seen as a file in the only accessible part of the card. If you need to apply some of the config settings below, but you don't have a `config.txt` on your boot partition yet, then simply create it as a new text file.
 
@@ -12,7 +12,7 @@ Any changes will only take effect after you've rebooted your Raspberry Pi. After
 
 Note that there's a small number of config settings that can't be retrieved using `vcgencmd`.
 
-## File format
+## 文件格式
 
 As `config.txt` is read by the early-stage boot firmware it has a very simple file format. The format is a single `property=value` statement on each line, where value is either an integer or a string. Comments may be added, or existing config values may be commented out and disabled by starting a line with the `#` character.
 
@@ -32,7 +32,7 @@ overscan_top=10
 overscan_bottom=10
 ```
 
-## Memory
+## 内存
 
 #### gpu_mem
 
@@ -78,13 +78,13 @@ The following options need to be in `cmdline.txt` for CMA to work:
 coherent_pool=6M smsc95xx.turbo_mode=N
 ```
 
-## Camera
+## 摄像头
 
 #### disable_camera_led
 
 Setting this to `1` prevents the red camera LED from turning on when recording video or taking a still picture. Useful for preventing reflections when the camera is facing a window.
 
-## Video
+## 视频
 
 ### Composite video mode options
 
@@ -610,4 +610,4 @@ Most overclocking issues show up immediately with a failure to boot. If this occ
 
 ---
 
-*This article uses content from the eLinux wiki page [RPiconfig](http://elinux.org/RPiconfig), which is shared under the [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/)*
+*此文件内容源于eLinux wiki页 [RPi raspi-config](http://elinux.org/RPi_raspi-config), 分享基于 [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/)*

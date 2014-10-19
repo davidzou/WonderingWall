@@ -1,23 +1,22 @@
-# Setting WiFi up via the command line
+# 通过命令行设置WiFi
 
+对于没有图形界面的用户而言，这是一种可行的方法用以设置树莓派WiFi。它特别适合于使用串行控制电缆，而没有访问到屏幕或有线以太网网络的那些用户。值得注意的是，不需要任何扩充的软件，树莓派为你准备好了一切。
 
-This method is suitable if you do not have access to the graphical user interface normally used to set up WiFi on the Raspberry Pi. It is especailly suited for use with a serial console cable if you don't have access to a screen or wired Ethernet network. Also note that no additional software is required; everything you need is already included on the Raspberry Pi.   
+## 获得WiFi网络详情  
 
-##Getting WiFi network details  
+搜索WiFi网络，使用命令`sudo iwlist wlan0 scan`. 这将列出所有可用WiFi网络和它的其他可用信息。如同：
 
-To scan for WiFi networks, use the command `sudo iwlist wlan0 scan`. This will list all available WiFi networks along with other useful information. Look out for:
+1. `ESSID:"testing"`. 这是一个WiFi网络的名字   
+1. `IE: IEEE 802.11i/WPA2 Version 1`. 这是使用的认证信息；当前使用的是WPA2协议，是一种取代WPA1的更新更安全的无线标准。本指南的介绍可工作在WEP, WPA or WPA2, 但可能不能工作在WPA2企业级。   
+您还是需要一个WiFi网络的密码。它位于大多数家庭路由器背面的贴纸上。这种情形下ESSID (ssid) 是`testing` 和密码 (psk) `testingPassword`.
 
-1. `ESSID:"testing"`. This is the name of the WiFi network.   
-1. `IE: IEEE 802.11i/WPA2 Version 1`. This is the authentication used; in this case it is WPA2, the newer and more secure wireless standard which replaces WPA1. This guide should work for WEP, WPA or WPA2, but may not work for WPA2 enterprise.   
-You will also need the password for the WiFi network. For most home routers this is located on a sticker on the back of the router. The ESSID (ssid) for the network in this case is `testing` and the password (psk) `testingPassword`.
-
-##Adding the network details to the Raspberry Pi
-   
-Open the `wpa-supplicant` configuration file in nano:
+## 添加一个网络描述到树莓派上
+  
+使用编辑器nano打开配置文件 `wpa-supplicant`:  (我还是习惯vi，当然高手都是用vi的。:P) 
 
 `sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`  
 
-Go to the bottom of the file and add the following:   
+在文件的最后添加以下内容：   
 
 ```
 network={
@@ -26,7 +25,7 @@ network={
 }
 ```
 
-In the case of the example network, we would enter:  
+上述示例情形下，需要键入：  
 
 ```
 network={
@@ -35,8 +34,8 @@ network={
 }
 ```
    
-Now save the file by pressing **ctrl+x** then **y**, then finally press **enter**.  
+现在通过键入**ctrl+x** 然后 **y** 保存文件, 最后键入 **enter**.  
 
-At this point, `wpa-supplicant` will normally notice a change has occurred within a few seconds, and it will try and connect to the network. If it does not, either manually restart the interface with `sudo ifdown wlan0` and `sudo ifup wlan0`, or reboot your Raspberry Pi with `sudo reboot`.   
+在这一点上，`wpa supplicant`通常会通知在几秒钟内发生变化的，它会尝试连接到网络。如果没有，使用`sudo ifdown wlan0`和`sudo ifup wlan0`接口来手动重启 ，或重新启动树莓派可使用 `sudo reboot`。（再次吐槽，不会用reboot，年纪大了，这么高深的单词记不住，`sudo init 6`）
 
-You can verify if it has successfully connected using `ifconfig wlan0`. If the `inet addr` field has an address beside it, the Pi has connected to the network. If not, check your password and ESSID are correct.   
+你可以验证是否已成功连接使用`ifconfig wlan0`。如果`inet addr`领域有一个地址在它旁边，PI已连接到网络。如果不是，请检查您的密码和ESSID是正确的。

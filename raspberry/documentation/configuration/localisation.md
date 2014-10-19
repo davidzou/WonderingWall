@@ -9,7 +9,7 @@
 
 为NOOBS修改语言环境，在NOOBS中选择语言，你可以通过键入`L`，向上/向下箭头按钮选择你所需要的语言，敲击`Enter`完成操作; 或者通过鼠标完成相同的操作。NOOBS会记住你得选择，以致下次会使用相同的语言设置。
 
-另外，在第一次启动之前你可以为NOOBS设置预选语言。可参考 [here](https://github.com/raspberrypi/noobs/blob/master/README.md#how-to-change-the-default-language-keyboard-layout-display-mode-or-boot-partition).
+另外，在第一次启动之前你可以为NOOBS设置预选语言。请看 [here](https://github.com/raspberrypi/noobs/blob/master/README.md#how-to-change-the-default-language-keyboard-layout-display-mode-or-boot-partition).
 
 ### Raspbian
 
@@ -20,21 +20,20 @@
 
 ### NOOBS
 
-To change the keyboard layout used by NOOBS, you can either press the `9` key on your keyboard, press the up/down arrows to choose the keyboard you want, and then press `Enter`; or you can do the same thing using the mouse. Note that changing the language (as described above) may automatically change the keyboard layout as appropriate too. NOOBS will remember your selection and use the same keyboard layout again next time.
+为NOOBS修改键盘布局，你可以通过键入`9`，通过向上/向下箭头按钮选择你所需要的键盘设置，敲击`Enter`完成操作; 或者通过鼠标完成相同的操作。请注意改变语言键盘布局也可能会随之作出适当的调整。NOOBS会记住你的选择，以致下次会使用相同的设置。
 
-Alternatively, you can pre-select the keyboard before booting NOOBS for the first time. See [here](https://github.com/raspberrypi/noobs/blob/master/README.md#how-to-change-the-default-language-keyboard-layout-display-mode-or-boot-partition).
+另外，在第一次启动之前你可以为NOOBS设置预选键盘布局. 请看 [here](https://github.com/raspberrypi/noobs/blob/master/README.md#how-to-change-the-default-language-keyboard-layout-display-mode-or-boot-partition).
 
 ### Raspbian
 
-If you've installed Raspbian using NOOBS, it should automatically pick up the same keyboard you were using in NOOBS. But if you want to select a different keyboard, or if you've installed Raspbian from a standalone image, use [raspi-config](raspi-config.md#change-keyboard-layout).
-
+如果您使用NOOBS安装Raspbian，NOOBS会自动选择相同的键盘布局。但如果你想选择不同的键盘布局，或者你是从独立镜像中安装的Raspbian，使用 [raspi-config](raspi-config.md#change-keyboard-layout).
 
 ## 时区
 
 ### NOOBS
 
-There's no part of NOOBS that uses the time, so consequently there's no option for changing the timezone.
+使用时间设置不是NOOBS的一部分，所以没有时区的选项可供选择。
 
 ### Raspbian
 
-Once again, this is something else you can change using the [raspi-config](raspi-config.md#change-timezone) tool.
+再次声明，你可以使用工具 [raspi-config](raspi-config.md#change-timezone) 来改变它。

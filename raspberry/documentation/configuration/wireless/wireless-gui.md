@@ -1,9 +1,8 @@
-# GUI based wireless setup
+# 基于界面的无线设置
 
-To set up a WiFi network from the GUI, first you'll need to log into your Raspberry Pi and be able to interact with it
-through the screen and a keyboard (if this is not possible you'll need to use the wpa_supplicant editing method)
+使用界面方式设置WiFi网络，首先需要登录到树莓派并可以通过界面和键盘进行交互（如果这是不可能的，你需要使用wpa_supplicant编辑方法）。
 
-First start the GUI
+首先启动界面
 ```
 $ startx
 ```
