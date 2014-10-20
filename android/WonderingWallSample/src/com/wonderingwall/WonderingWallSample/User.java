@@ -29,7 +29,16 @@ public class User implements BaseModel {
 	private String password;
 	private int age;
 	private String gender;
+	private boolean sex;
 	
+	public boolean isSex() {
+		return sex;
+	}
+
+	public void setSex(boolean sex) {
+		this.sex = sex;
+	}
+
 	private ArrayList<User> friends;
 
 	public User() {

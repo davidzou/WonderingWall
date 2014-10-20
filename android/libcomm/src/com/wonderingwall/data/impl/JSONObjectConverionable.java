@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 
@@ -33,7 +34,7 @@ import com.wonderingwall.data.annotation.ConvertName;
  */
 public class JSONObjectConverionable implements Conversionable<JSONObject> {
 	@Override
-    public <B extends BaseModel> B convert(JSONObject t, Class<B> model){
+    public <B extends BaseModel> B convert(JSONObject json, Class<B> model){
 	    // 遍历data中的可以要和model中的变量相符。
 		long start = System.currentTimeMillis();
 		long start_nano = System.nanoTime();
@@ -56,6 +57,8 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 		// 注解对应的解析名称
 		HashMap<String, String> names = new HashMap<String, String>();
 		
+		HashMap<String, String> returnType = new HashMap<String, String>();
+		
 		for(Method method : methods){
 			// 默认方法写在get之上，那么这里需要获取到set方法的名字
 			Log.e("", "method:" + method.getName() + "()");
@@ -67,16 +70,16 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 			// 没有可用注解跳过（应当判断如果是get的则使用默认字段，或者说只是）
 			if(name == null) continue;
 			Log.e("", "annotation-name:" + name.value());
-			if(t.has(name.value())){
-				// 有字段，填充，判断数据类型，可能如果是数据对象的。
+			if(json.has(name.value())){
+				// 有字段，填充，判断数据类型，可能如果是数据对象的。如果是is开头的呢
 //				Log.e("", "..." + method.getGenericReturnType());
-				names.put(name.value(), method.getName().replace("get", "set"));
+				names.put(name.value(), getName(method.getName()));
 			}
 		}
 		
 		ArrayList<Method> done = new ArrayList<Method>();
 		for(String name: names.keySet()){
-			if(t.has(name)){
+			if(json.has(name)){
 				for(Method method : setMethods){
 					if(done.contains(method)) continue;
 					Log.e("", "set:" + names.get(name) + "|" + method.getName());
@@ -84,9 +87,10 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 //						Log.e("", "parameter:" + method.getGenericParameterTypes()[0]);
 //					}
 					if(names.get(name).equals(method.getName())){
+						
 						// 调用反射方法，设置值。
 						try {
-	                        method.invoke(b, t.opt(name));
+	                        method.invoke(b, json.opt(name));
                         } catch (IllegalAccessException e) {
 	                        e.printStackTrace();
                         } catch (IllegalArgumentException e) {
@@ -118,4 +122,18 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 		JSONObject data = new JSONObject();
 	    return data;
     }
+	
+	/**
+	 * Description(描述): 替换方法名<br/> 
+	 * Conditions(适用条件):<br/> 
+	 * Execution flow(执行流程):<br/> 
+	 * Usage(用法):<br/> 
+	 * Cautions(注意事项):<br/> 
+	 * 
+	 * @param src
+	 * @return
+	 */
+	public String getName(String src){
+		return Pattern.compile("^(get|is)").matcher(src).replaceAll("set");
+	}
 }
