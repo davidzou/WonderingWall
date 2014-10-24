@@ -1,8 +1,8 @@
 /** 
  * Project Name:libcomm 
- * File Name:ConvertName.java 
- * Package Name:com.wonderingwall.data 
- * Date:Oct 13, 20145:44:10 PM 
+ * File Name:ConversionIgnoe.java 
+ * Package Name:com.wonderingwall.data.annotation 
+ * Date:2014年10月24日下午3:03:38 
  * Copyright (c) 2014, spt_genius@hotmail.com All Rights Reserved. 
  * 
  */  
@@ -16,10 +16,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /** 
- * ClassName:ConvertName <br/> 
+ * ClassName:ConversionIgnoe <br/> 
  * Function: TODO ADD FUNCTION. <br/> 
  * Reason:   TODO ADD REASON. <br/> 
- * Date:     Oct 13, 2014 5:44:10 PM <br/> 
+ * Date:     2014年10月24日 下午3:03:38 <br/> 
  * @author   DavidZou
  * @version   
  * @see       
@@ -27,17 +27,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface ConvertName {
-	String value() default "";
-	
-	String type() default "string";
-	
-	DATA_TYPE[] types() default DATA_TYPE.ALL;
-	
-	enum DATA_TYPE{
-		ALL,
-		JSONOBJECT,
-		DATA,
-	}
+public @interface ConversionIgnore {
+
 }
  

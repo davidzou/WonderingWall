@@ -10,9 +10,11 @@
 package com.wonderingwall.WonderingWallSample;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.wonderingwall.base.BaseModel;
-import com.wonderingwall.data.annotation.ConvertName;
+import com.wonderingwall.data.annotation.Conversionable;
+import com.wonderingwall.data.annotation.DATA_TYPE;
 
 /**
  * ClassName:User <br/>
@@ -31,6 +33,16 @@ public class User implements BaseModel {
 	private String gender;
 	private boolean sex;
 	
+	private String[] list;
+	
+	private ArrayList<String> maps;
+	
+	private User[] users;
+	
+	private User own;
+	
+	private HashMap<String, User> other;
+	
 	public boolean isSex() {
 		return sex;
 	}
@@ -44,7 +56,7 @@ public class User implements BaseModel {
 	public User() {
 	}
 
-	@ConvertName("name")
+	@Conversionable(value="name", type=DATA_TYPE.NORMAL)
 	public String getUsername() {
 		return username;
 	}
@@ -53,7 +65,7 @@ public class User implements BaseModel {
 		this.username = username;
 	}
 
-	@ConvertName(value="pwd")
+	@Conversionable(value="pwd")
 	public String getPassword() {
 		return password;
 	}
@@ -62,7 +74,7 @@ public class User implements BaseModel {
 		this.password = password;
 	}
 
-	@ConvertName(value="age")
+	@Conversionable(value="age")
 	public int getAge() {
 		return age;
 	}
@@ -71,7 +83,7 @@ public class User implements BaseModel {
 		this.age = age;
 	}
 
-	@ConvertName(value="gender")
+	@Conversionable(value="gender")
 	public String getGender() {
 		return gender;
 	}
@@ -80,13 +92,58 @@ public class User implements BaseModel {
 		this.gender = gender;
 	}
 	
-	@ConvertName("friends")
+	@Conversionable("friends")
 	public ArrayList<User> getFriends() {
 		return friends;
 	}
 
 	public void setFriends(ArrayList<User> friends) {
 		this.friends = friends;
+	}
+	
+	@Conversionable("list")
+	public String[] getList() {
+		return list;
+	}
+
+	public void setList(String[] list) {
+		this.list = list;
+	}
+
+	@Conversionable("map")
+	public ArrayList<String> getMaps() {
+		return maps;
+	}
+	
+	@Conversionable("users")
+	public User[] getUsers() {
+		return users;
+	}
+
+	public void setUsers(User[] users) {
+		this.users = users;
+	}
+
+	@Conversionable("own")
+	public User getOwn() {
+		return own;
+	}
+
+	public void setOwn(User own) {
+		this.own = own;
+	}
+	
+	@Conversionable("others")
+	public HashMap<String, User> getOther() {
+		return other;
+	}
+
+	public void setOther(HashMap<String, User> other) {
+		this.other = other;
+	}
+
+	public void setMaps(ArrayList<String> maps) {
+		this.maps = maps;
 	}
 
 	public String toString(){

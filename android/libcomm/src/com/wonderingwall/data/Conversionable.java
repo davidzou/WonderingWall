@@ -31,7 +31,7 @@ public interface Conversionable<T> {
 	 * @param t			Data what for convert to model. It like {@link org.json.JSONObject}, {@link android.os.Bundle}, etc.
 	 * @param model 	Model what bean object.
 	 */ 
-	<B extends BaseModel> B convert(T t, Class<B> model);
+	<B extends BaseModel> B convert(T t, Class<B> model) throws ConversionException;
 	
 	/**
 	 * Description(描述): 转换数据模型对象<br/> 
@@ -42,6 +42,6 @@ public interface Conversionable<T> {
 	 * 
 	 * @return 
 	 */ 
-	T reconvert();
+	<B extends BaseModel> T reconvert(B model) throws ConversionException;
 }
  

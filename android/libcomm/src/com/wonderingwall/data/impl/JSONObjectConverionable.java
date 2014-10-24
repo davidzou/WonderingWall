@@ -5,135 +5,95 @@
  * Date:Oct 8, 201411:25:51 AM 
  * Copyright (c) 2014, spt_genius@hotmail.com All Rights Reserved. 
  * 
- */  
- 
-package com.wonderingwall.data.impl;  
+ */
 
-import java.lang.reflect.InvocationTargetException;
+package com.wonderingwall.data.impl;
+
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.wonderingwall.base.BaseModel;
+import com.wonderingwall.data.ConversionException;
+import com.wonderingwall.data.ConversionMapObject;
+import com.wonderingwall.data.ConversionUtils;
 import com.wonderingwall.data.Conversionable;
-import com.wonderingwall.data.annotation.ConvertName;
 
-/** 
- * ClassName:JSONObjectConverionable <br/> 
- * Function: TODO ADD FUNCTION. <br/> 
- * Reason:   TODO ADD REASON. <br/> 
- * Date:     Oct 8, 2014 11:25:51 AM <br/> 
- * @author   DavidZou
- * @version   
- * @see       
+/**
+ * ClassName:JSONObjectConverionable <br/>
+ * Function: TODO ADD FUNCTION. <br/>
+ * Reason: TODO ADD REASON. <br/>
+ * Date: Oct 8, 2014 11:25:51 AM <br/>
+ * 
+ * @author DavidZou
+ * @version
+ * @see
  */
 public class JSONObjectConverionable implements Conversionable<JSONObject> {
 	@Override
-    public <B extends BaseModel> B convert(JSONObject json, Class<B> model){
-	    // 遍历data中的可以要和model中的变量相符。
-		long start = System.currentTimeMillis();
-		long start_nano = System.nanoTime();
+	public <B extends BaseModel> B convert(JSONObject json, Class<B> model) throws ConversionException {
+		if (json == null) {
+			throw new ConversionException("Cant't to convert in JSONObjectConversionable that data is null.");
+		}
+		// 遍历data中的可以要和model中的变量相符。
 		B b = null;
-		Log.e("", "class-name:" + model.getName());
 		try {
-	        b = model.newInstance();
-        } catch (InstantiationException e1) {
-	        e1.printStackTrace();
-        } catch (IllegalAccessException e1) {
-	        e1.printStackTrace();
-        }
-		if(b == null){
-			throw new IllegalArgumentException();
+			b = model.newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		if (b == null) {
+			throw new ConversionException("Can't init model class.");
 		}
 		// 模型类中的方法
 		Method[] methods = b.getClass().getDeclaredMethods();
-		// 缓存设置的方法(所有setXXX方法)
-		ArrayList<Method> setMethods = new ArrayList<Method>();
-		// 注解对应的解析名称
-		HashMap<String, String> names = new HashMap<String, String>();
-		
-		HashMap<String, String> returnType = new HashMap<String, String>();
-		
-		for(Method method : methods){
-			// 默认方法写在get之上，那么这里需要获取到set方法的名字
-			Log.e("", "method:" + method.getName() + "()");
-			if(method.getName().startsWith("set")) { setMethods.add(method); continue; }
-			Log.e("", "annotations-length:" + method.getDeclaredAnnotations().length);
-			// 没有注解的直接跳过
-			if(method.getDeclaredAnnotations().length == 0) continue;
-			ConvertName name = method.getAnnotation(ConvertName.class);
-			// 没有可用注解跳过（应当判断如果是get的则使用默认字段，或者说只是）
-			if(name == null) continue;
-			Log.e("", "annotation-name:" + name.value());
-			if(json.has(name.value())){
-				// 有字段，填充，判断数据类型，可能如果是数据对象的。如果是is开头的呢
-//				Log.e("", "..." + method.getGenericReturnType());
-				names.put(name.value(), getName(method.getName()));
-			}
+		HashMap<String, ConversionMapObject> hash = new HashMap<String, ConversionMapObject>();
+		for (Method method : methods) {
+			ConversionUtils.parser(method, hash);
 		}
-		
-		ArrayList<Method> done = new ArrayList<Method>();
-		for(String name: names.keySet()){
-			if(json.has(name)){
-				for(Method method : setMethods){
-					if(done.contains(method)) continue;
-					Log.e("", "set:" + names.get(name) + "|" + method.getName());
-//					if(method.getGenericParameterTypes().length > 0){
-//						Log.e("", "parameter:" + method.getGenericParameterTypes()[0]);
-//					}
-					if(names.get(name).equals(method.getName())){
-						
-						// 调用反射方法，设置值。
-						try {
-	                        method.invoke(b, json.opt(name));
-                        } catch (IllegalAccessException e) {
-	                        e.printStackTrace();
-                        } catch (IllegalArgumentException e) {
-	                        e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-	                        e.printStackTrace();
-                        }
-						done.add(method);
-					}
-				}
-			}
+
+		for (ConversionMapObject conversionMapObject : hash.values()) {
+			ConversionUtils.invoke(conversionMapObject, b, json);
 		}
-		Log.e("", "times:" + (System.currentTimeMillis() - start));
-		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
-		
-		try{
-			
-		}finally{
-			if(done != null){ done.clear();	done = null; }
-			if(setMethods != null) { setMethods.clear(); setMethods = null; }
-			if(names != null) { names.clear(); names = null; }
-			if(methods != null) { methods = null; }
-		}
+
+		if (methods != null) { methods = null; }
+		if (hash != null) {	hash.clear(); hash = null; }
 		return b;
-    }
+	}
 
 	@Override
-    public JSONObject reconvert(){
+	public <B extends BaseModel> JSONObject reconvert(B model) throws ConversionException {
 		JSONObject data = new JSONObject();
-	    return data;
-    }
-	
-	/**
-	 * Description(描述): 替换方法名<br/> 
-	 * Conditions(适用条件):<br/> 
-	 * Execution flow(执行流程):<br/> 
-	 * Usage(用法):<br/> 
-	 * Cautions(注意事项):<br/> 
-	 * 
-	 * @param src
-	 * @return
-	 */
-	public String getName(String src){
-		return Pattern.compile("^(get|is)").matcher(src).replaceAll("set");
+		return data;
 	}
+
+//    private static Class<?> getClass(Type type, int i) {     
+//        if (type instanceof ParameterizedType) { // 处理泛型类型     
+//            return getGenericClass((ParameterizedType) type, i);     
+//        } else if (type instanceof TypeVariable) {     
+//            return (Class<?>) getClass(((TypeVariable<?>) type).getBounds()[0], 0); // 处理泛型擦拭对象     
+//        } else {// class本身也是type，强制转型     
+//            return (Class<?>) type;     
+//        }     
+//        
+////        Type t = Type.GetType("System.Int32[]");
+////        object array = new object();
+////        array = t.InvokeMember("Set", BindingFlags.CreateInstance, null, array, new object[] { 10 });
+//    }     
+//    
+//    private static Class<?> getGenericClass(ParameterizedType parameterizedType, int i) {     
+//        Object genericClass = parameterizedType.getActualTypeArguments()[i];     
+//        if (genericClass instanceof ParameterizedType) { // 处理多级泛型     
+//            return (Class<?>) ((ParameterizedType) genericClass).getRawType();     
+//        } else if (genericClass instanceof GenericArrayType) { // 处理数组泛型     
+//            return (Class<?>) ((GenericArrayType) genericClass).getGenericComponentType();     
+//        } else if (genericClass instanceof TypeVariable) { // 处理泛型擦拭对象     
+//            return (Class<?>) getClass(((TypeVariable<?>) genericClass).getBounds()[0], 0);     
+//        } else {     
+//            return (Class<?>) genericClass;     
+//        }     
+//    }    
 }

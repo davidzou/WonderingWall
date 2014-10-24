@@ -12,6 +12,7 @@ package com.wonderingwall.data.impl;
 import android.os.Bundle;
 
 import com.wonderingwall.base.BaseModel;
+import com.wonderingwall.data.ConversionException;
 import com.wonderingwall.data.Conversionable;
 
 /** 
@@ -31,9 +32,10 @@ public class BundleConversionable implements Conversionable<Bundle> {
     }
 
 	@Override
-    public Bundle reconvert() {
+    public <B extends BaseModel> Bundle reconvert(B model) throws ConversionException {
 	    return null;
     }
+
 
 }
  
