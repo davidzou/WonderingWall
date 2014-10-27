@@ -23,6 +23,10 @@ public enum DATA_TYPE {
 	 */
 	ARRAY,
 	/**
+	 * 数组（对象）
+	 */
+	ARRAY_OBJECT,
+	/**
 	 * 列表容器
 	 */
 	LIST,

@@ -12,6 +12,9 @@ package com.wonderingwall.data;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -22,6 +25,7 @@ import android.content.ContentValues;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.annotation.ConversionIgnore;
@@ -178,7 +182,23 @@ public final class ConversionUtils {
 				// normal array
 				ConversionUtils.invoke(conversionMapObject.method, conversionMapObject.getMethod.getReturnType().getComponentType(), model, json.optJSONArray(conversionMapObject.key));
 				break;
+			case ARRAY_OBJECT:
+				// special array
+				break;
 			case LIST:
+				Type type = conversionMapObject.getMethod.getGenericReturnType();
+				Log.e("", "generic return type:" + type.getClass().getName());
+				Log.e("", "return type:" + conversionMapObject.getMethod.getReturnType());
+				if(type instanceof ParameterizedType){
+					// is list true
+//					TypeVariable<?>[] variables = ((ParameterizedType) type).getRawType().getClass().getTypeParameters();
+//					for(TypeVariable<?> variable : variables){
+//					}
+//					JSONObjectConverionable converionable = new JSONObjectConverionable();
+//					@SuppressWarnings("unchecked")
+//					B object = converionable.convert(json.optJSONObject(conversionMapObject.key), (Class<B>) type);
+//					ConversionUtils.invoke(conversionMapObject.method, model, object);
+				}
 				break;
 			case MAP:
 				break;

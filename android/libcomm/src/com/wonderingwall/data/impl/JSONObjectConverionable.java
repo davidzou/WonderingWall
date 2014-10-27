@@ -22,7 +22,7 @@ import com.wonderingwall.data.Conversionable;
 
 /**
  * ClassName:JSONObjectConverionable <br/>
- * Function: TODO ADD FUNCTION. <br/>
+ * Function: TODO JSON和数据模型间的转换实现。 <br/>
  * Reason: TODO ADD REASON. <br/>
  * Date: Oct 8, 2014 11:25:51 AM <br/>
  * 
@@ -31,6 +31,12 @@ import com.wonderingwall.data.Conversionable;
  * @see
  */
 public class JSONObjectConverionable implements Conversionable<JSONObject> {
+	/*
+	 * 功能描述
+	 * 1. 将数据转换为响应的模型数据。
+	 * 2. 可以使用注释的方式，也可以不使用注释的方式。
+	 * 3. 可以转换的对象数据包含标准的，还有数组，容器和对象（递归，但是很耗资源啊）。
+	 */
 	@Override
 	public <B extends BaseModel> B convert(JSONObject json, Class<B> model) throws ConversionException {
 		if (json == null) {
