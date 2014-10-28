@@ -11,6 +11,7 @@ package com.wonderingwall.data;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.GenericDeclaration;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -88,11 +89,15 @@ public final class ConversionUtils {
 	 */
 	public static final boolean parser(Method method, HashMap<String, ConversionMapObject> hash) {
 		for(Type type : method.getGenericParameterTypes()){
-			Log.e("", "type:" + getClass(type, 0).getName());
+			Log.e("", "type:" + getClass(type, 0).getName()); // 基础变量
 		}
 		for(Class<?> clazz: method.getParameterTypes()){
-			Log.e("", "clazz type:" + clazz.getName());
+			Log.e("", "clazz type:" + clazz.getName()); // set传参类型
 		}
+		for(TypeVariable<?> variable : method.getTypeParameters()){
+			Log.e("", "variable:" + variable.getName());
+		}
+		
 //		if (hash == null) {
 //			throw new ConversionException("Argument hash is null.");
 //		}
