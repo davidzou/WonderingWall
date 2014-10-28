@@ -115,7 +115,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		
     	JSONObjectConverionable convert = new JSONObjectConverionable();
         User4 user = convert.convert(readJSON("user4.json"), User4.class);
-        assertNotNull("user3 is null.", user);
+        assertNotNull("user4 is null.", user);
         if(user != null) Log.e("", "user: {" + user.toString() + "}");
         
 		Log.e("", "times:" + (System.currentTimeMillis() - start));

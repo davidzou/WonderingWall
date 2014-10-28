@@ -3,6 +3,7 @@ package com.wonderingwall.WonderingWallSample.model;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.annotation.Conversionable;
@@ -14,6 +15,8 @@ public class User4 implements BaseModel {
 	private ArrayList<Integer> intList;
 
 	private ArrayDeque<String> strList;
+	
+	private Map<String, String> map;
 
 	@Conversionable(value="strs", type=DATA_TYPE.LIST)
 	public List<String> getStrs() {
@@ -24,7 +27,7 @@ public class User4 implements BaseModel {
 		this.strs = strs;
 	}
 
-	@Conversionable(value="int_list", type=DATA_TYPE.LIST)
+	@Conversionable(value="intlist", type=DATA_TYPE.LIST)
 	public ArrayList<Integer> getIntList() {
 		return intList;
 	}
@@ -33,13 +36,22 @@ public class User4 implements BaseModel {
 		this.intList = intList;
 	}
 
-	@Conversionable(value="str_list", type=DATA_TYPE.LIST)
+	@Conversionable(value="strlist", type=DATA_TYPE.LIST)
 	public ArrayDeque<String> getStrList() {
 		return strList;
 	}
 
 	public void setStrList(ArrayDeque<String> strList) {
 		this.strList = strList;
+	}
+
+	@Conversionable(value="map", type=DATA_TYPE.LIST)
+	public Map<String, String> getMap() {
+		return map;
+	}
+
+	public void setMap(Map<String, String> map) {
+		this.map = map;
 	}
 
 }

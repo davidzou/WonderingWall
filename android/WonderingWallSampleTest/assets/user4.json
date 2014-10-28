@@ -1,5 +1,6 @@
 {
 "strs":["str1", "str2", "str3"],
 "int_list":[1, 2, 3, 4, 5, 6],
-"str_list":["list1", "list2", "list3", "list4"]
+"str_list":["list1", "list2", "list3", "list4"],
+"map":[{"key":"1", "value":"v1"}, {"key":"2", "value":"v2"}, {"key":"3", "value":"v3"}]
 }

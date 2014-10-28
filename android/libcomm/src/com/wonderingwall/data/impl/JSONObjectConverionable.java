@@ -14,6 +14,8 @@ import java.util.HashMap;
 
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.ConversionException;
 import com.wonderingwall.data.ConversionMapObject;
@@ -58,6 +60,7 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 		Method[] methods = b.getClass().getDeclaredMethods();
 		HashMap<String, ConversionMapObject> hash = new HashMap<String, ConversionMapObject>();
 		for (Method method : methods) {
+			Log.e("json convert", "method:" + method.getName());
 			ConversionUtils.parser(method, hash);
 		}
 

@@ -39,7 +39,7 @@ public class ConversionMapObject {
 	/**
 	 * 数据模型变量的数据类型
 	 */
-	public DATA_TYPE type;
+	public DATA_TYPE type = DATA_TYPE.NORMAL;
 	/**
 	 * 数据模型方法反射对象类
 	 */
@@ -49,5 +49,13 @@ public class ConversionMapObject {
 	    super();
     }
 	
-	
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("key:").append(key).append(", ");
+		builder.append("getMethod:").append((getMethod == null ? "null" : getMethod.getName())).append(", ");
+		builder.append("setMethod:").append(setMethod).append(", ");
+		builder.append("used Method:").append((method == null ? "null" : method.getName()) ).append(", ");
+		builder.append("type:").append(type.name());
+		return builder.toString();
+	}
 }
