@@ -92,7 +92,7 @@ public final class ConversionUtils {
 			Log.e("", "type:" + getClass(type, 0).getName()); // 基础变量
 		}
 		for(Class<?> clazz: method.getParameterTypes()){
-			Log.e("", "clazz type:" + clazz.getName()); // set传参类型
+			Log.e("", "clazz type:" + clazz.getName() + "-" + clazz.isPrimitive() + "|" + clazz.isSynthetic() + "|"); // set传参类型
 		}
 		for(TypeVariable<?> variable : method.getTypeParameters()){
 			Log.e("", "variable:" + variable.getName());
@@ -328,7 +328,7 @@ public final class ConversionUtils {
 		}
 	}
 
-	private static Class<?> getClass(Type type, int i) {
+	public static Class<?> getClass(Type type, int i) {
 		if (type instanceof ParameterizedType) { // 处理泛型类型
 			return getGenericClass((ParameterizedType) type, i);
 		} else if (type instanceof TypeVariable) {
