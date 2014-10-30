@@ -11,7 +11,6 @@ package com.wonderingwall.data;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.GenericDeclaration;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -31,8 +30,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.wonderingwall.base.BaseModel;
-import com.wonderingwall.data.annotation.ConversionIgnore;
-import com.wonderingwall.data.annotation.Conversionable;
 import com.wonderingwall.data.annotation.DATA_TYPE;
 import com.wonderingwall.data.impl.JSONObjectConverionable;
 
@@ -110,17 +107,17 @@ public final class ConversionUtils {
 //
 //			Conversionable convertName = method.getAnnotation(Conversionable.class);
 //			if (convertName == null) {
-//				// getConvertName， 直接使用默认的值
-//				String methodName = getConvertName(method.getName()); // key
-//																	  // name
-//				update(methodName, method, null, hash);
+
 //			} else {
 //				if (TextUtils.isEmpty(convertName.value())) {
 //					throw new ConversionException("value is null at " + method.getName());
 //				}
 //				convertName.value();
 //				convertName.type();
-//				update(convertName.value(), method, convertName.type(), hash);
+//				update(convertName.value(//				// getConvertName， 直接使用默认的值
+//				String methodName = getConvertName(method.getName()); // key
+//																	  // name
+//				update(methodName, method, null, hash);), method, convertName.type(), hash);
 //			}
 //		} else {
 //			// 没有注解 getConvertName， and data type is normal
@@ -208,8 +205,6 @@ public final class ConversionUtils {
 			case LIST:
 				Log.e("convert", "conversionMapObject:" + conversionMapObject.toString());
 				Type type = conversionMapObject.getMethod.getGenericReturnType();
-				
-				
 				
 				Type[] sets = conversionMapObject.method.getGenericParameterTypes();
 				if(sets.length > 0){
@@ -328,21 +323,98 @@ public final class ConversionUtils {
 		}
 	}
 
-	public static Class<?> getClass(Type type, int i) {
-		if (type instanceof ParameterizedType) { // 处理泛型类型
+	/**
+	 * Description(描述): 获取泛型类型<br/> 
+	 * Conditions(适用条件):<br/> 
+	 * Execution flow(执行流程):<br/> 
+	 * Usage(用法):<br/> 
+	 * Cautions(注意事项):<br/> 
+	 * 
+	 * @param type
+	 * @param i
+	 * @return
+	 * @throws ConversionException 
+	 */ 
+	public static final Class<?> getClass(Type type, int i) throws ConversionException{
+		if (type instanceof ParameterizedType) {
+			// 处理泛型类型
 			return getGenericClass((ParameterizedType) type, i);
 		} else if (type instanceof TypeVariable) {
-			return (Class<?>) getClass(((TypeVariable<?>) type).getBounds()[0], 0); // 处理泛型擦拭对象
+			// 处理泛型擦拭对象
+			return (Class<?>) getClass(((TypeVariable<?>) type).getBounds()[0], 0);
 		} else if (type instanceof WildcardType) {
-			return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0); // 如果返回的是Object的就是没有限定擦拭类型的。
+			int upperBoundsSize = ((WildcardType) type).getUpperBounds().length;
+			int lowerBountsSize = ((WildcardType) type).getLowerBounds().length;
+			
+			if(upperBoundsSize > 0 && lowerBountsSize > 0){
+				Log.e("", "" + upperBoundsSize + "|" + lowerBountsSize + "|" + ((WildcardType) type).getUpperBounds()[0] + " - " + ((WildcardType) type).getLowerBounds()[0]);
+//				throw new ConversionException("Invalid error.");
+//				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0) instanceof Object ? (Class<?>) getClass(((WildcardType) type).getUpperBounds()[0], 0) : (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0) ;
+				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0);
+			}
+			if(upperBoundsSize > 0){
+				// A<? extends T> this T is UpperBounds
+				// A<? super String> this used LowerBounds
+				return (Class<?>) getClass(((WildcardType) type).getUpperBounds()[0], 0);
+			}
+			if(lowerBountsSize > 0){
+				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0);
+			}
+			// A<?> this method not set bound limit.
+			// 如果返回的是Object的就是没有限定擦拭类型的。
+			return Object.class;
 		} else {// class本身也是type，强制转型
 			return (Class<?>) type;
 		}
-	//  Type t = Type.GetType("System.Int32[]");
-	//  object array = new object();
-	//  array = t.InvokeMember("Set", BindingFlags.CreateInstance, null, array, new object[] { 10 });
 	}
 
+	/**
+	 * Description(描述): 获得封装对象中的数据类型类<br/> 
+	 * Conditions(适用条件):<br/> 
+	 * Execution flow(执行流程):<br/> 
+	 * Usage(用法):<br/> 
+	 * Cautions(注意事项):<br/> 
+	 * 
+	 * @param field	变量
+	 * @param i
+	 * @return 
+	 */ 
+	public static Class<?> getClass(java.lang.reflect.Field field, int i){
+		if(field.getType().isPrimitive()){
+			// 基本类
+			return ((Class<?>) field.getType());
+		}else
+		if(field.getType().isArray()){
+			// 数组
+			return ((Class<?>) field.getType());
+		}else{
+			if(field.getGenericType() instanceof ParameterizedType){
+				// List
+				if(((ParameterizedType) field.getGenericType()).getActualTypeArguments().length > 1){
+					Log.e("", field.getName() + "-- primitive: map" + ", name:" + field.getType().getName());
+				}else{
+					Log.e("", field.getName() + "-- primitive: List" + ", name:" + field.getType().getName());
+				}
+			}else 
+			if(field.getGenericType() instanceof WildcardType){
+				Log.e("", field.getName() + "-- primitive: wild" + ", name:" + field.getType().getName());
+			}else{
+				// Object String
+    			if(field.getType() == String.class){
+    				Log.e("", field.getName() + "-- primitive: string" + ", name:" + field.getType().getName());
+    			}else{
+    				// Object
+    				Log.e("", field.getName() + "-- primitive: object" + ", name:" + field.getType().getName());
+    			}
+			}
+		}
+		return null;
+	}
+	
+	public static Class<?> getClass(java.lang.reflect.Method method, int i){
+		return null;
+	}
+	
 	private static Class<?> getGenericClass(ParameterizedType parameterizedType, int i) {
 		Object genericClass = parameterizedType.getActualTypeArguments()[i];
 		if (genericClass instanceof ParameterizedType) { // 处理多级泛型
@@ -351,8 +423,8 @@ public final class ConversionUtils {
 			return (Class<?>) ((GenericArrayType) genericClass).getGenericComponentType();
 		} else if (genericClass instanceof TypeVariable) { // 处理泛型擦拭对象
 			return (Class<?>) getClass(((TypeVariable<?>) genericClass).getBounds()[0], 0);
-		} else if (genericClass instanceof WildcardType){
-			return (Class<?>) getClass(((WildcardType) genericClass).getLowerBounds()[0], 0); // 如果返回的是Object的就是没有限定擦拭类型的。
+//		} else if (genericClass instanceof WildcardType){
+//			return (Class<?>) getClass(((WildcardType) genericClass).getLowerBounds()[0], 0); // 如果返回的是Object的就是没有限定擦拭类型的。
 		} else {
 			return (Class<?>) genericClass;
 		}

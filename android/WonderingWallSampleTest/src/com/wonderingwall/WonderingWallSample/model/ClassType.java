@@ -40,7 +40,7 @@ public class ClassType {
 	boolean[] t_boolean_array;
 	String[] t_string_array;
 	
-//	ArrayList<?> t_list;
+	ArrayList<?> t_list;
 	ArrayList<Integer> t_list_int;
 	ArrayList<String> t_list_string;
 	ArrayList<? super Integer> t_list_super_int;
@@ -177,13 +177,13 @@ public class ClassType {
 		this.t_string_array = t_string_array;
 	}
 
-//	public ArrayList<?> getT_list() {
-//		return t_list;
-//	}
-//
-//	public void setT_list(ArrayList<?> t_list) {
-//		this.t_list = t_list;
-//	}
+	public ArrayList<?> getT_list() {
+		return t_list;
+	}
+
+	public void setT_list(ArrayList<?> t_list) {
+		this.t_list = t_list;
+	}
 
 	public ArrayList<Integer> getT_list_int() {
 		return t_list_int;
@@ -256,9 +256,6 @@ public class ClassType {
 	public void setT_map(Map<String, String> t_map) {
 		this.t_map = t_map;
 	}
-	
-	private void dododo(){
-		
-	}
+ 
 }
  
