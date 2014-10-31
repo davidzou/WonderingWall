@@ -30,6 +30,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.wonderingwall.base.BaseModel;
+import com.wonderingwall.data.annotation.ConversionIgnore;
 import com.wonderingwall.data.annotation.DATA_TYPE;
 import com.wonderingwall.data.impl.JSONObjectConverionable;
 
@@ -67,10 +68,144 @@ public final class ConversionUtils {
 	 * 
 	 * @param src
 	 * @return
-	 * @fix		如果value被设置为非小写的，带有连字符的状态时，会有错误解析，
+	 * @fix 如果value被设置为非小写的，带有连字符的状态时，会有错误解析，
 	 */
 	public static String getConvertName(String src) {
 		return Pattern.compile("^(get|is|set)").matcher(src).replaceAll("").toLowerCase();
+	}
+
+	/**
+	 * Description(描述): 方法为get方法<br/>
+	 * 
+	 * <pre>
+	 * <code> Xxx getXxx(){rerurn xxx;}</code>
+	 * </pre>
+	 * 
+	 * Conditions(适用条件): 标准书写格式，get开头的方法，后面单词首字母大写。没有参数，且有返回值。<br/>
+	 * Execution flow(执行流程):<br/>
+	 * Usage(用法):<br/>
+	 * Cautions(注意事项):<br/>
+	 * 
+	 * @param method
+	 * @return if true that the condition is met, otherwise false;
+	 */
+	public static boolean isGetter(Method method) {
+		if (!method.getName().startsWith("get"))
+			return false;
+		if (method.getParameterTypes().length != 0)
+			return false;
+		if (void.class.equals(method.getReturnType()))
+			return false;
+		return true;
+	}
+
+	/**
+	 * Description(描述): 判断方法为set方法<br/>
+	 * Conditions(适用条件):<br/>
+	 * Execution flow(执行流程):<br/>
+	 * Usage(用法):<br/>
+	 * Cautions(注意事项):<br/>
+	 * 
+	 * @param method
+	 * @return if true that the condition is met, otherwise false;
+	 */
+	public static boolean isSetter(Method method) {
+		if (!method.getName().startsWith("set"))
+			return false;
+		if (method.getParameterTypes().length != 1)
+			return false;
+		return true;
+	}
+
+	/**
+	 * Description(描述): 生成List实例对象<br/>
+	 * Conditions(适用条件):<br/>
+	 * Execution flow(执行流程):<br/>
+	 * Usage(用法):<br/>
+	 * Cautions(注意事项):<br/>
+	 * 
+	 * @param clazz
+	 * @param compontent List中定义的类型
+	 * @return
+	 */
+	public static <T> java.util.List<T> prepareList(Class<?> clazz, Class<T> compontent) throws ConversionException {
+		java.util.List<T> list = null;
+		if (clazz.equals(java.util.ArrayList.class)) {
+			list = new java.util.ArrayList<T>();
+		} else if (clazz.equals(java.util.LinkedList.class)) {
+			list = new java.util.LinkedList<T>();
+		} else if (clazz.equals(java.util.Stack.class)) {
+			list = new java.util.Stack<T>();
+		} else if (clazz.equals(java.util.Vector.class)) {
+			list = new java.util.Vector<T>();
+		} else if (clazz.equals(java.util.List.class)) {
+			// 接口定义的，默认使用ArrayList
+			list = new java.util.ArrayList<T>();
+		} else {
+			throw new ConversionException("Unsupport clazz type:" + clazz.getName() + ", it maybe isn't a list instance.");
+		}
+		return list;
+	}
+
+	/**
+	 * Description(描述): 生成Map实例对象<br/>
+	 * Conditions(适用条件):<br/>
+	 * Execution flow(执行流程):<br/>
+	 * Usage(用法):<br/>
+	 * Cautions(注意事项):<br/>
+	 * 
+	 * @param clazz
+	 * @param compontentKey
+	 * @param compontentValue
+	 * @return
+	 * @throws ConversionException
+	 */
+	public static <K, V> java.util.Map<K, V> prepareMap(Class<? extends java.util.Map<?, ?>> clazz, Class<K> compontentKey, Class<V> compontentValue) throws ConversionException {
+		java.util.Map<K, V> map = null;
+		if (clazz.equals(java.util.HashMap.class)) {
+			map = new java.util.HashMap<K, V>();
+		} else if (clazz.equals(java.util.Hashtable.class)) {
+			map = new java.util.Hashtable<K, V>();
+		} else if (clazz.equals(java.util.LinkedHashMap.class)) {
+			map = new java.util.LinkedHashMap<K, V>();
+		} else if (clazz.equals(java.util.TreeMap.class)) {
+			map = new java.util.TreeMap<K, V>();
+		} else if (clazz.equals(java.util.Map.class)) {
+			// 接口定义，默认使用HashMap
+			map = new java.util.HashMap<K, V>();
+		} else {
+			throw new ConversionException("Unsupport clazz type:" + clazz.getName() + ", it maybe isn't a map instance.");
+		}
+		return map;
+	}
+
+	/**
+	 * Description(描述): 生成Set实例对象<br/>
+	 * Conditions(适用条件):<br/>
+	 * Execution flow(执行流程):<br/>
+	 * Usage(用法):<br/>
+	 * Cautions(注意事项):<br/>
+	 * 
+	 * @param clazz
+	 * @param compontent
+	 * @return
+	 * @throws ConversionException
+	 */
+	public static <T> java.util.Set<T> prepareSet(Class<? extends java.util.Set<T>> clazz, Class<T> compontent) throws ConversionException {
+		java.util.Set<T> set = null;
+		if (clazz.equals(java.util.HashSet.class)) {
+			set = new java.util.HashSet<T>();
+		} else if (clazz.equals(java.util.LinkedHashSet.class)) {
+			set = new java.util.LinkedHashSet<T>();
+		} else if (clazz.equals(java.util.TreeSet.class)) {
+			set = new java.util.TreeSet<T>();
+		} else if (clazz.equals(java.util.Set.class)) {
+			// 接口定义，默认使用HashMap
+			set = new java.util.HashSet<T>();
+		} else {
+			throw new ConversionException("Unsupport clazz type:" + clazz.getName() + ", it maybe isn't a set instance.");
+		}
+		return set;
 	}
 
 	/**
@@ -85,49 +220,37 @@ public final class ConversionUtils {
 	 * @return
 	 */
 	public static final boolean parser(Method method, HashMap<String, ConversionMapObject> hash) {
-		for(Type type : method.getGenericParameterTypes()){
-			Log.e("", "type:" + getClass(type, 0).getName()); // 基础变量
+		if (hash == null) {
+			throw new ConversionException("Argument hash is null.");
 		}
-		for(Class<?> clazz: method.getParameterTypes()){
-			Log.e("", "clazz type:" + clazz.getName() + "-" + clazz.isPrimitive() + "|" + clazz.isSynthetic() + "|"); // set传参类型
-		}
-		for(TypeVariable<?> variable : method.getTypeParameters()){
-			Log.e("", "variable:" + variable.getName());
-		}
-		
-//		if (hash == null) {
-//			throw new ConversionException("Argument hash is null.");
-//		}
-//		if (method.getAnnotations().length > 0) {
-//			ConversionIgnore ignore = method.getAnnotation(ConversionIgnore.class);
-//			// TODO 直接忽略，不转化数据对象。这里就需要一个判断，不转化哪类数据，JSON或者其他Bundle？将来扩充
-//			if (ignore != null) {
-//				return false;
-//			}
-//
-//			Conversionable convertName = method.getAnnotation(Conversionable.class);
-//			if (convertName == null) {
+		if (method.getAnnotations().length > 0) {
+			ConversionIgnore ignore = method.getAnnotation(ConversionIgnore.class);
+			// TODO 直接忽略，不转化数据对象。这里就需要一个判断，不转化哪类数据，JSON或者其他Bundle？将来扩充
+			if (ignore != null) {
+				return false;
+			}
 
-//			} else {
-//				if (TextUtils.isEmpty(convertName.value())) {
-//					throw new ConversionException("value is null at " + method.getName());
-//				}
+			com.wonderingwall.data.annotation.Conversionable convertName = method.getAnnotation(com.wonderingwall.data.annotation.Conversionable.class);
+			if (convertName == null) {
+			} else {
+				if (TextUtils.isEmpty(convertName.value())) {
+					throw new ConversionException("value is null at " + method.getName());
+				}
 //				convertName.value();
 //				convertName.type();
 //				update(convertName.value(//				// getConvertName， 直接使用默认的值
-//				String methodName = getConvertName(method.getName()); // key
-//																	  // name
-//				update(methodName, method, null, hash);), method, convertName.type(), hash);
-//			}
-//		} else {
-//			// 没有注解 getConvertName， and data type is normal
-//			// TODO 这里要求写在get之上，而非set之上，这里就需要处理set的方法。如果直接是在field上注释的呢？
-//			String methodName = getConvertName(method.getName()); // key name
-//			if(methodName.endsWith("toString")){
-//				return false;
-//			}
-////			update(methodName, method, null, hash);
-//		}
+				String methodName = getConvertName(method.getName());
+				update(methodName, method, convertName.type(), hash);
+			}
+		} else {
+			// 没有注解 getConvertName， and data type is normal
+			// TODO 这里要求写在get之上，而非set之上，这里就需要处理set的方法。如果直接是在field上注释的呢？
+			String methodName = getConvertName(method.getName()); // key name
+			if (methodName.equals("toString")) {
+				return false;
+			}
+			update(methodName, method, null, hash);
+		}
 		return false;
 	}
 
@@ -157,6 +280,7 @@ public final class ConversionUtils {
 				map.key = name;
 			if (type != null)
 				map.type = type;
+			hash.put(name, map);
 		} else {
 			// 新建
 			ConversionMapObject map = new ConversionMapObject();
@@ -205,40 +329,35 @@ public final class ConversionUtils {
 			case LIST:
 				Log.e("convert", "conversionMapObject:" + conversionMapObject.toString());
 				Type type = conversionMapObject.getMethod.getGenericReturnType();
-				
-				Type[] sets = conversionMapObject.method.getGenericParameterTypes();
-				if(sets.length > 0){
-					for(Type t : sets){
-						Log.e("", "..." + t.getClass().getName() );
-					}
-				}else{
-					Log.e("", "no params");
-				}
-				
-				Log.e("", "generic return type:" + type.getClass().getName()); // 返回的集合类型
-				if( type instanceof GenericArrayType){
-					Log.e("", "generic type is array");
-				}
+
 				Log.e("", "return type:" + conversionMapObject.getMethod.getReturnType());
 				if (type instanceof ParameterizedType) {
-					// is list true
-					Type t = ((ParameterizedType) type).getRawType();
-//					Log.e("", t.getClass().getName());
-					if (t.getClass().isInterface()) {
-						// 如果是接口定义的泛型集合。
-						Log.e("", "is a interface");
+					int length = ((ParameterizedType) type).getActualTypeArguments().length;
+					switch (length) {
+					case 0:
+						// 非泛型？
+						Log.e("", "0");
+						break;
+					case 1:
+						// List
+						Log.e("",
+						        "1 list" + ConversionUtils.getClass(((ParameterizedType) type).getRawType(), 0) + " | "
+						                + ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0));
+						java.util.List<?> l = prepareList(ConversionUtils.getClass(((ParameterizedType) type).getRawType(), 0), ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0));
+						ConversionUtils.invoke(conversionMapObject.method, l, ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0), model,
+						        json.optJSONArray(conversionMapObject.key));
+						break;
+					case 2:
+						// Map
+						Log.e("",
+						        "2 map" + ConversionUtils.getClass(((ParameterizedType) type).getRawType(), 0) + " | "
+						                + ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0) + " | " + " | "
+						                + ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[1], 0));
+						break;
+					default:
+						break;
 					}
-					Class<?> c = getGenericClass(((ParameterizedType) type), 0);
-					Log.e("", "type:" + c.getName());
-//					Type[] types = ((ParameterizedType) type).getActualTypeArguments();
-//					if (types.length > 1) {
-//						Log.e("", "is a mapping");
-//					} else {
-//						Class<?> clazz = (Class<?>) types[0];
-//						Log.e("", "just is a type:" + clazz.getName());
-//					}
-				}else
-				if(type instanceof WildcardType){
+				} else if (type instanceof WildcardType) {
 					Log.e("", "is a wildcard type");
 				}
 				break;
@@ -294,26 +413,26 @@ public final class ConversionUtils {
 	}
 
 	/**
-	 * Description(描述):<br/>
-	 * Conditions(适用条件):<br/>
+	 * Description(描述): 将数据转化为数组值后执行设置方法<br/>
+	 * Conditions(适用条件):转化JSON数据的数组数据<br/>
 	 * Execution flow(执行流程):<br/>
 	 * Usage(用法):<br/>
 	 * Cautions(注意事项):<br/>
 	 * 
 	 * @param method
 	 * @param compontentType
-	 * @param b
+	 * @param model
 	 * @param obj
 	 * @throws ConversionException
 	 */
-	private static final <B extends BaseModel> void invoke(Method method, Class<?> compontentType, B b, JSONArray array) throws ConversionException {
+	private static final <B extends BaseModel> void invoke(Method method, Class<?> compontentType, B model, JSONArray array) throws ConversionException {
 		try {
 			Object obj = Array.newInstance(compontentType, array.length());
 			int length = array.length();
 			for (int i = 0; i < length; i++) {
 				Array.set(obj, i, array.opt(i));
 			}
-			method.invoke(b, obj);
+			method.invoke(model, obj);
 		} catch (IllegalAccessException e) {
 			throw new ConversionException(e);
 		} catch (IllegalArgumentException e) {
@@ -324,18 +443,53 @@ public final class ConversionUtils {
 	}
 
 	/**
-	 * Description(描述): 获取泛型类型<br/> 
+	 * Description(描述):<br/> 
 	 * Conditions(适用条件):<br/> 
 	 * Execution flow(执行流程):<br/> 
 	 * Usage(用法):<br/> 
 	 * Cautions(注意事项):<br/> 
 	 * 
+	 * @param method
+	 * @param list
+	 * @param compontentType
+	 * @param model
+	 * @param array
+	 * @throws ConversionException 
+	 * @FIXME	if compontentType is a Object data.
+	 */ 
+	@SuppressWarnings("unchecked")
+    private static final <B extends BaseModel, T> void invoke(Method method, java.util.List<T> list, Class<?> compontentType, B model, JSONArray array) throws ConversionException {
+		if(compontentType.getSuperclass().equals(BaseModel.class)){
+			throw new ConversionException("Not suppoert Class Object.");
+		}
+		try {
+			int length = array.length();
+			for (int i = 0; i < length; i++) {
+				list.add((T) array.opt(i));
+			}
+			method.invoke(model, list);
+		} catch (IllegalAccessException e) {
+			throw new ConversionException(e);
+		} catch (IllegalArgumentException e) {
+			throw new ConversionException(e);
+		} catch (InvocationTargetException e) {
+			throw new ConversionException(e);
+		}
+	}
+
+	/**
+	 * Description(描述): 获取泛型类型<br/>
+	 * Conditions(适用条件):<br/>
+	 * Execution flow(执行流程):<br/>
+	 * Usage(用法):<br/>
+	 * Cautions(注意事项):<br/>
+	 * 
 	 * @param type
 	 * @param i
 	 * @return
-	 * @throws ConversionException 
-	 */ 
-	public static final Class<?> getClass(Type type, int i) throws ConversionException{
+	 * @throws ConversionException
+	 */
+	public static final Class<?> getClass(Type type, int i) throws ConversionException {
 		if (type instanceof ParameterizedType) {
 			// 处理泛型类型
 			return getGenericClass((ParameterizedType) type, i);
@@ -345,19 +499,20 @@ public final class ConversionUtils {
 		} else if (type instanceof WildcardType) {
 			int upperBoundsSize = ((WildcardType) type).getUpperBounds().length;
 			int lowerBountsSize = ((WildcardType) type).getLowerBounds().length;
-			
-			if(upperBoundsSize > 0 && lowerBountsSize > 0){
+
+			if (upperBoundsSize > 0 && lowerBountsSize > 0) {
 				Log.e("", "" + upperBoundsSize + "|" + lowerBountsSize + "|" + ((WildcardType) type).getUpperBounds()[0] + " - " + ((WildcardType) type).getLowerBounds()[0]);
 //				throw new ConversionException("Invalid error.");
 //				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0) instanceof Object ? (Class<?>) getClass(((WildcardType) type).getUpperBounds()[0], 0) : (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0) ;
+				// A<? super String> this used LowerBounds
 				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0);
 			}
-			if(upperBoundsSize > 0){
+			if (upperBoundsSize > 0) {
 				// A<? extends T> this T is UpperBounds
 				// A<? super String> this used LowerBounds
 				return (Class<?>) getClass(((WildcardType) type).getUpperBounds()[0], 0);
 			}
-			if(lowerBountsSize > 0){
+			if (lowerBountsSize > 0) {
 				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0);
 			}
 			// A<?> this method not set bound limit.
@@ -369,52 +524,50 @@ public final class ConversionUtils {
 	}
 
 	/**
-	 * Description(描述): 获得封装对象中的数据类型类<br/> 
-	 * Conditions(适用条件):<br/> 
-	 * Execution flow(执行流程):<br/> 
-	 * Usage(用法):<br/> 
-	 * Cautions(注意事项):<br/> 
+	 * Description(描述): 获得封装对象中的数据类型类<br/>
+	 * Conditions(适用条件):<br/>
+	 * Execution flow(执行流程):<br/>
+	 * Usage(用法):<br/>
+	 * Cautions(注意事项):<br/>
 	 * 
-	 * @param field	变量
+	 * @param field 变量
 	 * @param i
-	 * @return 
-	 */ 
-	public static Class<?> getClass(java.lang.reflect.Field field, int i){
-		if(field.getType().isPrimitive()){
+	 * @return
+	 */
+	public static Class<?> getClass(java.lang.reflect.Field field, int i) {
+		if (field.getType().isPrimitive()) {
 			// 基本类
 			return ((Class<?>) field.getType());
-		}else
-		if(field.getType().isArray()){
+		} else if (field.getType().isArray()) {
 			// 数组
 			return ((Class<?>) field.getType());
-		}else{
-			if(field.getGenericType() instanceof ParameterizedType){
+		} else {
+			if (field.getGenericType() instanceof ParameterizedType) {
 				// List
-				if(((ParameterizedType) field.getGenericType()).getActualTypeArguments().length > 1){
+				if (((ParameterizedType) field.getGenericType()).getActualTypeArguments().length > 1) {
 					Log.e("", field.getName() + "-- primitive: map" + ", name:" + field.getType().getName());
-				}else{
+				} else {
 					Log.e("", field.getName() + "-- primitive: List" + ", name:" + field.getType().getName());
 				}
-			}else 
-			if(field.getGenericType() instanceof WildcardType){
+			} else if (field.getGenericType() instanceof WildcardType) {
 				Log.e("", field.getName() + "-- primitive: wild" + ", name:" + field.getType().getName());
-			}else{
+			} else {
 				// Object String
-    			if(field.getType() == String.class){
-    				Log.e("", field.getName() + "-- primitive: string" + ", name:" + field.getType().getName());
-    			}else{
-    				// Object
-    				Log.e("", field.getName() + "-- primitive: object" + ", name:" + field.getType().getName());
-    			}
+				if (field.getType() == String.class) {
+					Log.e("", field.getName() + "-- primitive: string" + ", name:" + field.getType().getName());
+				} else {
+					// Object
+					Log.e("", field.getName() + "-- primitive: object" + ", name:" + field.getType().getName());
+				}
 			}
 		}
 		return null;
 	}
-	
-	public static Class<?> getClass(java.lang.reflect.Method method, int i){
+
+	public static Class<?> getClass(java.lang.reflect.Method method, int i) {
 		return null;
 	}
-	
+
 	private static Class<?> getGenericClass(ParameterizedType parameterizedType, int i) {
 		Object genericClass = parameterizedType.getActualTypeArguments()[i];
 		if (genericClass instanceof ParameterizedType) { // 处理多级泛型
@@ -429,4 +582,5 @@ public final class ConversionUtils {
 			return (Class<?>) genericClass;
 		}
 	}
+
 }
