@@ -2,17 +2,9 @@ package com.wonderingwall.WonderingWallSample;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.WildcardType;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,14 +13,10 @@ import android.content.res.AssetManager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.wonderingwall.WonderingWallSample.model.ClassType;
 import com.wonderingwall.WonderingWallSample.model.User1;
 import com.wonderingwall.WonderingWallSample.model.User2;
 import com.wonderingwall.WonderingWallSample.model.User3;
 import com.wonderingwall.WonderingWallSample.model.User4;
-import com.wonderingwall.data.ConversionException;
-import com.wonderingwall.data.ConversionUtils;
 import com.wonderingwall.data.impl.JSONObjectConverionable;
 
 /**
@@ -185,6 +173,11 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
 		Log.e("", "times:" + (System.currentTimeMillis() - start));
 		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
+		
+		convert.reconvert(user);
+		
+		Log.e("", "times:" + (System.currentTimeMillis() - start));
+		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
 	}
 //	
 //	public void testJSONObjectGSONByGenericData(){
@@ -201,19 +194,24 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 //		Log.e("gson", "times_nano:" + (System.nanoTime() - start_nano));
 //	
 //	}
-//    
-//    public void testJSONObjectConversionByArray(){
-//		long start = System.currentTimeMillis();
-//		long start_nano = System.nanoTime();
-//		
-//    	JSONObjectConverionable convert = new JSONObjectConverionable();
-//        User2 user = convert.convert(readJSON("user2.json"), User2.class);
-//        assertNotNull("user2 is null.", user);
-//        if(user != null) Log.e("", "user: {" + user.toString() + "}");
-//        
-//		Log.e("", "times:" + (System.currentTimeMillis() - start));
-//		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
-//    }
+    
+    public void testJSONObjectConversionByArray(){
+		long start = System.currentTimeMillis();
+		long start_nano = System.nanoTime();
+		
+    	JSONObjectConverionable convert = new JSONObjectConverionable();
+        User2 user = convert.convert(readJSON("user2.json"), User2.class);
+        assertNotNull("user2 is null.", user);
+        if(user != null) Log.e("", "user: {" + user.toString() + "}");
+        
+		Log.e("", "times:" + (System.currentTimeMillis() - start));
+		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
+		
+		convert.reconvert(user);
+		
+		Log.e("", "times:" + (System.currentTimeMillis() - start));
+		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
+    }
     
 //    public void testJSONObjectGSONByArray(){
 //		long start = System.currentTimeMillis();
@@ -229,18 +227,18 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 //		Log.e("gson", "times_nano:" + (System.nanoTime() - start_nano));
 //    }
     
-//    public void testJSONObjectConversionByObjcect(){
-//		long start = System.currentTimeMillis();
-//		long start_nano = System.nanoTime();
-//		
-//    	JSONObjectConverionable convert = new JSONObjectConverionable();
-//        User3 user = convert.convert(readJSON("user3.json"), User3.class);
-//        assertNotNull("user3 is null.", user);
-//        if(user != null) Log.e("", "user: {" + user.toString() + "}");
-//        
-//		Log.e("", "times:" + (System.currentTimeMillis() - start));
-//		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
-//    }
+    public void testJSONObjectConversionByObjcect(){
+		long start = System.currentTimeMillis();
+		long start_nano = System.nanoTime();
+		
+    	JSONObjectConverionable convert = new JSONObjectConverionable();
+        User3 user = convert.convert(readJSON("user3.json"), User3.class);
+        assertNotNull("user3 is null.", user);
+        if(user != null) Log.e("", "user: {" + user.toString() + "}");
+        
+		Log.e("", "times:" + (System.currentTimeMillis() - start));
+		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
+    }
     
     public void testJSONObjectConversionByList(){
 		long start = System.currentTimeMillis();

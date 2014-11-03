@@ -18,9 +18,9 @@ import android.util.Log;
 
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.ConversionException;
-import com.wonderingwall.data.ConversionMapObject;
 import com.wonderingwall.data.ConversionUtils;
 import com.wonderingwall.data.Conversionable;
+import com.wonderingwall.data.ConversionableMapObject;
 
 /**
  * ClassName:JSONObjectConverionable <br/>
@@ -58,13 +58,13 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 		}
 		// 模型类中的方法
 		Method[] methods = b.getClass().getDeclaredMethods();
-		HashMap<String, ConversionMapObject> hash = new HashMap<String, ConversionMapObject>();
+		HashMap<String, ConversionableMapObject> hash = new HashMap<String, ConversionableMapObject>();
 		for (Method method : methods) {
 			Log.e("json convert", "method:" + method.getName());
 			ConversionUtils.parser(method, hash);
 		}
 
-		for (ConversionMapObject conversionMapObject : hash.values()) {
+		for (ConversionableMapObject conversionMapObject : hash.values()) {
 			ConversionUtils.invoke(conversionMapObject, b, json);
 		}
 
@@ -76,33 +76,18 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 	@Override
 	public <B extends BaseModel> JSONObject reconvert(B model) throws ConversionException {
 		JSONObject data = new JSONObject();
+		Method[] methods = model.getClass().getDeclaredMethods();
+		HashMap<String, ConversionableMapObject> hash = new HashMap<String, ConversionableMapObject>();
+		for(Method method : methods){
+			ConversionUtils.parser(method, hash);
+		}
+		for(ConversionableMapObject conversionableMapObject : hash.values()){
+			ConversionUtils.assemble(conversionableMapObject, model, data);
+		}
+		Log.e("json", data.toString());
+		if (methods != null) { methods = null; }
+		if (hash != null) {	hash.clear(); hash = null; }
 		return data;
 	}
 
-//    private static Class<?> getClass(Type type, int i) {     
-//        if (type instanceof ParameterizedType) { // 处理泛型类型     
-//            return getGenericClass((ParameterizedType) type, i);     
-//        } else if (type instanceof TypeVariable) {     
-//            return (Class<?>) getClass(((TypeVariable<?>) type).getBounds()[0], 0); // 处理泛型擦拭对象     
-//        } else {// class本身也是type，强制转型     
-//            return (Class<?>) type;     
-//        }     
-//        
-////        Type t = Type.GetType("System.Int32[]");
-////        object array = new object();
-////        array = t.InvokeMember("Set", BindingFlags.CreateInstance, null, array, new object[] { 10 });
-//    }     
-//    
-//    private static Class<?> getGenericClass(ParameterizedType parameterizedType, int i) {     
-//        Object genericClass = parameterizedType.getActualTypeArguments()[i];     
-//        if (genericClass instanceof ParameterizedType) { // 处理多级泛型     
-//            return (Class<?>) ((ParameterizedType) genericClass).getRawType();     
-//        } else if (genericClass instanceof GenericArrayType) { // 处理数组泛型     
-//            return (Class<?>) ((GenericArrayType) genericClass).getGenericComponentType();     
-//        } else if (genericClass instanceof TypeVariable) { // 处理泛型擦拭对象     
-//            return (Class<?>) getClass(((TypeVariable<?>) genericClass).getBounds()[0], 0);     
-//        } else {     
-//            return (Class<?>) genericClass;     
-//        }     
-//    }    
 }

@@ -9,6 +9,7 @@
 
 package com.wonderingwall.data;
 
+import java.lang.ref.SoftReference;
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.InvocationTargetException;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.ContentValues;
@@ -31,7 +33,8 @@ import android.util.Log;
 
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.annotation.ConversionIgnore;
-import com.wonderingwall.data.annotation.DATA_TYPE;
+import com.wonderingwall.data.annotation.Conversionable;
+import com.wonderingwall.data.annotation.ConversionableDataType;
 import com.wonderingwall.data.impl.JSONObjectConverionable;
 
 /**
@@ -90,7 +93,7 @@ public final class ConversionUtils {
 	 * @return if true that the condition is met, otherwise false;
 	 */
 	public static boolean isGetter(Method method) {
-		if (!method.getName().startsWith("get"))
+		if (Pattern.compile("^(get|is)").matcher(method.getName()).matches())
 			return false;
 		if (method.getParameterTypes().length != 0)
 			return false;
@@ -160,7 +163,7 @@ public final class ConversionUtils {
 	 * @return
 	 * @throws ConversionException
 	 */
-	public static <K, V> java.util.Map<K, V> prepareMap(Class<? extends java.util.Map<?, ?>> clazz, Class<K> compontentKey, Class<V> compontentValue) throws ConversionException {
+	public static <K, V> java.util.Map<K, V> prepareMap(Class<?> clazz, Class<K> compontentKey, Class<V> compontentValue) throws ConversionException {
 		java.util.Map<K, V> map = null;
 		if (clazz.equals(java.util.HashMap.class)) {
 			map = new java.util.HashMap<K, V>();
@@ -191,7 +194,7 @@ public final class ConversionUtils {
 	 * @return
 	 * @throws ConversionException
 	 */
-	public static <T> java.util.Set<T> prepareSet(Class<? extends java.util.Set<T>> clazz, Class<T> compontent) throws ConversionException {
+	public static <T> java.util.Set<T> prepareSet(Class<?> clazz, Class<T> compontent) throws ConversionException {
 		java.util.Set<T> set = null;
 		if (clazz.equals(java.util.HashSet.class)) {
 			set = new java.util.HashSet<T>();
@@ -219,39 +222,22 @@ public final class ConversionUtils {
 	 * @param method
 	 * @return
 	 */
-	public static final boolean parser(Method method, HashMap<String, ConversionMapObject> hash) {
+	public static final boolean parser(Method method, HashMap<String, ConversionableMapObject> hash) {
 		if (hash == null) {
 			throw new ConversionException("Argument hash is null.");
 		}
-		if (method.getAnnotations().length > 0) {
-			ConversionIgnore ignore = method.getAnnotation(ConversionIgnore.class);
-			// TODO 直接忽略，不转化数据对象。这里就需要一个判断，不转化哪类数据，JSON或者其他Bundle？将来扩充
-			if (ignore != null) {
-				return false;
-			}
-
-			com.wonderingwall.data.annotation.Conversionable convertName = method.getAnnotation(com.wonderingwall.data.annotation.Conversionable.class);
-			if (convertName == null) {
-			} else {
-				if (TextUtils.isEmpty(convertName.value())) {
-					throw new ConversionException("value is null at " + method.getName());
-				}
-//				convertName.value();
-//				convertName.type();
-//				update(convertName.value(//				// getConvertName， 直接使用默认的值
-				String methodName = getConvertName(method.getName());
-				update(methodName, method, convertName.type(), hash);
-			}
-		} else {
-			// 没有注解 getConvertName， and data type is normal
-			// TODO 这里要求写在get之上，而非set之上，这里就需要处理set的方法。如果直接是在field上注释的呢？
-			String methodName = getConvertName(method.getName()); // key name
-			if (methodName.equals("toString")) {
-				return false;
-			}
-			update(methodName, method, null, hash);
+		if (method.getAnnotation(ConversionIgnore.class) != null) {
+			// ignore
+			return false;
 		}
-		return false;
+		if (method.getName().equals("toString")) {
+			return false;
+		}
+
+		Conversionable conversionable = method.getAnnotation(Conversionable.class);
+		String indentity = getConvertName(method.getName());
+		update(indentity, method, conversionable, hash);
+		return true;
 	}
 
 	/**
@@ -261,76 +247,116 @@ public final class ConversionUtils {
 	 * Usage(用法):<br/>
 	 * Cautions(注意事项):<br/>
 	 * 
-	 * @param name 变量名（小写）
+	 * @param indentity 变量名（小写）
 	 * @param method 方法
 	 * @param type 数据类型
 	 * @param hash 映射表
 	 */
-	private static void update(String name, Method method, DATA_TYPE type, HashMap<String, ConversionMapObject> hash) {
-		if (hash.containsKey(name)) {
+	private static void update(String indentity, Method method, Conversionable conversionable, HashMap<String, ConversionableMapObject> hash) {
+		if (hash.containsKey(indentity)) {
 			// 更新
-			ConversionMapObject map = (ConversionMapObject) hash.get(name);
-			if (method.getName().startsWith("set")) {
-				map.setMethod = method.getName();
-				map.method = method;
-			} else {
-				map.getMethod = method;
+			ConversionableMapObject map = (ConversionableMapObject) hash.get(indentity);
+			if (isGetter(method)) {
+				map.setGetter(new SoftReference<Method>(method));
+				map.setGetterName(method.getName());
+				if (conversionable != null) {
+					if (map.getType() == null)
+						map.setType(conversionable.type());
+					if (!TextUtils.isEmpty(conversionable.value()))
+						map.setAnnotationValue(conversionable.value());
+				}
+				hash.put(indentity, map);
+			} else if (isSetter(method)) {
+				map.setSetter(new SoftReference<Method>(method));
+				map.setSetterName(method.getName());
+				if (conversionable != null) {
+					if (map.getType() == null)
+						map.setType(conversionable.type());
+					if (!TextUtils.isEmpty(conversionable.value()))
+						map.setAnnotationValue(conversionable.value());
+				}
+				hash.put(indentity, map);
 			}
-			if (!TextUtils.isEmpty(name))
-				map.key = name;
-			if (type != null)
-				map.type = type;
-			hash.put(name, map);
 		} else {
 			// 新建
-			ConversionMapObject map = new ConversionMapObject();
-			if (method.getName().startsWith("set")) {
-				map.setMethod = method.getName();
-				map.method = method;
-			} else {
-				map.getMethod = method;
+			ConversionableMapObject map = new ConversionableMapObject();
+			map.setIndentity(indentity);
+			if (isGetter(method)) {
+				map.setGetter(new SoftReference<Method>(method));
+				map.setGetterName(method.getName());
+				if (conversionable != null) {
+					map.setType(conversionable.type());
+					map.setAnnotationValue(conversionable.value());
+				} else {
+					map.setType(ConversionableDataType.NORMAL);
+					map.setAnnotationValue(indentity);
+				}
+				hash.put(indentity, map);
+			} else if (isSetter(method)) {
+				map.setSetter(new SoftReference<Method>(method));
+				map.setSetterName(method.getName());
+				if (conversionable != null) {
+					map.setType(conversionable.type());
+					map.setAnnotationValue(conversionable.value());
+				} else {
+					map.setType(ConversionableDataType.NORMAL);
+					map.setAnnotationValue(indentity);
+				}
+				hash.put(indentity, map);
 			}
-			if (!TextUtils.isEmpty(name))
-				map.key = name;
-			if (type != null)
-				map.type = type;
-			hash.put(name, map);
 		}
 	}
 
-	public static final <B extends BaseModel, T> void invoke(ConversionMapObject conversionMapObject, B b, T t) throws ConversionException {
-		if (t instanceof JSONObject) {
-			invoke(conversionMapObject, b, (JSONObject) t);
-		} else if (t instanceof Bundle) {
-			invoke(conversionMapObject, b, (Bundle) t);
-		} else if (t instanceof Parcel) {
-			invoke(conversionMapObject, b, (Parcel) t);
-		} else if (t instanceof ContentValues) {
-			invoke(conversionMapObject, b, (ContentValues) t);
+	/**
+	 * Description(描述): 数据装配为数据模型类<br/>
+	 * Conditions(适用条件):<br/>
+	 * Execution flow(执行流程):<br/>
+	 * Usage(用法):<br/>
+	 * Cautions(注意事项):<br/>
+	 * 
+	 * @param conversionMapObject 数据映射对象
+	 * @param model 数据模型实体
+	 * @param invokeObj 被转化的数据对象实体
+	 * @throws ConversionException
+	 */
+	public static final <B extends BaseModel, T> void invoke(ConversionableMapObject conversionMapObject, B model, T invokeObj) throws ConversionException {
+		if (!invalid(conversionMapObject)) {
+			throw new ConversionException("Invalid mapping data error!");
+		}
+		if (invokeObj instanceof JSONObject) {
+			invoke(conversionMapObject, model, (JSONObject) invokeObj);
+		} else if (invokeObj instanceof Bundle) {
+			invoke(conversionMapObject, model, (Bundle) invokeObj);
+		} else if (invokeObj instanceof Parcel) {
+			invoke(conversionMapObject, model, (Parcel) invokeObj);
+		} else if (invokeObj instanceof ContentValues) {
+			invoke(conversionMapObject, model, (ContentValues) invokeObj);
 		} else {
 			throw new ConversionException("It what is unknow type can't invoke ");
 		}
 	}
 
-	protected static final <B extends BaseModel> void invoke(ConversionMapObject conversionMapObject, B model, JSONObject json) {
-		if (json.has(conversionMapObject.key)) {
+	protected static final <B extends BaseModel> void invoke(ConversionableMapObject conversionMapObject, B model, JSONObject json) {
+		// 如果注释为空则使用标识符作为数据索引值。即变量名全小写。
+		String key = TextUtils.isEmpty(conversionMapObject.getAnnotationValue()) ? conversionMapObject.getIndentity() : conversionMapObject.getAnnotationValue();
+		if (json.has(key)) {
 			switch (conversionMapObject.type) {
 			case NORMAL:
 				// normal
-				ConversionUtils.invoke(conversionMapObject.method, model, json.opt(conversionMapObject.key));
+				ConversionUtils.invoke(conversionMapObject.getSetter().get(), model, json.opt(key));
 				break;
 			case ARRAY:
 				// normal array
-				ConversionUtils.invoke(conversionMapObject.method, conversionMapObject.getMethod.getReturnType().getComponentType(), model, json.optJSONArray(conversionMapObject.key));
+				ConversionUtils.invoke(conversionMapObject.getSetter().get(), conversionMapObject.getGetter().get().getReturnType().getComponentType(), model, json.optJSONArray(key));
 				break;
 			case ARRAY_OBJECT:
 				// special array
 				break;
 			case LIST:
 				Log.e("convert", "conversionMapObject:" + conversionMapObject.toString());
-				Type type = conversionMapObject.getMethod.getGenericReturnType();
+				Type type = conversionMapObject.getGetter().get().getGenericReturnType();
 
-				Log.e("", "return type:" + conversionMapObject.getMethod.getReturnType());
+				Log.e("", "return type:" + conversionMapObject.getGetter().get().getReturnType());
 				if (type instanceof ParameterizedType) {
 					int length = ((ParameterizedType) type).getActualTypeArguments().length;
 					switch (length) {
@@ -343,12 +369,13 @@ public final class ConversionUtils {
 						Log.e("",
 						        "1 list" + ConversionUtils.getClass(((ParameterizedType) type).getRawType(), 0) + " | "
 						                + ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0));
-						java.util.List<?> l = prepareList(ConversionUtils.getClass(((ParameterizedType) type).getRawType(), 0), ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0));
-						ConversionUtils.invoke(conversionMapObject.method, l, ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0), model,
-						        json.optJSONArray(conversionMapObject.key));
+						java.util.List<?> l = prepareList(ConversionUtils.getClass(((ParameterizedType) type).getRawType(), 0),
+						        ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0));
+						ConversionUtils.invoke(conversionMapObject.getSetter().get(), l, ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0), model,
+						        json.optJSONArray(key));
 						break;
 					case 2:
-						// Map
+						// TODO Map
 						Log.e("",
 						        "2 map" + ConversionUtils.getClass(((ParameterizedType) type).getRawType(), 0) + " | "
 						                + ConversionUtils.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0) + " | " + " | "
@@ -366,25 +393,26 @@ public final class ConversionUtils {
 			case OBJECT:
 				JSONObjectConverionable converionable = new JSONObjectConverionable();
 				@SuppressWarnings("unchecked")
-				B object = converionable.convert(json.optJSONObject(conversionMapObject.key), (Class<B>) conversionMapObject.getMethod.getReturnType());
-				ConversionUtils.invoke(conversionMapObject.method, model, object);
+				B object = converionable.convert(json.optJSONObject(key), (Class<B>) conversionMapObject.getGetter().get().getReturnType());
+				ConversionUtils.invoke(conversionMapObject.getSetter().get(), model, object);
 				break;
 			default:
 				// type = null
-				ConversionUtils.invoke(conversionMapObject.method, model, json.opt(conversionMapObject.key));
+				ConversionUtils.invoke(conversionMapObject.getSetter().get(), model, json.opt(key));
 				break;
 			}
 		}
 	}
 
-	protected static final <B extends BaseModel> void invoke(ConversionMapObject conversionMapObject, B model, Bundle bundle) {
-	}
-
-	protected static final <B extends BaseModel> void invoke(ConversionMapObject conversionMapObject, B model, Parcel parcel) {
+	protected static final <B extends BaseModel> void invoke(ConversionableMapObject conversionMapObject, B model, Bundle bundle) {
 
 	}
 
-	protected static final <B extends BaseModel> void invoke(ConversionMapObject conversionMapObject, B model, ContentValues obj) {
+	protected static final <B extends BaseModel> void invoke(ConversionableMapObject conversionMapObject, B model, Parcel parcel) {
+
+	}
+
+	protected static final <B extends BaseModel> void invoke(ConversionableMapObject conversionMapObject, B model, ContentValues obj) {
 
 	}
 
@@ -396,18 +424,20 @@ public final class ConversionUtils {
 	 * Cautions(注意事项):<br/>
 	 * 
 	 * @param method 方法
-	 * @param b 数据模型类
+	 * @param model 数据模型类
 	 * @param obj 数据
 	 * @throws ConversionException
 	 */
-	private static final <B extends BaseModel> void invoke(Method method, B b, Object obj) throws ConversionException {
+	private static final <B extends BaseModel> void invoke(Method method, B model, Object obj) throws ConversionException {
 		try {
-			method.invoke(b, obj);
+			method.invoke(model, obj);
 		} catch (IllegalAccessException e) {
 			throw new ConversionException(e);
 		} catch (IllegalArgumentException e) {
 			throw new ConversionException(e);
 		} catch (InvocationTargetException e) {
+			throw new ConversionException(e);
+		} catch (Exception e) {
 			throw new ConversionException(e);
 		}
 	}
@@ -419,10 +449,10 @@ public final class ConversionUtils {
 	 * Usage(用法):<br/>
 	 * Cautions(注意事项):<br/>
 	 * 
-	 * @param method
-	 * @param compontentType
-	 * @param model
-	 * @param obj
+	 * @param method 方法
+	 * @param compontentType 数组数据类型
+	 * @param model 数据模型
+	 * @param array 数据
 	 * @throws ConversionException
 	 */
 	private static final <B extends BaseModel> void invoke(Method method, Class<?> compontentType, B model, JSONArray array) throws ConversionException {
@@ -439,28 +469,40 @@ public final class ConversionUtils {
 			throw new ConversionException(e);
 		} catch (InvocationTargetException e) {
 			throw new ConversionException(e);
+		} catch (Exception e) {
+			throw new ConversionException(e);
 		}
 	}
 
 	/**
-	 * Description(描述):<br/> 
-	 * Conditions(适用条件):<br/> 
-	 * Execution flow(执行流程):<br/> 
-	 * Usage(用法):<br/> 
-	 * Cautions(注意事项):<br/> 
+	 * Description(描述):<br/>
+	 * Conditions(适用条件):<br/>
+	 * Execution flow(执行流程):<br/>
+	 * Usage(用法):<br/>
+	 * Cautions(注意事项):<br/>
 	 * 
-	 * @param method
-	 * @param list
-	 * @param compontentType
-	 * @param model
-	 * @param array
-	 * @throws ConversionException 
-	 * @FIXME	if compontentType is a Object data.
-	 */ 
+	 * @param method 方法
+	 * @param list 容器
+	 * @param compontentType 容器中的数据类型
+	 * @param model 数据模型
+	 * @param array 数据
+	 * @throws ConversionException
+	 * @FIXME if compontentType is a Object data.
+	 */
 	@SuppressWarnings("unchecked")
-    private static final <B extends BaseModel, T> void invoke(Method method, java.util.List<T> list, Class<?> compontentType, B model, JSONArray array) throws ConversionException {
-		if(compontentType.getSuperclass().equals(BaseModel.class)){
-			throw new ConversionException("Not suppoert Class Object.");
+	private static final <B extends BaseModel, T> void invoke(Method method, java.util.List<T> list, Class<?> compontentType, B model, JSONArray array) throws ConversionException {
+		if (compontentType.isArray()) {
+			// TODO
+			Log.e("", "not a primitive type");
+		}
+		if (compontentType.isMemberClass()) {
+			Log.e("", "not a member type");
+		}
+		if (compontentType.isEnum()) {
+			Log.e("", "not a enum type");
+		}
+		if (compontentType.isAssignableFrom(BaseModel.class)) {
+			Log.e("", "not a base type");
 		}
 		try {
 			int length = array.length();
@@ -474,7 +516,114 @@ public final class ConversionUtils {
 			throw new ConversionException(e);
 		} catch (InvocationTargetException e) {
 			throw new ConversionException(e);
+		} catch (Exception e) {
+			throw new ConversionException(e);
 		}
+	}
+
+	/**
+	 * Description(描述): 装配数据为制定数据模型<br/>
+	 * Conditions(适用条件):<br/>
+	 * Execution flow(执行流程):<br/>
+	 * Usage(用法):<br/>
+	 * Cautions(注意事项):<br/>
+	 * 
+	 * @param conversionableMapObject 数据映射对象
+	 * @param model 模型数据
+	 * @param assembleObj 被装配数据
+	 * @return
+	 */
+	public static final <B extends BaseModel, T> T assemble(ConversionableMapObject conversionableMapObject, B model, T assembleObj) {
+		if (!invalid(conversionableMapObject)) {
+			throw new ConversionException("Invalid mapping data error!");
+		}
+		if (assembleObj instanceof JSONObject) {
+			assemble(conversionableMapObject, model, (JSONObject) assembleObj);
+		} else if (assembleObj instanceof Bundle) {
+			assemble(conversionableMapObject, model, (Bundle) assembleObj);
+		} else if (assembleObj instanceof Parcel) {
+			assemble(conversionableMapObject, model, (Parcel) assembleObj);
+		} else if (assembleObj instanceof ContentValues) {
+			assemble(conversionableMapObject, model, (ContentValues) assembleObj);
+		} else {
+			throw new ConversionException("It what is unknow type can't invoke ");
+		}
+		return assembleObj;
+	}
+
+	protected static final <B extends BaseModel> JSONObject assemble(ConversionableMapObject conversionableMapObject, B model, JSONObject assembleObj) {
+		String indentity = TextUtils.isEmpty(conversionableMapObject.getAnnotationValue()) ? conversionableMapObject.getIndentity() : conversionableMapObject.getAnnotationValue();
+		Type type = conversionableMapObject.getGetter().get().getGenericReturnType();
+		Class<?> clazz = conversionableMapObject.getGetter().get().getReturnType();
+		if (type instanceof ParameterizedType) {
+			// list
+		} else {
+			if (clazz.isPrimitive()) {
+				try {
+					assembleObj.putOpt(indentity, conversionableMapObject.getGetter().get().invoke(model));
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+	                e.printStackTrace();
+                }
+			} else if (clazz.isArray()) {
+				try {
+	                assembleObj.putOpt(indentity, assembleJSONArray(conversionableMapObject, model));
+                } catch (JSONException e) {
+	                e.printStackTrace();
+                }
+			} else if (clazz.equals(String.class)) {
+				try {
+					assembleObj.putOpt(indentity, conversionableMapObject.getGetter().get().invoke(model));
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+	                e.printStackTrace();
+                }
+			}
+		}
+		return assembleObj;
+	}
+
+	protected static final <B extends BaseModel> Bundle assemble(ConversionableMapObject conversionableMapObject, B model, Bundle assembleObj) {
+		return null;
+	}
+
+	protected static final <B extends BaseModel> Parcel assemble(ConversionableMapObject conversionableMapObject, B model, Parcel assembleObj) {
+		return null;
+	}
+
+	protected static final <B extends BaseModel> ContentValues assemble(ConversionableMapObject conversionableMapObject, B model, ContentValues assembleObj) {
+		return null;
+	}
+
+	private static final <B extends BaseModel> JSONArray assembleJSONArray(ConversionableMapObject conversionableMapObject, B model) {
+		JSONArray array = new JSONArray();
+		if (conversionableMapObject.getGetter().get().getReturnType().isArray()) {
+			Object obj;
+			try {
+				obj = conversionableMapObject.getGetter().get().invoke(model);
+				int length = Array.getLength(obj);
+				for (int i = 0; i < length; i++) {
+					array.put(Array.get(obj, i));
+				}
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
+		return array;
 	}
 
 	/**
@@ -583,4 +732,11 @@ public final class ConversionUtils {
 		}
 	}
 
+	public static boolean invalid(ConversionableMapObject conversionableMapObject) {
+		if (!TextUtils.isEmpty(conversionableMapObject.getGetterName()) && !TextUtils.isEmpty(conversionableMapObject.getAnnotationValue())) {
+			return true;
+		}
+		Log.e("", "" + conversionableMapObject.getIndentity());
+		return false;
+	}
 }

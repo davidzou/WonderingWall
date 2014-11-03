@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.annotation.Conversionable;
-import com.wonderingwall.data.annotation.DATA_TYPE;
+import com.wonderingwall.data.annotation.ConversionableDataType;
 
 public class User4 implements BaseModel {
 	private List<User1> strs;
@@ -16,7 +16,7 @@ public class User4 implements BaseModel {
 	
 //	private Map<String, String> map;
 
-	@Conversionable(value="strs", type=DATA_TYPE.LIST)
+	@Conversionable(value="strs", type=ConversionableDataType.LIST)
 	public List<User1> getStrs() {
 		return strs;
 	}
@@ -25,7 +25,7 @@ public class User4 implements BaseModel {
 		this.strs = strs;
 	}
 
-	@Conversionable(value="intlist", type=DATA_TYPE.LIST)
+	@Conversionable(value="intlist", type=ConversionableDataType.LIST)
 	public ArrayList<Integer> getIntList() {
 		return intList;
 	}

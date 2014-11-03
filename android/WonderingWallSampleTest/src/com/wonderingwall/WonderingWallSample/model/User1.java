@@ -10,8 +10,9 @@
 package com.wonderingwall.WonderingWallSample.model;  
 
 import com.wonderingwall.base.BaseModel;
+import com.wonderingwall.data.annotation.ConversionIgnore;
 import com.wonderingwall.data.annotation.Conversionable;
-import com.wonderingwall.data.annotation.DATA_TYPE;
+import com.wonderingwall.data.annotation.ConversionableDataType;
 
 /** 
  * ClassName:User1 <br/> 
@@ -37,7 +38,7 @@ public class User1 implements BaseModel {
 	public User1() {
 	}
 
-	@Conversionable(value="username", type=DATA_TYPE.NORMAL)
+	@Conversionable(value="username", type=ConversionableDataType.NORMAL)
 	public String getUsername() {
 		return username;
 	}
@@ -82,6 +83,7 @@ public class User1 implements BaseModel {
 		this.money = money;
 	}
 	
+	@ConversionIgnore
 	public String toString(){
 		return "username:" + getUsername() + ", password:" + getPassword() + ", age:" + getAge() + ", readable:" + isReadable() + ", money:" + getMoney();
 	}

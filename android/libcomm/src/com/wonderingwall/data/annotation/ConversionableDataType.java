@@ -9,7 +9,7 @@ package com.wonderingwall.data.annotation;
  * @author DavidZou -- spt_genius@hotmail.com
  * @version ConvertName
  */
-public enum DATA_TYPE {
+public enum ConversionableDataType {
 	/**
 	 * 一般数据类型，Only used for byte, short, int, long, float, double, string, boolean.
 	 */

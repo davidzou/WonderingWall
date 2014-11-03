@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.annotation.Conversionable;
-import com.wonderingwall.data.annotation.DATA_TYPE;
+import com.wonderingwall.data.annotation.ConversionableDataType;
 
 /**
  * ClassName:User <br/>
@@ -56,7 +56,7 @@ public class User implements BaseModel {
 	public User() {
 	}
 
-	@Conversionable(value="name", type=DATA_TYPE.NORMAL)
+	@Conversionable(value="name", type=ConversionableDataType.NORMAL)
 	public String getUsername() {
 		return username;
 	}

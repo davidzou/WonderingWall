@@ -32,5 +32,5 @@ public @interface Conversionable {
 	
 	String value();
 
-	DATA_TYPE type() default DATA_TYPE.NORMAL;
+	ConversionableDataType type() default ConversionableDataType.NORMAL;
 }
