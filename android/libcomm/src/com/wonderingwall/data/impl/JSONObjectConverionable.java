@@ -61,11 +61,11 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 		HashMap<String, ConversionableMapObject> hash = new HashMap<String, ConversionableMapObject>();
 		for (Method method : methods) {
 			Log.e("json convert", "method:" + method.getName());
-			ConversionUtils.parser(method, hash);
+			ConversionUtils.getInstance().parser(method, hash);
 		}
 
 		for (ConversionableMapObject conversionMapObject : hash.values()) {
-			ConversionUtils.invoke(conversionMapObject, b, json);
+			ConversionUtils.getInstance().invoke(conversionMapObject, b, json);
 		}
 
 		if (methods != null) { methods = null; }
@@ -79,10 +79,10 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 		Method[] methods = model.getClass().getDeclaredMethods();
 		HashMap<String, ConversionableMapObject> hash = new HashMap<String, ConversionableMapObject>();
 		for(Method method : methods){
-			ConversionUtils.parser(method, hash);
+			ConversionUtils.getInstance().parser(method, hash);
 		}
 		for(ConversionableMapObject conversionableMapObject : hash.values()){
-			ConversionUtils.assemble(conversionableMapObject, model, data);
+			ConversionUtils.getInstance().assemble(conversionableMapObject, model, data);
 		}
 		Log.e("json", data.toString());
 		if (methods != null) { methods = null; }

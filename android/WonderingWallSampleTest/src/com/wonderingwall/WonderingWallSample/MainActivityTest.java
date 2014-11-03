@@ -38,6 +38,12 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+//        // please write this in Application onCreate method.
+//        android.os.StrictMode.VmPolicy.Builder builder = new android.os.StrictMode.VmPolicy.Builder();
+//        builder.detectAll();
+//        builder.penaltyLog();
+//        android.os.StrictMode.VmPolicy vmp = builder.build();
+//        android.os.StrictMode.setVmPolicy(vmp);
     }
     
     public void testClassType(){
