@@ -222,12 +222,16 @@ public final class ConversionUtils {
 
 	/**
 	 * Description(描述): 解析方法<br/>
-	 * Conditions(适用条件):解析数据模型和处理映射类的生成，使用所有方法<br/>
-	 * Execution flow(执行流程): 1. 没有注解和有注解，默认不用注解，那么就是一般数据类型（byte, short, int, long, float, double, string, boolean）并且使用方法名get|is之后的字符串的小写形式作为映射键值使用。<br/>
+	 * Conditions(适用条件):解析数据模型和处理映射类的生成，适用所有get/set方法<br/>
+	 * Execution flow(执行流程): <br/>
+	 * <pre>
+	 * 	1. 获取方法名作为映射的身份标识。
+	 *  2. 获取注解内容，有责使用注解的值，无则使用方法名为解析的值。
+	 * </pre>
 	 * Usage(用法):<br/>
 	 * Cautions(注意事项):<br/>
 	 * 
-	 * @param method
+	 * @param method	方法（反射所得）
 	 * @param hash		映射类容器
 	 * @return	if hash were null or Annotation ignore be set and method what name is toStirng, return false; otherwise return true;
 	 */
@@ -250,7 +254,7 @@ public final class ConversionUtils {
 	}
 
 	/**
-	 * Description(描述):<br/>
+	 * Description(描述):更新映射表<br/>
 	 * Conditions(适用条件):<br/>
 	 * Execution flow(执行流程):<br/>
 	 * Usage(用法):<br/>
@@ -350,17 +354,51 @@ public final class ConversionUtils {
 		String key = TextUtils.isEmpty(conversionMapObject.getAnnotationValue()) ? conversionMapObject.getIndentity() : conversionMapObject.getAnnotationValue();
 		if (json.has(key)) {
 			switch (conversionMapObject.type) {
-			case NORMAL:
+			case NORMAL:{
 				// normal
 				ConversionUtils.this.invoke(conversionMapObject.getSetter().get(), model, json.opt(key));
 				break;
-			case ARRAY:
+			}
+			case ARRAY:{
 				// normal array
-				ConversionUtils.this.invoke(conversionMapObject.getSetter().get(), conversionMapObject.getGetter().get().getReturnType().getComponentType(), model, json.optJSONArray(key));
+				Class<?> compontentClass = conversionMapObject.getGetter().get().getReturnType().getComponentType();
+				if(compontentClass.isPrimitive() || compontentClass.equals(String.class)){
+					// primitive & string array
+					ConversionUtils.this.invoke(conversionMapObject.getSetter().get(), compontentClass, model, json.optJSONArray(key));
+				}else
+				if(compontentClass.isEnum()){
+					// enum
+				}else
+				if(compontentClass.isArray()){
+					// new array
+				}else{
+					// list
+					Type type = conversionMapObject.getGetter().get().getGenericReturnType();
+					if(type instanceof ParameterizedType){
+						int size = ((ParameterizedType) type).getActualTypeArguments().length;
+						switch(size){
+						case 1:
+							// list
+							break;
+						case 2:
+							// map
+							break;
+						}
+						
+					}else{
+						// object
+					}
+				}
 				break;
-			case ARRAY_OBJECT:
+			}
+			case ARRAY_OBJECT:{
 				// special array
+				Class<?> compontentClass = conversionMapObject.getGetter().get().getReturnType().getComponentType();
+				JSONObjectConverionable converionable = new JSONObjectConverionable();
+				@SuppressWarnings("unchecked")
+				B object = converionable.convert(json.optJSONObject(key), (Class<B>) compontentClass);
 				break;
+			}
 			case LIST:
 				Log.e("convert", "conversionMapObject:" + conversionMapObject.toString());
 				Type type = conversionMapObject.getGetter().get().getGenericReturnType();
@@ -741,8 +779,18 @@ public final class ConversionUtils {
 		}
 	}
 
+	/**
+	 * Description(描述):验证映射数据对象的合法性<br/> 
+	 * Conditions(适用条件): 映射成功的对象必须包含get和set方法。<br/> 
+	 * Execution flow(执行流程):<br/> 
+	 * Usage(用法):<br/> 
+	 * Cautions(注意事项):<br/> 
+	 * 
+	 * @param conversionableMapObject
+	 * @return 
+	 */ 
 	public boolean invalid(ConversionableMapObject conversionableMapObject) {
-		if (!TextUtils.isEmpty(conversionableMapObject.getGetterName()) && !TextUtils.isEmpty(conversionableMapObject.getAnnotationValue())) {
+		if (!TextUtils.isEmpty(conversionableMapObject.getGetterName()) && !TextUtils.isEmpty(conversionableMapObject.getSetterName())) {
 			return true;
 		}
 		Log.e("", "" + conversionableMapObject.getIndentity());
