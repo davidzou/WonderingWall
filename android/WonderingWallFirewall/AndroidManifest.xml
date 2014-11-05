@@ -17,6 +17,23 @@
         android:name="com.wonderingwall.WonderingWallFirewall.App"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
+        <receiver android:name="com.wonderingwall.WonderingWallFirewall.ServiceBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_TICK" />
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.wonderingwall.WonderingWallFirewall.PackageBoradcastReceiver"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name="MainActivity"
             android:label="@string/app_name" >

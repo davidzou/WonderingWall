@@ -9,11 +9,16 @@
  
 package com.wonderingwall.WonderingWallFirewall;  
 
+import java.io.FileNotFoundException;
 import java.lang.Thread.UncaughtExceptionHandler;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.StrictMode;
 import android.os.StrictMode.VmPolicy;
+
+import com.wonderingwall.log.Log4jConfiguare;
+import com.wonderingwall.util.ApplicationParticipant;
 
 /** 
  * ClassName:App <br/> 
@@ -28,13 +33,16 @@ public class App extends Application implements UncaughtExceptionHandler{
 	// ##############################################-############################################
 	// #            变量声明
 	// ##############################################-############################################
+	private ApplicationParticipant participant;
+	
+	
 	private static App _instance;
 	public App() {_instance = this;}
-	public static App getInstance(){
+	public static Context getContext(){
 		if(_instance == null){
 			_instance = new App();
 		}
-		return _instance;
+		return _instance.getApplicationContext();
 	}
 	
 	// ##############################################-############################################
@@ -48,23 +56,38 @@ public class App extends Application implements UncaughtExceptionHandler{
 	    builder.penaltyLog();
 	    VmPolicy vmp = builder.build();
 	    StrictMode.setVmPolicy(vmp);
+	    
+		try {
+	        Log4jConfiguare.configure();
+        } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+        }
+		participant = ApplicationParticipant.init(getContext());
+		
+//		registerReceiver(new ServiceBroadcastReceiver(), new IntentFilter(Intent.ACTION_TIME_TICK));
 	}
 	
 	@Override
     public void uncaughtException(Thread thread, Throwable ex) {
-	    
+		participant.uncaughtException(thread, ex);
     }
 	
-	// ##############################################-############################################
-	// #            自定义方法
-	// ##############################################-############################################
+	@Override
+	public void onTrimMemory(int level) {
+	    super.onTrimMemory(level);
+	}
+	
+	@Override
+	public void onLowMemory() {
+		System.gc();
+		System.runFinalization();
+		System.gc();
+		super.onLowMemory();
+	}
 
-	// ##############################################-############################################
-	// #            内部类
-	// ##############################################-############################################
-
-	// ##############################################-############################################
-	// #            getset
-	// ##############################################-############################################
+	@Override
+	public void onTerminate() {
+		super.onTerminate();
+	}
 }
  
