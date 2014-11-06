@@ -9,6 +9,7 @@
  
 package com.wonderingwall.WonderingWallSample.model;  
 
+import com.google.gson.annotations.SerializedName;
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.annotation.ConversionIgnore;
 import com.wonderingwall.data.annotation.Conversionable;
@@ -29,10 +30,15 @@ public class User1 implements BaseModel {
 //	"age":13,
 //	"readable":true,
 //	"money":123456789.02
+	@SerializedName("username")
 	private String username;
+	@SerializedName("password")
 	private String password;
+	@SerializedName("age")
 	private int age;
+	@SerializedName("readable")
 	private boolean readable;
+	@SerializedName("money")
 	private double money;
 	
 	public User1() {
@@ -85,7 +91,7 @@ public class User1 implements BaseModel {
 	
 	@ConversionIgnore
 	public String toString(){
-		return "username:" + getUsername() + ", password:" + getPassword() + ", age:" + getAge() + ", readable:" + isReadable() + ", money:" + getMoney();
+		return "{username:" + getUsername() + ", password:" + getPassword() + ", age:" + getAge() + ", readable:" + isReadable() + ", money:" + getMoney() + "}";
 	}
 }
  

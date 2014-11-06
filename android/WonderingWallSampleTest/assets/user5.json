@@ -1,0 +1,59 @@
+{
+	"int_array": 
+	[
+		1,
+		2,
+		3,
+		4,
+		5,
+		6,
+		7,
+		8,
+		9,
+		10
+	],
+
+	"clazz": 
+	[
+		"string1",
+		"string2",
+		"string3",
+		"string4",
+		"string5"
+	],
+
+	"enum": 
+	[
+		"NORMAL",
+		"ARRAY"
+	],
+
+	"user1": 
+	[
+		{
+			"username": "user1_1",
+			"password": "123456789",
+			"age": 13,
+			"readable": true,
+			"money": 123456789.02
+		},
+
+		{
+			"username": "user1_2",
+			"password": "23456789",
+			"age": 14,
+			"readable": true,
+			"money": 123456789.03
+		},
+
+		{
+			"username": "user1_3",
+			"password": "3456789",
+			"age": 15,
+			"readable": false,
+			"money": 123456789.04
+		}
+	],
+
+	"data_type": "ENUM"
+}

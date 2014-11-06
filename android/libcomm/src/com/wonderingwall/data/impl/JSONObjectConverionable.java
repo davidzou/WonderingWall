@@ -10,11 +10,9 @@
 package com.wonderingwall.data.impl;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.json.JSONObject;
-
-import android.util.Log;
 
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.ConversionException;
@@ -58,9 +56,8 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 		}
 		// 模型类中的方法
 		Method[] methods = b.getClass().getDeclaredMethods();
-		HashMap<String, ConversionableMapObject> hash = new HashMap<String, ConversionableMapObject>();
+		LinkedHashMap<String, ConversionableMapObject> hash = new LinkedHashMap<String, ConversionableMapObject>();
 		for (Method method : methods) {
-			Log.e("json convert", "method:" + method.getName());
 			ConversionUtils.getInstance().parser(method, hash);
 		}
 
@@ -75,16 +72,16 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 
 	@Override
 	public <B extends BaseModel> JSONObject reconvert(B model) throws ConversionException {
+		// FIXME
 		JSONObject data = new JSONObject();
 		Method[] methods = model.getClass().getDeclaredMethods();
-		HashMap<String, ConversionableMapObject> hash = new HashMap<String, ConversionableMapObject>();
+		LinkedHashMap<String, ConversionableMapObject> hash = new LinkedHashMap<String, ConversionableMapObject>();
 		for(Method method : methods){
 			ConversionUtils.getInstance().parser(method, hash);
 		}
 		for(ConversionableMapObject conversionableMapObject : hash.values()){
 			ConversionUtils.getInstance().assemble(conversionableMapObject, model, data);
 		}
-		Log.e("json", data.toString());
 		if (methods != null) { methods = null; }
 		if (hash != null) {	hash.clear(); hash = null; }
 		return data;

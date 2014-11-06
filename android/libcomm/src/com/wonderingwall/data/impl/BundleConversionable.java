@@ -28,6 +28,7 @@ public class BundleConversionable implements Conversionable<Bundle> {
 
 	@Override
     public <B extends BaseModel> B convert(Bundle t, Class<B> model) {
+		
 	    return null;
     }
 
