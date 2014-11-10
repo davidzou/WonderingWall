@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.wonderingwall.WonderingWallSample.model.User1;
+import com.wonderingwall.WonderingWallSample.model.User4;
 import com.wonderingwall.WonderingWallSample.model.User5;
 import com.wonderingwall.data.impl.JSONObjectConverionable;
 
@@ -270,19 +271,19 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 //		Log.e("", "times:" + (System.currentTimeMillis() - start));
 //		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
 //    }
-//    
-//    public void testJSONObjectConversionByList(){
-//		long start = System.currentTimeMillis();
-//		long start_nano = System.nanoTime();
-//		
-//    	JSONObjectConverionable convert = new JSONObjectConverionable();
-//        User4 user = convert.convert(readJSON("user4.json"), User4.class);
-//        assertNotNull("user4 is null.", user);
-//        if(user != null) Log.e("", "user: {" + user.toString() + "}");
-//        
-//		Log.e("", "times:" + (System.currentTimeMillis() - start));
-//		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
-//    }
+    
+    public void testJSONObjectConversionByList(){
+		long start = System.currentTimeMillis();
+		long start_nano = System.nanoTime();
+		
+    	JSONObjectConverionable convert = new JSONObjectConverionable();
+        User4 user = convert.convert(readJSON("user4.json"), User4.class);
+        assertNotNull("user4 is null.", user);
+        if(user != null) Log.e("", "user: {" + user.toString() + "}");
+        
+		Log.e("", "times:" + (System.currentTimeMillis() - start));
+		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
+    }
     
     
 //    public void testJSONObjectGSONByObjcect(){

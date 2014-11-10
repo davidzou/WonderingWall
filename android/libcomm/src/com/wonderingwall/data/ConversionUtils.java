@@ -230,7 +230,8 @@ public final class ConversionUtils {
 	 * 	<tr><th>-1</th><th>not support, unknown type</th></tr>
 	 * 	<tr><th>0</th><th>primitive or string</th></tr>
 	 * 	<tr><th>1</th><th>Enum</th></tr>
-	 * <tr><th>2</th><th>Custom Object class that implement {@link BaseModel}</th></tr>
+	 *  <tr><th>2</th><th>Custom Object class that implement {@link BaseModel}</th></tr>
+	 *  <tr><th>3</th><th>array</th></tr>
 	 * </table>
 	 * @param compontentType
 	 * @return 
@@ -242,7 +243,14 @@ public final class ConversionUtils {
 		}else
 		if(compontentType.isEnum()){
 			condition = 1;
+		}else
+		if(compontentType.isArray()){
+			condition = 3;
 		}else{
+			if(Byte.class.isAssignableFrom(compontentType) || Short.class.isAssignableFrom(compontentType) || Integer.class.isAssignableFrom(compontentType) || Float.class.isAssignableFrom(compontentType) ||
+					Double.class.isAssignableFrom(compontentType) || Boolean.class.isAssignableFrom(compontentType)){
+				condition = 0;
+			}else
 			if(BaseModel.class.isAssignableFrom(compontentType)){
 				condition = 2;
 			}else{
@@ -417,7 +425,7 @@ public final class ConversionUtils {
 				// normal array & it's should was a array.
 				Method method = conversionableMapObject.getGetter().get();
 				if(method == null){
-					// TODO renew it
+					// FIXME renew it
 					return;
 				}
 				Class<?> compontentClass = method.getReturnType().getComponentType();
@@ -455,10 +463,10 @@ public final class ConversionUtils {
 						Log.e("",
 						        "1 list" + ConversionUtils.this.getClass(((ParameterizedType) type).getRawType(), 0) + " | "
 						                + ConversionUtils.this.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0));
-						java.util.List<?> l = prepareList(ConversionUtils.this.getClass(((ParameterizedType) type).getRawType(), 0),
-						        ConversionUtils.this.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0));
-						ConversionUtils.this.invoke(setter, l, ConversionUtils.this.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0), model,
-						        json.optJSONArray(key));
+						// 获取真实实例
+						java.util.List<?> l = prepareList(ConversionUtils.this.getClass(((ParameterizedType) type).getRawType(), 0), ConversionUtils.this.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0));
+						// 执行赋值
+						ConversionUtils.this.invoke(setter, l, ConversionUtils.this.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0), model, json.optJSONArray(key));
 						break;
 					case 2:
 						// TODO Map
@@ -515,19 +523,20 @@ public final class ConversionUtils {
 
 	/**
 	 * Description(描述): 一般数据类型转化设置<br/>
-	 * Conditions(适用条件):<br/>
+	 * Conditions(适用条件): byte, short, int, float, double, boolean, string, enum, obj, etc.的值适用<br/>
 	 * Execution flow(执行流程):<br/>
 	 * Usage(用法):<br/>
-	 * Cautions(注意事项):<br/>
+	 * Cautions(注意事项): enum 必须转化为string传入，即invoke(method, modle, Enum<?>.name())<br/>
 	 * 
-	 * @param method 方法
-	 * @param model 数据模型类
-	 * @param obj 数据
+	 * @param method 	方法（set方法）
+	 * @param model 	数据模型类
+	 * @param obj 		数据值（method方法的输入参数的数据，此method应该是set方法）
+	 * @return	the result
 	 * @throws ConversionException
 	 */
-	private final <B extends BaseModel> void invoke(Method method, B model, Object obj) throws ConversionException {
+    protected final <B extends BaseModel> Object invoke(Method method, B model, Object obj) throws ConversionException {
 		try {
-			method.invoke(model, obj);
+			return method.invoke(model, obj);
 		} catch (IllegalAccessException e) {
 			throw new ConversionException(e);
 		} catch (IllegalArgumentException e) {
@@ -586,15 +595,16 @@ public final class ConversionUtils {
 					break;
 				}
 			}
-			method.invoke(model, arrayObj);
-		} catch (IllegalAccessException e) {
-			throw new ConversionException(e);
-		} catch (IllegalArgumentException e) {
-			throw new ConversionException(e);
-		} catch (InvocationTargetException e) {
-			throw new ConversionException(e);
-		} catch (Exception e) {
-			throw new ConversionException(e);
+//			method.invoke(model, arrayObj);
+			invoke(method, model, arrayObj);
+//		} catch (IllegalAccessException e) {
+//			throw new ConversionException(e);
+//		} catch (IllegalArgumentException e) {
+//			throw new ConversionException(e);
+//		} catch (InvocationTargetException e) {
+//			throw new ConversionException(e);
+//		} catch (Exception e) {
+//			throw new ConversionException(e);
 		} finally {
 			if(converionable != null)
 				converionable = null;
@@ -621,33 +631,24 @@ public final class ConversionUtils {
 	@SuppressWarnings("unchecked")
 	private final <B extends BaseModel, T> void invoke(Method method, java.util.List<T> list, Class<?> compontentType, B model, JSONArray array) throws ConversionException {
 		// FIXME list componentType maybe enum, string, object etc.
-		if (compontentType.isArray()) {
-			// TODO
-			Log.e("", "not a primitive type");
-		}
-		if (compontentType.isMemberClass()) {
-			Log.e("", "not a member type");
-		}
-		if (compontentType.isEnum()) {
-			Log.e("", "not a enum type");
-		}
-		if (compontentType.isAssignableFrom(BaseModel.class)) {
-			Log.e("", "not a base type");
-		}
+		Log.e("", "invoke method is list" + compontentType.getName() + "-" + getCondition(compontentType));
 		try {
 			int length = array.length();
 			for (int i = 0; i < length; i++) {
 				list.add((T) array.opt(i));
 			}
-			method.invoke(model, list);
-		} catch (IllegalAccessException e) {
-			throw new ConversionException(e);
-		} catch (IllegalArgumentException e) {
-			throw new ConversionException(e);
-		} catch (InvocationTargetException e) {
-			throw new ConversionException(e);
-		} catch (Exception e) {
-			throw new ConversionException(e);
+//			method.invoke(model, list);
+			invoke(method, model, list);
+//		} catch (IllegalAccessException e) {
+//			throw new ConversionException(e);
+//		} catch (IllegalArgumentException e) {
+//			throw new ConversionException(e);
+//		} catch (InvocationTargetException e) {
+//			throw new ConversionException(e);
+//		} catch (Exception e) {
+//			throw new ConversionException(e);
+		} finally{
+			
 		}
 	}
 
@@ -921,6 +922,8 @@ public final class ConversionUtils {
 			// A<?> this method not set bound limit.
 			// 如果返回的是Object的就是没有限定擦拭类型的。
 			return Object.class;
+		} else if (type instanceof GenericArrayType){
+			return (Class<?>) ((GenericArrayType) type).getGenericComponentType();
 		} else {// class本身也是type，强制转型
 			return (Class<?>) type;
 		}
@@ -1000,7 +1003,6 @@ public final class ConversionUtils {
 		if (!TextUtils.isEmpty(conversionableMapObject.getGetterName()) && !TextUtils.isEmpty(conversionableMapObject.getSetterName())) {
 			return true;
 		}
-//		Log.e("", "" + conversionableMapObject.getIndentity());
 		return false;
 	}
 }

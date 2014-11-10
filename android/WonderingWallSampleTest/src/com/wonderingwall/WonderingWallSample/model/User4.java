@@ -6,11 +6,12 @@ import java.util.List;
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.annotation.Conversionable;
 import com.wonderingwall.data.annotation.ConversionableDataType;
+import com.wonderingwall.util.StringUtils;
 
 public class User4 implements BaseModel {
 	private List<User1> strs;
 
-	private ArrayList<Integer> intList;
+	private ArrayList<? super Byte[]> intList;
 
 //	private ArrayDeque<String> strList;
 	
@@ -26,11 +27,11 @@ public class User4 implements BaseModel {
 	}
 
 	@Conversionable(value="intlist", type=ConversionableDataType.LIST)
-	public ArrayList<Integer> getIntList() {
+	public ArrayList<? super Byte[]> getIntList() {
 		return intList;
 	}
 
-	public void setIntList(ArrayList<Integer> intList) {
+	public void setIntList(ArrayList<? super Byte[]> intList) {
 		this.intList = intList;
 	}
 
@@ -53,7 +54,7 @@ public class User4 implements BaseModel {
 //	}
 	
 	public String toString(){
-		return (strs != null ? "" + strs.size() + "-": "null") + "-" + (intList != null ? "" + intList.size() : "null");
+		return (strs != null ? "" + strs.size() + "-" + StringUtils.assemble(strs.toArray()): "null") + "-" + (intList != null ? "" + intList.size() + "-" + StringUtils.assemble(intList.toArray()) : "null");
 	}
 
 }
