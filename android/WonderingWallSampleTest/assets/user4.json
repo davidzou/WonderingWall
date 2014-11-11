@@ -1,6 +1,87 @@
 {
-"strs":["str1", "str2", "str3"],
-"intlist":[1, 2, 3, 4, 5, 6],
-"strlist":["list1", "list2", "list3", "list4"],
-"map":[{"key":"1", "value":"v1"}, {"key":"2", "value":"v2"}, {"key":"3", "value":"v3"}]
+	"strs": 
+	[
+		{
+			"username": "user1_1",
+			"password": "123456789",
+			"age": 13,
+			"readable": true,
+			"money": 123456789.02
+		},
+
+		{
+			"username": "user1_2",
+			"password": "23456789",
+			"age": 14,
+			"readable": true,
+			"money": 123456789.03
+		},
+
+		{
+			"username": "user1_3",
+			"password": "3456789",
+			"age": 15,
+			"readable": false,
+			"money": 123456789.04
+		}
+	],
+
+	"intlist": 
+	[
+		[
+			1,
+			11
+		],
+
+		[
+			2,
+			22
+		],
+
+		[
+			3,
+			33
+		],
+
+		[
+			4,
+			44
+		],
+
+		[
+			5,
+			55
+		],
+
+		[
+			6,
+			66
+		]
+	],
+
+	"strlist": 
+	[
+		"list1",
+		"list2",
+		"list3",
+		"list4"
+	],
+
+	"map": 
+	[
+		{
+			"key": "1",
+			"value": "v1"
+		},
+
+		{
+			"key": "2",
+			"value": "v2"
+		},
+
+		{
+			"key": "3",
+			"value": "v3"
+		}
+	]
 }

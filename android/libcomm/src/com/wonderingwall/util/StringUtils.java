@@ -9,6 +9,8 @@
 
 package com.wonderingwall.util;
 
+import java.lang.reflect.Array;
+
 /**
  * ClassName:StringUtils <br/>
  * Function: TODO ADD FUNCTION. <br/>
@@ -21,7 +23,7 @@ package com.wonderingwall.util;
  */
 public class StringUtils {
 	/**
-	 * Description(描述):<br/> 
+	 * Description(描述): 合成给定的数据类型<br/> 
 	 * Conditions(适用条件):<br/> 
 	 * Execution flow(执行流程):<br/> 
 	 * Usage(用法):<br/> 
@@ -37,7 +39,19 @@ public class StringUtils {
 		for (T p : t) {
 			if (sb.length() > 0)
 				sb.append(", ");
-			sb.append(p.toString());
+			if(p.getClass().isArray()){
+				sb.append("[");
+				int size = Array.getLength(p);
+				for(int i = 0; i < size; i ++){
+					if(i > 0){
+						sb.append(", ");
+					}
+					sb.append(Array.get(p, i).toString());
+				}
+				sb.append("]");
+			}else{
+				sb.append(p.toString());
+			}
 		}
 		return sb.toString();
 	}
@@ -145,4 +159,5 @@ public class StringUtils {
 		}
 		return sb.toString();
 	}
+	
 }

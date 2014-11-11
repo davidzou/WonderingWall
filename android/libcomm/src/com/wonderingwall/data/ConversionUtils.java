@@ -261,6 +261,47 @@ public final class ConversionUtils {
 	}
 	
 	/**
+	 * Description(描述): 判断一个数据是否为数据类型<br/> 
+	 * Conditions(适用条件):<br/> 
+	 * Execution flow(执行流程):<br/> 
+	 * Usage(用法):<br/> 
+	 * Cautions(注意事项):<br/> 
+	 * 
+	 * @param type
+	 * @param index
+	 * @return 
+	 */ 
+	public boolean isArray(Type type, int index){
+		if(type instanceof GenericArrayType){
+			return true;
+		}else
+		if(type instanceof WildcardType){
+			int low = ((WildcardType) type).getLowerBounds().length;
+			int up = ((WildcardType) type).getUpperBounds().length;
+			if(low > 0 && up > 0){
+				Type compontentType = ((WildcardType) type).getLowerBounds()[index];
+				if(compontentType instanceof GenericArrayType){
+					return true;
+				}
+			}else
+			if(up > 0){
+				Type compontentType = ((WildcardType) type).getUpperBounds()[index];
+				if(compontentType instanceof GenericArrayType){
+					return true;
+				}
+			}else
+			if(low > 0){
+				Type compontentType = ((WildcardType) type).getLowerBounds()[index];
+				if(compontentType instanceof GenericArrayType){
+					return true;
+				}
+			}
+			
+		}
+		return false;
+	}
+	
+	/**
 	 * Description(描述): 解析方法<br/>
 	 * Conditions(适用条件):解析数据模型和处理映射类的生成，适用所有get/set方法<br/>
 	 * Execution flow(执行流程): <br/>
@@ -274,7 +315,7 @@ public final class ConversionUtils {
 	 * @param method	方法（反射所得）
 	 * @param hash		映射类容器
 	 * @return	if hash were null or Annotation ignore be set and method what name is toStirng, return false; otherwise return true;
-	 */
+	 */   
 	public final boolean parser(Method method, java.util.Map<String, ConversionableMapObject> hash) {
 		if (hash == null) {
 			throw new ConversionException("Argument hash is null.");
@@ -390,7 +431,7 @@ public final class ConversionUtils {
 	}
 
     @SuppressWarnings("unchecked")
-    protected final <B extends BaseModel, T extends Enum<T>> void invoke(ConversionableMapObject conversionableMapObject, B model, JSONObject json) {
+    protected final <B extends BaseModel, T extends Enum<T>> void invoke(ConversionableMapObject conversionableMapObject, B model, JSONObject json) throws ConversionException{
 		// 如果注释为空则使用标识符作为数据索引值。即变量名全小写。
 		String key = TextUtils.isEmpty(conversionableMapObject.getAnnotationValue()) ? conversionableMapObject.getIndentity() : conversionableMapObject.getAnnotationValue();
 		
@@ -400,7 +441,7 @@ public final class ConversionUtils {
 			try {
 	            setter = model.getClass().getDeclaredMethod(conversionableMapObject.getSetterName(), (Class<?>[]) null);
             } catch (NoSuchMethodException e) {
-	            e.printStackTrace();
+            	throw new ConversionException("");
             }
 			return;
 		}
@@ -466,7 +507,7 @@ public final class ConversionUtils {
 						// 获取真实实例
 						java.util.List<?> l = prepareList(ConversionUtils.this.getClass(((ParameterizedType) type).getRawType(), 0), ConversionUtils.this.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0));
 						// 执行赋值
-						ConversionUtils.this.invoke(setter, l, ConversionUtils.this.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0), model, json.optJSONArray(key));
+						ConversionUtils.this.invoke(setter, l, ConversionUtils.this.getClass(((ParameterizedType) type).getActualTypeArguments()[0], 0), isArray(((ParameterizedType) type).getActualTypeArguments()[0], 0), model, json.optJSONArray(key));
 						break;
 					case 2:
 						// TODO Map
@@ -614,28 +655,68 @@ public final class ConversionUtils {
 	}
 
 	/**
-	 * Description(描述):<br/>
+	 * Description(描述):将数据转化为容器类型值后执行设置方法<br/>
 	 * Conditions(适用条件):<br/>
 	 * Execution flow(执行流程):<br/>
 	 * Usage(用法):<br/>
 	 * Cautions(注意事项):<br/>
 	 * 
-	 * @param method 方法
-	 * @param list 容器
-	 * @param compontentType 容器中的数据类型
-	 * @param model 数据模型
-	 * @param array 数据
+	 * @param method 			方法
+	 * @param list 				容器
+	 * @param componentType 	容器中的数据类型	-- 数组的则为数组的单元数据类型
+	 * @param componentArray	List容器中包含的数据类型是否为数组类型	-- <T super ?[]> or <T extends ?[]> or <T[]>
+	 * @param model 			数据模型
+	 * @param array 			数据
 	 * @throws ConversionException
 	 * @FIXME if compontentType is a Object data.
 	 */
 	@SuppressWarnings("unchecked")
-	private final <B extends BaseModel, T> void invoke(Method method, java.util.List<T> list, Class<?> compontentType, B model, JSONArray array) throws ConversionException {
-		// FIXME list componentType maybe enum, string, object etc.
-		Log.e("", "invoke method is list" + compontentType.getName() + "-" + getCondition(compontentType));
+	private final <B extends BaseModel, T, E extends Enum<E>> void invoke(Method method, java.util.List<T> list, Class<?> componentType, boolean componentArray, B model, JSONArray array) throws ConversionException {
+		Log.e("", "invoke method is list" + componentType.getName() + "-" + getCondition(componentType) + "-" + componentArray);
+		Object subObject = null;	// 子数组对象
+		JSONObjectConverionable converionable = null;
 		try {
 			int length = array.length();
 			for (int i = 0; i < length; i++) {
-				list.add((T) array.opt(i));
+				if(componentArray){
+					// 数组
+					JSONArray subArray = array.optJSONArray(i);
+					int subLength = subArray.length();
+					Log.e("", subArray.toString() + "--" + subLength);
+					subObject = Array.newInstance(componentType, subLength);
+					for(int j = 0; j < subLength; j ++){
+						if(componentType.isEnum()){
+							// 枚举
+							E value = Enum.valueOf((Class<E>) componentType, array.optString(j));
+							Array.set(subObject, j, value);
+						}else 
+						if(BaseModel.class.isAssignableFrom(componentType)){
+							// 自定义数据模型
+							if(converionable == null) converionable = new JSONObjectConverionable();
+							B object = converionable.convert(array.optJSONObject(j), (Class<B>) componentType);
+							Array.set(subObject, j, object);
+						}else{
+							// 一般数据类型
+							// FIXME byte[] short[]解析问题
+							Array.set(subObject, j, subArray.opt(j));
+						}
+					}
+					list.add((T) subObject);
+				}else
+				if(componentType.isEnum()){
+					// 枚举
+					E value = Enum.valueOf((Class<E>) componentType, array.optString(i));
+					list.add((T) value);
+				}else
+				if(BaseModel.class.isAssignableFrom(componentType)){
+					// 自定义数据模型
+					if(converionable == null) converionable = new JSONObjectConverionable();
+					B object = converionable.convert(array.optJSONObject(i), (Class<B>) componentType);
+					list.add((T) object);
+				}else{
+					// 一般数据
+					list.add((T) array.opt(i));
+				}
 			}
 //			method.invoke(model, list);
 			invoke(method, model, list);
@@ -648,7 +729,8 @@ public final class ConversionUtils {
 //		} catch (Exception e) {
 //			throw new ConversionException(e);
 		} finally{
-			
+			if(subObject != null) subObject = null;
+			if(converionable != null) converionable = null;
 		}
 	}
 
@@ -743,6 +825,7 @@ public final class ConversionUtils {
 			return ConversionUtils.this.assemble(indentity, method, compontentClass, model, assembleObj, getCondition(compontentClass));
 		}
 		case LIST:
+			// TODO List数据对象的数据装配实现
 			break;
 		case MAP:
 			break;
@@ -888,8 +971,8 @@ public final class ConversionUtils {
 	 * Usage(用法):<br/>
 	 * Cautions(注意事项):<br/>
 	 * 
-	 * @param type
-	 * @param i
+	 * @param type		
+	 * @param i			Usually set 0;
 	 * @return
 	 * @throws ConversionException
 	 */
@@ -899,30 +982,29 @@ public final class ConversionUtils {
 			return getGenericClass((ParameterizedType) type, i);
 		} else if (type instanceof TypeVariable) {
 			// 处理泛型擦拭对象
-			return (Class<?>) getClass(((TypeVariable<?>) type).getBounds()[0], 0);
+			return (Class<?>) getClass(((TypeVariable<?>) type).getBounds()[0], i);
 		} else if (type instanceof WildcardType) {
 			int upperBoundsSize = ((WildcardType) type).getUpperBounds().length;
 			int lowerBountsSize = ((WildcardType) type).getLowerBounds().length;
 
 			if (upperBoundsSize > 0 && lowerBountsSize > 0) {
 				Log.e("", "" + upperBoundsSize + "|" + lowerBountsSize + "|" + ((WildcardType) type).getUpperBounds()[0] + " - " + ((WildcardType) type).getLowerBounds()[0]);
-//				throw new ConversionException("Invalid error.");
-//				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0) instanceof Object ? (Class<?>) getClass(((WildcardType) type).getUpperBounds()[0], 0) : (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0) ;
 				// A<? super String> this used LowerBounds
-				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0);
+				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], i);
 			}
 			if (upperBoundsSize > 0) {
 				// A<? extends T> this T is UpperBounds
 				// A<? super String> this used LowerBounds
-				return (Class<?>) getClass(((WildcardType) type).getUpperBounds()[0], 0);
+				return (Class<?>) getClass(((WildcardType) type).getUpperBounds()[0], i);
 			}
 			if (lowerBountsSize > 0) {
-				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], 0);
+				return (Class<?>) getClass(((WildcardType) type).getLowerBounds()[0], i);
 			}
 			// A<?> this method not set bound limit.
 			// 如果返回的是Object的就是没有限定擦拭类型的。
 			return Object.class;
 		} else if (type instanceof GenericArrayType){
+			// A<? super ?[]>
 			return (Class<?>) ((GenericArrayType) type).getGenericComponentType();
 		} else {// class本身也是type，强制转型
 			return (Class<?>) type;

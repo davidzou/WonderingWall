@@ -72,7 +72,7 @@ public class JSONObjectConverionable implements Conversionable<JSONObject> {
 
 	@Override
 	public <B extends BaseModel> JSONObject reconvert(B model) throws ConversionException {
-		// FIXME
+		// FIXME more fast
 		JSONObject data = new JSONObject();
 		Method[] methods = model.getClass().getDeclaredMethods();
 		LinkedHashMap<String, ConversionableMapObject> hash = new LinkedHashMap<String, ConversionableMapObject>();

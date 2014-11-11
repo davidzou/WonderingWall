@@ -3,15 +3,18 @@ package com.wonderingwall.WonderingWallSample.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.wonderingwall.base.BaseModel;
 import com.wonderingwall.data.annotation.Conversionable;
 import com.wonderingwall.data.annotation.ConversionableDataType;
 import com.wonderingwall.util.StringUtils;
 
 public class User4 implements BaseModel {
+	@SerializedName("strs")
 	private List<User1> strs;
 
-	private ArrayList<? super Byte[]> intList;
+	@SerializedName("intlist")
+	private ArrayList<Integer[]> intList;
 
 //	private ArrayDeque<String> strList;
 	
@@ -27,11 +30,11 @@ public class User4 implements BaseModel {
 	}
 
 	@Conversionable(value="intlist", type=ConversionableDataType.LIST)
-	public ArrayList<? super Byte[]> getIntList() {
+	public ArrayList<Integer[]> getIntList() {
 		return intList;
 	}
 
-	public void setIntList(ArrayList<? super Byte[]> intList) {
+	public void setIntList(ArrayList<Integer[]> intList) {
 		this.intList = intList;
 	}
 

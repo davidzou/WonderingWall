@@ -285,6 +285,20 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
     }
     
+    public void testJSONObjectGSONByList(){
+		long start = System.currentTimeMillis();
+		long start_nano = System.nanoTime();
+		
+		Gson gson = new Gson();
+		User4 user = gson.fromJson(readJSON("user4.json").toString(), User4.class);
+		
+		if (user != null)
+			Log.e("gson", "user: {" + user.toString() + "}");
+
+		Log.e("gson", "times:" + (System.currentTimeMillis() - start));
+		Log.e("gson", "times_nano:" + (System.nanoTime() - start_nano));
+    }
+    
     
 //    public void testJSONObjectGSONByObjcect(){
 //		long start = System.currentTimeMillis();
