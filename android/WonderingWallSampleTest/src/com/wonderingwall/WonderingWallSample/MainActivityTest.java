@@ -15,6 +15,7 @@ import com.wonderingwall.WonderingWallSample.model.User1;
 import com.wonderingwall.WonderingWallSample.model.User4;
 import com.wonderingwall.WonderingWallSample.model.User5;
 import com.wonderingwall.data.impl.JSONObjectConverionable;
+import com.wonderingwall.util.AndroidUtils;
 
 /**
  * This is a simple framework for a test of an Application.  See
@@ -148,6 +149,12 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     
     public void testAllClassType(){
 		assertNotNull("MainActivity is null.", MainActivity.class);
+		try {
+	        String str = AndroidUtils.Devices.getMemoryParameter();
+	        Log.e("memory", str);
+        } catch (IOException e) {
+	        e.printStackTrace();
+        }
 		long start = System.currentTimeMillis();
 		long start_nano = System.nanoTime();
 
@@ -281,6 +288,13 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         assertNotNull("user4 is null.", user);
         if(user != null) Log.e("", "user: {" + user.toString() + "}");
         
+		Log.e("", "times:" + (System.currentTimeMillis() - start));
+		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
+		
+		
+		JSONObject obj = convert.reconvert(user);
+		if(obj != null)
+			Log.e("", "obj: {" + obj.toString() + "}");
 		Log.e("", "times:" + (System.currentTimeMillis() - start));
 		Log.e("", "times_nano:" + (System.nanoTime() - start_nano));
     }

@@ -10,8 +10,11 @@
 package com.wonderingwall.WonderingWallSample;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.ArrayAdapter;
 
+import com.wonderingwall.annotation.InjectView;
+import com.wonderingwall.annotation.Injector;
+import com.wonderingwall.container.HorizontalListView;
 import com.wonderingwall.ui.BaseServiceActivity;
 
 /**
@@ -28,7 +31,9 @@ public class SecondActivity extends BaseServiceActivity<SecondService> {
 	// ##############################################-############################################
 	// # 变量声明
 	// ##############################################-############################################
-
+	@InjectView(R.id.horizontail_listview)
+	private HorizontalListView listView;
+	
 	// ##############################################-############################################
 	// # 继承方法
 	// ##############################################-############################################
@@ -37,6 +42,10 @@ public class SecondActivity extends BaseServiceActivity<SecondService> {
 		bindService(SecondService.getInstance(), new SecondModel());
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.second_activity);
+		Injector.get(SecondActivity.class, this).inject();
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item, new String[]{"item1", "item2", "item3","item1", "item2", "item3","item1", "item2", "item3"});
+		listView.setAdapter(adapter);
 	}
 
 	@Override

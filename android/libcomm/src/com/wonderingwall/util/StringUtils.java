@@ -138,7 +138,7 @@ public class StringUtils {
 		if(values == null){
 			return "";
 		}
-		StringBuilder sb = new StringBuilder(values.length * 64);
+		StringBuilder sb = new StringBuilder(values.length * 32);
 		for (String p : values) {
 			if (sb.length() > 0)
 				sb.append(", ");
@@ -151,7 +151,7 @@ public class StringUtils {
 		if(values == null){
 			return "";
 		}
-		StringBuilder sb = new StringBuilder(values.length * 64);
+		StringBuilder sb = new StringBuilder(values.length * 32);
 		for (Enum<?> p : values) {
 			if (sb.length() > 0)
 				sb.append(", ");

@@ -679,7 +679,7 @@ public final class ConversionUtils {
 			int length = array.length();
 			for (int i = 0; i < length; i++) {
 				if(componentArray){
-					// 数组
+					// 数组 List<Integer[]>
 					JSONArray subArray = array.optJSONArray(i);
 					int subLength = subArray.length();
 					Log.e("", subArray.toString() + "--" + subLength);
@@ -813,20 +813,27 @@ public final class ConversionUtils {
 		}
 		case ARRAY:{
 			// normal array & it's should was a array.
-			Class<?> compontentClass = method.getReturnType().getComponentType();
-			if(compontentClass == null){
+			Class<?> componentClass = method.getReturnType().getComponentType();
+			if(componentClass == null){
 				// that is list or other not array
 				throw new ConversionException("Invalid error! must be a array class -- method:" + method.getName() + "|type:" + method.getReturnType());
 			}
-			if(compontentClass.equals(Object.class)){
+			if(componentClass.equals(Object.class)){
 				// 特殊处理，如果定义的数据类型为Object[]时，将JSON数组数据解析为String
-				return ConversionUtils.this.assemble(indentity, method, compontentClass, model, assembleObj, (byte) 0);
+				return ConversionUtils.this.assemble(indentity, method, componentClass, model, assembleObj, (byte) 0);
 			}
-			return ConversionUtils.this.assemble(indentity, method, compontentClass, model, assembleObj, getCondition(compontentClass));
+			return ConversionUtils.this.assemble(indentity, method, componentClass, model, assembleObj, getCondition(componentClass));
 		}
 		case LIST:
 			// TODO List数据对象的数据装配实现
-			break;
+			Class<?> componentClass = method.getReturnType().getComponentType();
+			if(componentClass != null){
+				// that is list or other not array
+				throw new ConversionException("Invalid error! must be a array class -- method:" + method.getName() + "|type:" + method.getReturnType());
+			}
+			Class<?> argumentClass = getClass(method.getGenericReturnType(), 0);
+			Log.e("", "name--" + argumentClass.getName());
+			return ConversionUtils.this.assemble(indentity, method, argumentClass, model, assembleObj, getCondition(argumentClass));
 		case MAP:
 			break;
 		case OBJECT:

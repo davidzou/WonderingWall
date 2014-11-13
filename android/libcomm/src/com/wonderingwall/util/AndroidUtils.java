@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 /**
  * ClassName: AndroidUtils <br/>
@@ -22,7 +23,7 @@ import android.view.WindowManager;
  */
 public class AndroidUtils {
 	// ########################################################################################################
-	// #### 设备版本相关
+	// #### 版本相关
 	// ########################################################################################################
 	/**
 	 * ClassName: VERSION <br/>
@@ -266,6 +267,9 @@ public class AndroidUtils {
 		}
 	}
 	
+	// ########################################################################################################
+	// #### 软件包相关
+	// ########################################################################################################
 	/** 
 	 * ClassName: Package <br/> 
 	 * Function: TODO 软件包信息内容. <br/> 
@@ -309,6 +313,9 @@ public class AndroidUtils {
 		}
 	}
 
+	// ########################################################################################################
+	// #### 设备相关
+	// ########################################################################################################
 	/** 
 	 * ClassName: Devices <br/> 
 	 * Function: TODO 设备相关. <br/> 
@@ -357,8 +364,85 @@ public class AndroidUtils {
 		 * @param context
 		 * @return 
 		 */ 
-		public int getDpi(Context context){
+		public static int getDpi(Context context){
 			return context.getResources().getDisplayMetrics().densityDpi;
+		}
+		
+		/**
+		 * Description(描述): 是否有可存储的SD卡支持<br/> 
+		 * Conditions(适用条件): 检测存储卡状态，即没有可保存大数据的地方可以不适用缓存等<br/> 
+		 * Execution flow(执行流程):<br/> 
+		 * Usage(用法):<br/> 
+		 * Cautions(注意事项):<br/>
+		 * 
+		 * @return 
+		 */ 
+		public static final boolean isSDSupoort(){
+			if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
+				return true;
+			}
+			return false;
+		}
+		
+		/**
+		 * Description(描述): 是否有可存储的SD卡支持, 如果不支持会弹出提示框。<br/> 
+		 * Conditions(适用条件): 检测存储卡状态，即没有可保存大数据的地方可以不适用缓存等<br/> 
+		 * Execution flow(执行流程):<br/> 
+		 * Usage(用法):<br/> 
+		 * Cautions(注意事项):<br/> 
+		 * 
+		 * @param context
+		 * @param text
+		 * @return 
+		 */ 
+		public static final boolean isSDSupport(Context context, String text) {
+			if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
+				return true;
+			}
+			if(context != null) Toast.makeText(context, text, Toast.LENGTH_SHORT).show();;
+			return false;
+		}
+		
+		/**
+		 * Description(描述):<br/> 
+		 * Conditions(适用条件):<br/> 
+		 * Execution flow(执行流程):<br/> 
+		 * Usage(用法):<br/> 
+		 * Cautions(注意事项):<br/> 
+		 */ 
+		public static String getMemoryParameter() throws java.io.IOException{
+			java.io.FileReader reader = null;
+			java.io.LineNumberReader lnr = null;
+			StringBuilder builder = new StringBuilder();
+			try {
+				reader = new java.io.FileReader("/proc/meminfo");
+				lnr = new java.io.LineNumberReader(reader);
+				while (true) {
+					String str = lnr.readLine();
+					if (str == null)
+						break;
+					builder.append(str);
+//						String temp[] = str.split(":");
+//						if ("memtotal".equals(temp[0].trim().toLowerCase(Locale.getDefault()))) {
+//							int mt = Integer.parseInt(temp[1].substring(0,
+//									temp[1].length() - 2).trim()) >> 10;
+//
+//							if (mt <= 128) {
+//							}
+//							break;
+//						}
+					}
+				return builder.toString();
+			} finally {
+				if(reader != null) {
+					reader.close();
+					reader = null;
+				}
+				if(lnr != null){
+					lnr.close();
+					lnr = null;
+				}
+			}
 		}
 	}
 	
