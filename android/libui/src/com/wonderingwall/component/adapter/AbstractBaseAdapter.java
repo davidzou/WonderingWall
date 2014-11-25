@@ -9,6 +9,7 @@
  
 package com.wonderingwall.component.adapter;  
 
+import java.lang.ref.SoftReference;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,19 +30,23 @@ import com.wonderingwall.ui.BaseViewHolder;
  * @see       
  */
 public abstract class AbstractBaseAdapter<T extends BaseViewHolder, D> extends BaseAdapter {
-	private T t;
 	/**
-	 * 
 	 */
-	private ListView listView;
+	private SoftReference<T> viewHolder;
 	/**
 	 * 
 	 */
 	private List<D> datas = Collections.emptyList();
 	
-	public AbstractBaseAdapter(ListView listView, List<D> datas) {
+	/**
+	 * 
+	 */
+	protected ListView listView;
+	
+	public AbstractBaseAdapter(ListView listView, List<D> datas, T viewHolder) {
 		this.listView = listView;
 		this.datas = datas;
+		this.viewHolder = new SoftReference<T>(viewHolder);
 	}
 
 	@Override
@@ -63,7 +68,7 @@ public abstract class AbstractBaseAdapter<T extends BaseViewHolder, D> extends B
 	public View getView(int position, View convertView, ViewGroup parent) {
 		BaseViewHolder viewHolder;
 		if (convertView == null) {
-			viewHolder = (BaseViewHolder) t;
+			viewHolder = this.viewHolder.get();
 			convertView = viewHolder.getRootView();
 			convertView.setTag(viewHolder);
 		} else {

@@ -18,8 +18,26 @@ package com.wonderingwall.ui;
  * @see       
  */
 public interface BaseViewHolder {
+	/**
+	 * Description(描述): 获取根路径<br/> 
+	 * Conditions(适用条件):<br/> 
+	 * Execution flow(执行流程):<br/> 
+	 * Usage(用法):<br/> 
+	 * Cautions(注意事项):<br/> 
+	 * 
+	 * @return 
+	 */ 
 	android.view.View getRootView();
 	
+	/**
+	 * Description(描述): 数据更新<br/> 
+	 * Conditions(适用条件):<br/> 
+	 * Execution flow(执行流程):<br/> 
+	 * Usage(用法):<br/> 
+	 * Cautions(注意事项):<br/> 
+	 * 
+	 * @param data 
+	 */ 
 	<D> void updateView(D data);
 }
  
