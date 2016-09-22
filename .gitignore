@@ -1,0 +1,16 @@
+# Created by .ignore support plugin (hsz.mobi)
+wonderingwall.iml
+wonderingwall.ipr
+wonderingwall.iws
+.idea/
+.gradle
+
+# Android
+gen
+bin
+
+# Eclipse
+.classpath
+.project
+
+*.iml

@@ -12,6 +12,9 @@ Feature:
 
 ## For Blackberry ##
 
+## For RaspberryPi ##
+1. UserGuide
+2. Official Doc to translate China 
 
 
 License:
