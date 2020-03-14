@@ -2,17 +2,13 @@ WonderingWall
 =============
 
 ## For Android ##
-more util by android.
-all in one lib, framework. like grails.
-
-Feature:
-=========
-1. Library what used sqlite in android orm.
-2. JavaBean and data (json, bundle, contentvalue etc.) interchangeable in Android.
+[README.md](android/README.md)
 
 ## For Blackberry ##
+[README.md](blackbery/README.md)
 
 ## For RaspberryPi ##
+[README.md](raspberrypi/README.md)
 1. UserGuide
 2. Official Doc to translate China
 
@@ -22,7 +18,7 @@ Feature:
 License:
 =========
 ```
-Copyright 2014 DavidZou
+Copyright 2014-2020 DavidZou
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
