@@ -14,8 +14,10 @@ Feature:
 
 ## For RaspberryPi ##
 1. UserGuide
-2. Official Doc to translate China 
+2. Official Doc to translate China
 
+## For Challenge ##
+[README.md](challenge/README.md)
 
 License:
 =========
