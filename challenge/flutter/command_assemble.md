@@ -26,6 +26,8 @@ __编译和构建flutter资源__
 
 ### 详解<a name="details"></a>
 
+* ``
+
 * `flutter assemble [-h | --help]`<a name="assemble_help"></a>
 
     显示[帮助文档](#help_doc)

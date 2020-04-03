@@ -32,7 +32,7 @@ __用于显示当前Flutter版本，版本操作__
 
 * `flutter create --list-samples=samples_all.json`<a name="create_list_samples"></a>
 
-    列出所有可用的Sample模板。通过模板ID创建对应项目。
+    列出所有可用的[Sample模板](samples_all.json)。通过模板ID创建对应项目。
 
     ```
     zzw:flutter zzw$ flutter create --list-samples=samples_all.json
