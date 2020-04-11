@@ -277,7 +277,7 @@ flutter命令提供两部分命令行参数，`<command>`表示子指令，`[arg
 
 ***
 
-### 详解
+### 快速上手
 
 * `flutter create` 创建
 
