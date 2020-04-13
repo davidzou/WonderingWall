@@ -7,6 +7,8 @@ Command -- *` version `*
 
 * [描述](#description)
 
+* [参数](#options)
+
 * [详解](#details)
 
     1. [`flutter version`](#version_pram_f_without_value)
@@ -21,6 +23,18 @@ Command -- *` version `*
 ### 描述<a name="description"></a>
 
 __用于显示当前Flutter版本，版本操作__
+
+***
+
+### 参数<a name="options"></a>
+
+* `-h | --help`
+    
+    输出帮助信息。
+    
+* `-f | --[no-]force`
+
+    强制切换Flutter版本。
 
 ***
 

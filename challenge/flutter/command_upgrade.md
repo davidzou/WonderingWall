@@ -7,6 +7,8 @@ Command -- *` upgrade `*
 
 * [描述](#description)
 
+* [参数](#options)
+
 * [详解](#details)
 
     1. [`flutter upgrade`](#upgrade)
@@ -20,6 +22,18 @@ Command -- *` upgrade `*
 ### 描述<a name="description"></a>
 
 __升级你的Flutter版本__
+
+***
+
+### 参数<a name="options"></a>
+
+* `-h | --help`
+
+    显示帮助信息。
+    
+* `-f | --force`
+
+    强制更新Flutter分支，可能会放弃本地更改。
 
 ***
 
