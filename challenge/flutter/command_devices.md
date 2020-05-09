@@ -7,6 +7,8 @@ Command -- *` devices `*
 
 * [描述](#description)
 
+* [参数](#options)
+
 * [详解](#details)
 
     1. [`flutter devices`](#flutter_devices)
@@ -20,6 +22,14 @@ Command -- *` devices `*
 ### 描述<a name="description"></a>
 
 __列出所有当前连接的设备信息__
+
+***
+
+### 参数<a name="options"></a>
+
+* `-h | --help`
+
+    显示帮助信息。
 
 ***
 
