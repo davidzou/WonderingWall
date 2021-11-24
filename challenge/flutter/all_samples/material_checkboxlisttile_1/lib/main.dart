@@ -1,4 +1,4 @@
-// Flutter code sample for CheckboxListTile
+/// Flutter code sample for CheckboxListTile
 
 // ![CheckboxListTile sample](https://flutter.github.io/assets-for-api-docs/assets/material/checkbox_list_tile.png)
 //
@@ -9,13 +9,14 @@
 // so that you can reference [timeDilation].
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter/scheduler.dart' show timeDilation;
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: Center(
+        body: const Center(
           child: MyStatefulWidget(),
         ),
       ),
@@ -32,22 +33,24 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
       title: const Text('Animate Slowly'),
       value: timeDilation != 1.0,
-      onChanged: (bool value) {
+      onChanged: (bool? value) {
         setState(() {
-          timeDilation = value ? 10.0 : 1.0;
+          timeDilation = value! ? 10.0 : 1.0;
         });
       },
       secondary: const Icon(Icons.hourglass_empty),

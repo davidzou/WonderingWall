@@ -1,14 +1,16 @@
-// Flutter code sample for DropdownButton.selectedItemBuilder
+/// Flutter code sample for DropdownButton.selectedItemBuilder
 
 // This sample shows a `DropdownButton` with a button with [Text] that
 // corresponds to but is unique from [DropdownMenuItem].
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -17,19 +19,21 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: MyStatefulWidget(),
+        body: const MyStatefulWidget(),
       ),
     );
   }
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final List<String> items = <String>['1', '2', '3'];
   String selectedItem = '1';
@@ -40,7 +44,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: DropdownButton<String>(
         value: selectedItem,
-        onChanged: (String string) => setState(() => selectedItem = string),
+        onChanged: (String? string) => setState(() => selectedItem = string!),
         selectedItemBuilder: (BuildContext context) {
           return items.map<Widget>((String item) {
             return Text(item);

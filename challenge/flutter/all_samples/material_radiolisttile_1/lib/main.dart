@@ -1,4 +1,4 @@
-// Flutter code sample for RadioListTile
+/// Flutter code sample for RadioListTile
 
 // ![RadioListTile sample](https://flutter.github.io/assets-for-api-docs/assets/material/radio_list_tile.png)
 //
@@ -7,10 +7,12 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: MyStatefulWidget(),
+        body: const MyStatefulWidget(),
       ),
     );
   }
@@ -27,15 +29,17 @@ class MyApp extends StatelessWidget {
 
 enum SingingCharacter { lafayette, jefferson }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  SingingCharacter _character = SingingCharacter.lafayette;
+  SingingCharacter? _character = SingingCharacter.lafayette;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +49,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           title: const Text('Lafayette'),
           value: SingingCharacter.lafayette,
           groupValue: _character,
-          onChanged: (SingingCharacter value) {
+          onChanged: (SingingCharacter? value) {
             setState(() {
               _character = value;
             });
@@ -55,7 +59,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           title: const Text('Thomas Jefferson'),
           value: SingingCharacter.jefferson,
           groupValue: _character,
-          onChanged: (SingingCharacter value) {
+          onChanged: (SingingCharacter? value) {
             setState(() {
               _character = value;
             });

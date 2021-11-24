@@ -1,4 +1,4 @@
-// Flutter code sample for RadioListTile
+/// Flutter code sample for RadioListTile
 
 // ![Radio list tile semantics sample](https://flutter.github.io/assets-for-api-docs/assets/material/radio_list_tile_semantics.png)
 //
@@ -6,14 +6,15 @@
 // LinkedLabelRadio, that includes an interactive [RichText] widget that
 // handles tap gestures.
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/gestures.dart';
+void main() => runApp(const MyApp());
 
-void main() => runApp(MyApp());
-
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: MyStatefulWidget(),
+        body: const MyStatefulWidget(),
       ),
     );
   }
@@ -30,12 +31,13 @@ class MyApp extends StatelessWidget {
 
 class LinkedLabelRadio extends StatelessWidget {
   const LinkedLabelRadio({
-    this.label,
-    this.padding,
-    this.groupValue,
-    this.value,
-    this.onChanged,
-  });
+    Key? key,
+    required this.label,
+    required this.padding,
+    required this.groupValue,
+    required this.value,
+    required this.onChanged,
+  }) : super(key: key);
 
   final String label;
   final EdgeInsets padding;
@@ -52,13 +54,13 @@ class LinkedLabelRadio extends StatelessWidget {
           Radio<bool>(
               groupValue: groupValue,
               value: value,
-              onChanged: (bool newValue) {
+              onChanged: (bool? newValue) {
                 onChanged(newValue);
               }),
           RichText(
             text: TextSpan(
               text: label,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.blueAccent,
                 decoration: TextDecoration.underline,
               ),
@@ -74,13 +76,15 @@ class LinkedLabelRadio extends StatelessWidget {
   }
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool _isRadioSelected = false;
 
@@ -92,7 +96,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         children: <Widget>[
           LinkedLabelRadio(
             label: 'First tappable label text',
-            padding: EdgeInsets.symmetric(horizontal: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
             value: true,
             groupValue: _isRadioSelected,
             onChanged: (bool newValue) {
@@ -103,7 +107,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
           LinkedLabelRadio(
             label: 'Second tappable label text',
-            padding: EdgeInsets.symmetric(horizontal: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
             value: false,
             groupValue: _isRadioSelected,
             onChanged: (bool newValue) {

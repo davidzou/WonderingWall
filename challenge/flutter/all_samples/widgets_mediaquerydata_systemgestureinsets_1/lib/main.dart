@@ -1,7 +1,7 @@
-// Flutter code sample for MediaQueryData.systemGestureInsets
+/// Flutter code sample for MediaQueryData.systemGestureInsets
 
 // For apps that might be deployed on Android Q devices with full gesture
-// navigation enabled, use [MediaQuery.systemGestureInsets] with [Padding]
+// navigation enabled, use [systemGestureInsets] with [Padding]
 // to avoid having the left and right edges of the [Slider] from appearing
 // within the area reserved for system gesture navigation.
 //
@@ -10,36 +10,42 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: _title,
       home: MyStatefulWidget(),
     );
   }
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   double _currentValue = 0.2;
 
   @override
   Widget build(BuildContext context) {
-    EdgeInsets systemGestureInsets = MediaQuery.of(context).systemGestureInsets;
+    final EdgeInsets systemGestureInsets =
+        MediaQuery.of(context).systemGestureInsets;
     return Scaffold(
-      appBar: AppBar(title: Text('Pad Slider to avoid systemGestureInsets')),
+      appBar:
+          AppBar(title: const Text('Pad Slider to avoid systemGestureInsets')),
       body: Padding(
         padding: EdgeInsets.only(
           // only left and right padding are needed here
@@ -47,7 +53,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           right: systemGestureInsets.right,
         ),
         child: Slider(
-          value: _currentValue.toDouble(),
+          value: _currentValue,
           onChanged: (double newValue) {
             setState(() {
               _currentValue = newValue;

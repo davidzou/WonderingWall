@@ -1,13 +1,15 @@
-// Flutter code sample for ExpansionPanelList
+/// Flutter code sample for ExpansionPanelList
 
 // Here is a simple example of how to implement ExpansionPanelList.
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: MyStatefulWidget(),
+        body: const MyStatefulWidget(),
       ),
     );
   }
@@ -25,8 +27,8 @@ class MyApp extends StatelessWidget {
 // stores ExpansionPanel state information
 class Item {
   Item({
-    this.expandedValue,
-    this.headerValue,
+    required this.expandedValue,
+    required this.headerValue,
     this.isExpanded = false,
   });
 
@@ -36,7 +38,7 @@ class Item {
 }
 
 List<Item> generateItems(int numberOfItems) {
-  return List.generate(numberOfItems, (int index) {
+  return List<Item>.generate(numberOfItems, (int index) {
     return Item(
       headerValue: 'Panel $index',
       expandedValue: 'This is item number $index',
@@ -44,15 +46,17 @@ List<Item> generateItems(int numberOfItems) {
   });
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  List<Item> _data = generateItems(8);
+  final List<Item> _data = generateItems(8);
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +83,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           },
           body: ListTile(
               title: Text(item.expandedValue),
-              subtitle: Text('To delete this panel, tap the trash can icon'),
-              trailing: Icon(Icons.delete),
+              subtitle:
+                  const Text('To delete this panel, tap the trash can icon'),
+              trailing: const Icon(Icons.delete),
               onTap: () {
                 setState(() {
-                  _data.removeWhere((currentItem) => item == currentItem);
+                  _data.removeWhere((Item currentItem) => item == currentItem);
                 });
               }),
           isExpanded: item.isExpanded,

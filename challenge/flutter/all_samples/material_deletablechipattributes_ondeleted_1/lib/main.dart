@@ -1,14 +1,16 @@
-// Flutter code sample for DeletableChipAttributes.onDeleted
+/// Flutter code sample for DeletableChipAttributes.onDeleted
 
 // This sample shows how to use [onDeleted] to remove an entry when the
 // delete button is tapped.
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: Center(
+        body: const Center(
           child: MyStatefulWidget(),
         ),
       ),
@@ -32,6 +34,8 @@ class Actor {
 }
 
 class CastList extends StatefulWidget {
+  const CastList({Key? key}) : super(key: key);
+
   @override
   State createState() => CastListState();
 }
@@ -45,7 +49,7 @@ class CastListState extends State<CastList> {
   ];
 
   Iterable<Widget> get actorWidgets sync* {
-    for (Actor actor in _cast) {
+    for (final Actor actor in _cast) {
       yield Padding(
         padding: const EdgeInsets.all(4.0),
         child: Chip(
@@ -71,16 +75,18 @@ class CastListState extends State<CastList> {
   }
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
-    return CastList();
+    return const CastList();
   }
 }

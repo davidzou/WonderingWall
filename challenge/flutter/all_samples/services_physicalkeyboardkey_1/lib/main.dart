@@ -1,16 +1,17 @@
-// Flutter code sample for PhysicalKeyboardKey
+/// Flutter code sample for PhysicalKeyboardKey
 
 // This example shows how to detect if the user has selected the physical key
 // to the right of the CAPS LOCK key.
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -19,24 +20,26 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: MyStatefulWidget(),
+        body: const MyStatefulWidget(),
       ),
     );
   }
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   // The node used to request the keyboard focus.
   final FocusNode _focusNode = FocusNode();
 // The message to display.
-  String _message;
+  String? _message;
 
 // Focus nodes need to be disposed.
   @override
@@ -64,19 +67,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       color: Colors.white,
       alignment: Alignment.center,
       child: DefaultTextStyle(
-        style: textTheme.display1,
+        style: textTheme.headline4!,
         child: RawKeyboardListener(
           focusNode: _focusNode,
           onKey: _handleKeyEvent,
           child: AnimatedBuilder(
             animation: _focusNode,
-            builder: (BuildContext context, Widget child) {
+            builder: (BuildContext context, Widget? child) {
               if (!_focusNode.hasFocus) {
                 return GestureDetector(
                   onTap: () {
                     FocusScope.of(context).requestFocus(_focusNode);
                   },
-                  child: Text('Tap to focus'),
+                  child: const Text('Tap to focus'),
                 );
               }
               return Text(_message ?? 'Press a key');

@@ -1,41 +1,45 @@
-// Flutter code sample for SystemChrome.setSystemUIOverlayStyle
+/// Flutter code sample for SystemChrome.setSystemUIOverlayStyle
 
 // The following example creates a widget that changes the status bar color
 // to a random value on Android.
 
-import 'package:flutter/material.dart';
-
-import 'package:flutter/services.dart';
 import 'dart:math' as math;
 
-void main() => runApp(MyApp());
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-/// This Widget is the main application widget.
+void main() => runApp(const MyApp());
+
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: _title,
       home: MyStatefulWidget(),
     );
   }
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  final _random = math.Random();
+  final math.Random _random = math.Random();
   SystemUiOverlayStyle _currentStyle = SystemUiOverlayStyle.light;
 
   void _changeColor() {
-    final color = Color.fromRGBO(
+    final Color color = Color.fromRGBO(
       _random.nextInt(255),
       _random.nextInt(255),
       _random.nextInt(255),
@@ -50,10 +54,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
       value: _currentStyle,
       child: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           child: const Text('Change Color'),
           onPressed: _changeColor,
         ),

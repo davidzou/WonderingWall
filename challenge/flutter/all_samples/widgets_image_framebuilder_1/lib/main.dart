@@ -1,4 +1,4 @@
-// Flutter code sample for Image.frameBuilder
+/// Flutter code sample for Image.frameBuilder
 
 // The following sample demonstrates how to use this builder to implement an
 // image that fades in once it's been loaded.
@@ -8,15 +8,17 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: _title,
       home: MyStatelessWidget(),
     );
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
 
 /// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
+  const MyStatelessWidget({Key? key}) : super(key: key);
 
   @override
   @override
@@ -37,8 +39,8 @@ class MyStatelessWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Image.network(
-        'https://example.com/image.jpg',
-        frameBuilder: (BuildContext context, Widget child, int frame,
+        'https://flutter.github.io/assets-for-api-docs/assets/widgets/puffin.jpg',
+        frameBuilder: (BuildContext context, Widget child, int? frame,
             bool wasSynchronouslyLoaded) {
           if (wasSynchronouslyLoaded) {
             return child;

@@ -1,4 +1,4 @@
-// Flutter code sample for Scaffold
+/// Flutter code sample for Scaffold
 
 // This example shows a [Scaffold] with an [AppBar], a [BottomAppBar] and a
 // [FloatingActionButton]. The [body] is a [Text] placed in a [Center] in order
@@ -11,51 +11,54 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: _title,
       home: MyStatefulWidget(),
     );
   }
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _count = 0;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sample Code'),
+        title: const Text('Sample Code'),
       ),
       body: Center(
         child: Text('You have pressed the button $_count times.'),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
-        child: Container(
-          height: 50.0,
-        ),
+        child: Container(height: 50.0),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => setState(() {
           _count++;
         }),
         tooltip: 'Increment Counter',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

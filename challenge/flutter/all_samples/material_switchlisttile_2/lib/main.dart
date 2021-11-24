@@ -1,4 +1,4 @@
-// Flutter code sample for SwitchListTile
+/// Flutter code sample for SwitchListTile
 
 // ![Switch list tile semantics sample](https://flutter.github.io/assets-for-api-docs/assets/material/switch_list_tile_semantics.png)
 //
@@ -6,14 +6,15 @@
 // LinkedLabelRadio, that includes an interactive [RichText] widget that
 // handles tap gestures.
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/gestures.dart';
+void main() => runApp(const MyApp());
 
-void main() => runApp(MyApp());
-
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: Center(
+        body: const Center(
           child: MyStatefulWidget(),
         ),
       ),
@@ -32,11 +33,12 @@ class MyApp extends StatelessWidget {
 
 class LinkedLabelSwitch extends StatelessWidget {
   const LinkedLabelSwitch({
-    this.label,
-    this.padding,
-    this.value,
-    this.onChanged,
-  });
+    Key? key,
+    required this.label,
+    required this.padding,
+    required this.value,
+    required this.onChanged,
+  }) : super(key: key);
 
   final String label;
   final EdgeInsets padding;
@@ -53,7 +55,7 @@ class LinkedLabelSwitch extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 text: label,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.blueAccent,
                   decoration: TextDecoration.underline,
                 ),
@@ -76,13 +78,15 @@ class LinkedLabelSwitch extends StatelessWidget {
   }
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool _isSelected = false;
 

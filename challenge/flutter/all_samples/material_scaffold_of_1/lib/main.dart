@@ -1,13 +1,15 @@
-// Flutter code sample for Scaffold.of
+/// Flutter code sample for Scaffold.of
 
 // Typical usage of the [Scaffold.of] function is to call it from within the
 // `build` method of a child of a [Scaffold].
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: MyScaffoldBody(),
-        appBar: AppBar(title: Text('Scaffold.of Example')),
+        body: const MyScaffoldBody(),
+        appBar: AppBar(title: const Text('Scaffold.of Example')),
       ),
       color: Colors.white,
     );
@@ -26,16 +28,36 @@ class MyApp extends StatelessWidget {
 }
 
 class MyScaffoldBody extends StatelessWidget {
+  const MyScaffoldBody({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: RaisedButton(
-        child: Text('SHOW A SNACKBAR'),
+      child: ElevatedButton(
+        child: const Text('SHOW BOTTOM SHEET'),
         onPressed: () {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Have a snack!'),
-            ),
+          Scaffold.of(context).showBottomSheet<void>(
+            (BuildContext context) {
+              return Container(
+                alignment: Alignment.center,
+                height: 200,
+                color: Colors.amber,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Text('BottomSheet'),
+                      ElevatedButton(
+                        child: const Text('Close BottomSheet'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
           );
         },
       ),

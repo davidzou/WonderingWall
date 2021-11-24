@@ -1,14 +1,16 @@
-// Flutter code sample for Card
+/// Flutter code sample for Card
 
 // This sample shows creation of a [Card] widget that shows album information
 // and two actions.
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: MyStatelessWidget(),
+        body: const MyStatelessWidget(),
       ),
     );
   }
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
 
 /// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
+  const MyStatelessWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +41,19 @@ class MyStatelessWidget extends StatelessWidget {
               title: Text('The Enchanted Nightingale'),
               subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
             ),
-            ButtonBar(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                FlatButton(
+                TextButton(
                   child: const Text('BUY TICKETS'),
                   onPressed: () {/* ... */},
                 ),
-                FlatButton(
+                const SizedBox(width: 8),
+                TextButton(
                   child: const Text('LISTEN'),
                   onPressed: () {/* ... */},
                 ),
+                const SizedBox(width: 8),
               ],
             ),
           ],

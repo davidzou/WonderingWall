@@ -1,4 +1,4 @@
-// Flutter code sample for IconButton
+/// Flutter code sample for IconButton
 
 // In this sample the icon button's background color is defined with an [Ink]
 // widget whose child is an [IconButton]. The icon button's filled background
@@ -9,10 +9,12 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: MyStatelessWidget(),
+        body: const MyStatelessWidget(),
       ),
     );
   }
@@ -29,8 +31,9 @@ class MyApp extends StatelessWidget {
 
 /// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
+  const MyStatelessWidget({Key? key}) : super(key: key);
 
+  @override
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -42,7 +45,7 @@ class MyStatelessWidget extends StatelessWidget {
             shape: CircleBorder(),
           ),
           child: IconButton(
-            icon: Icon(Icons.android),
+            icon: const Icon(Icons.android),
             color: Colors.white,
             onPressed: () {},
           ),

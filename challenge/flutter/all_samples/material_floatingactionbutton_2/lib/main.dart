@@ -1,4 +1,4 @@
-// Flutter code sample for FloatingActionButton
+/// Flutter code sample for FloatingActionButton
 
 // This example shows how to make an extended [FloatingActionButton] in a
 // [Scaffold], with a  pink [backgroundColor], a thumbs up [Icon] and a
@@ -8,15 +8,17 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: _title,
       home: MyStatelessWidget(),
     );
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
 
 /// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
+  const MyStatelessWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +35,15 @@ class MyStatelessWidget extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Floating Action Button Label'),
       ),
-      body: Center(
-        child: const Text('Press the button with a label below!'),
+      body: const Center(
+        child: Text('Press the button with a label below!'),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           // Add your onPressed code here!
         },
-        label: Text('Approve'),
-        icon: Icon(Icons.thumb_up),
+        label: const Text('Approve'),
+        icon: const Icon(Icons.thumb_up),
         backgroundColor: Colors.pink,
       ),
     );

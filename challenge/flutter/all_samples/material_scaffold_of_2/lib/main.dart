@@ -1,4 +1,4 @@
-// Flutter code sample for Scaffold.of
+/// Flutter code sample for Scaffold.of
 
 // When the [Scaffold] is actually created in the same `build` function, the
 // `context` argument to the `build` function can't be used to find the
@@ -9,15 +9,17 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: _title,
       home: MyStatelessWidget(),
     );
@@ -26,23 +28,43 @@ class MyApp extends StatelessWidget {
 
 /// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
+  const MyStatelessWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Demo')),
+      appBar: AppBar(title: const Text('Demo')),
       body: Builder(
         // Create an inner BuildContext so that the onPressed methods
         // can refer to the Scaffold with Scaffold.of().
         builder: (BuildContext context) {
           return Center(
-            child: RaisedButton(
-              child: Text('SHOW A SNACKBAR'),
+            child: ElevatedButton(
+              child: const Text('SHOW BOTTOM SHEET'),
               onPressed: () {
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text('Have a snack!'),
-                ));
+                Scaffold.of(context).showBottomSheet<void>(
+                  (BuildContext context) {
+                    return Container(
+                      alignment: Alignment.center,
+                      height: 200,
+                      color: Colors.amber,
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            const Text('BottomSheet'),
+                            ElevatedButton(
+                              child: const Text('Close BottomSheet'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
               },
             ),
           );

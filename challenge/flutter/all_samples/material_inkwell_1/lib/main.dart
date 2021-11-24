@@ -1,14 +1,16 @@
-// Flutter code sample for InkWell
+/// Flutter code sample for InkWell
 
 // Tap the container to cause it to grow. Then, tap it again and hold before
 // the widget reaches its maximum size to observe the clipped ink splash.
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-/// This Widget is the main application widget.
+/// This is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   static const String _title = 'Flutter Code Sample';
 
   @override
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: Center(
+        body: const Center(
           child: MyStatefulWidget(),
         ),
       ),
@@ -25,21 +27,24 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   double sideLength = 50;
 
+  @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
       height: sideLength,
       width: sideLength,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       curve: Curves.easeIn,
       child: Material(
         color: Colors.yellow,
