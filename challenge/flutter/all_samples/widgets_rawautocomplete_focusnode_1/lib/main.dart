@@ -1,8 +1,3 @@
-/// Flutter code sample for RawAutocomplete.focusNode
-
-// This examples shows how to create an autocomplete widget with the text
-// field in the AppBar and the results in the main body of the app.
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

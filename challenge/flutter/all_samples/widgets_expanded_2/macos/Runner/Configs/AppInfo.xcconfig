@@ -11,4 +11,4 @@ PRODUCT_NAME = widgets_expanded_2
 PRODUCT_BUNDLE_IDENTIFIER = com.example.widgetsExpanded2
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2021 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.

@@ -1,14 +1,7 @@
-/// Flutter code sample for CupertinoPageScaffold
-
-// This example shows a [CupertinoPageScaffold] with a [ListView] as a [child].
-// The [CupertinoButton] is connected to a callback that increments a counter.
-// The [backgroundColor] can be changed.
-
 import 'package:flutter/cupertino.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -23,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -31,7 +23,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _count = 0;
 

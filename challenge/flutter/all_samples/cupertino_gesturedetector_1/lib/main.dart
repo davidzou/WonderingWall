@@ -1,14 +1,7 @@
-/// Flutter code sample for GestureDetector
-
-// This example contains a black light bulb wrapped in a [GestureDetector]. It
-// turns the light bulb yellow when the "TURN LIGHT ON" button is tapped by
-// setting the `_lights` field, and off again when "TURN LIGHT OFF" is tapped.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -23,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -31,7 +23,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool _lightIsOn = false;
 

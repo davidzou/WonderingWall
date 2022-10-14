@@ -1,15 +1,8 @@
-/// Flutter code sample for FocusNode
-
-// This example shows how a FocusNode should be managed if not using the
-// [Focus] or [FocusScope] widgets. See the [Focus] widget for a similar
-// example using [Focus] and [FocusScope] widgets.
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -58,21 +51,22 @@ class _ColorfulButtonState extends State<ColorfulButton> {
 
   KeyEventResult _handleKeyPress(FocusNode node, RawKeyEvent event) {
     if (event is RawKeyDownEvent) {
-      print('Focus node ${node.debugLabel} got key event: ${event.logicalKey}');
+      debugPrint(
+          'Focus node ${node.debugLabel} got key event: ${event.logicalKey}');
       if (event.logicalKey == LogicalKeyboardKey.keyR) {
-        print('Changing color to red.');
+        debugPrint('Changing color to red.');
         setState(() {
           _color = Colors.red;
         });
         return KeyEventResult.handled;
       } else if (event.logicalKey == LogicalKeyboardKey.keyG) {
-        print('Changing color to green.');
+        debugPrint('Changing color to green.');
         setState(() {
           _color = Colors.green;
         });
         return KeyEventResult.handled;
       } else if (event.logicalKey == LogicalKeyboardKey.keyB) {
-        print('Changing color to blue.');
+        debugPrint('Changing color to blue.');
         setState(() {
           _color = Colors.blue;
         });
@@ -115,7 +109,6 @@ class _ColorfulButtonState extends State<ColorfulButton> {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

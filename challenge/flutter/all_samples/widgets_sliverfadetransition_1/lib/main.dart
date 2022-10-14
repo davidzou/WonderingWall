@@ -1,13 +1,7 @@
-/// Flutter code sample for SliverFadeTransition
-
-// Creates a [CustomScrollView] with a [SliverFixedExtentList] that uses a
-// [SliverFadeTransition] to fade the list in and out.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -27,7 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -35,7 +28,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget>
     with SingleTickerProviderStateMixin {
   late final AnimationController controller = AnimationController(
@@ -58,6 +50,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget>
       }
     });
     controller.forward();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override

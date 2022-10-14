@@ -1,12 +1,3 @@
-/// Flutter code sample for ScaffoldMessenger.of
-
-// Sometimes [SnackBar]s are produced by code that doesn't have ready access
-// to a valid [BuildContext]. One such example of this is when you show a
-// SnackBar from a method outside of the `build` function. In these
-// cases, you can assign a [GlobalKey] to the [ScaffoldMessenger]. This
-// example shows a key being used to obtain the [ScaffoldMessengerState]
-// provided by the [MaterialApp].
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());

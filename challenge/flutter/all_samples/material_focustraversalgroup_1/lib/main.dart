@@ -1,17 +1,7 @@
-/// Flutter code sample for FocusTraversalGroup
-
-// This sample shows three rows of buttons, each grouped by a
-// [FocusTraversalGroup], each with different traversal order policies. Use tab
-// traversal to see the order they are traversed in.  The first row follows a
-// numerical order, the second follows a lexical order (ordered to traverse
-// right to left), and the third ignores the numerical order assigned to it and
-// traverses in widget order.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -72,7 +62,7 @@ class _OrderedButtonState<T> extends State<OrderedButton<T>> {
 
   void _handleOnPressed() {
     focusNode.requestFocus();
-    print('Button ${widget.name} pressed.');
+    debugPrint('Button ${widget.name} pressed.');
     debugDumpFocusTree();
   }
 
@@ -124,7 +114,6 @@ class _OrderedButtonState<T> extends State<OrderedButton<T>> {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

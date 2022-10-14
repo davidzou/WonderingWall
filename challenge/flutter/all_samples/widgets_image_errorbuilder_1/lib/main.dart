@@ -1,13 +1,7 @@
-/// Flutter code sample for Image.errorBuilder
-
-// The following sample uses [errorBuilder] to show a '😢' in place of the
-// image that fails to load, and prints the error to the console.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -17,12 +11,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: _title,
-      home: MyStatelessWidget(),
+      home: Scaffold(
+        body: Center(
+          child: MyStatelessWidget(),
+        ),
+      ),
     );
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

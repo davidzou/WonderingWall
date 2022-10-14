@@ -1,14 +1,7 @@
-/// Flutter code sample for NestedScrollViewState
-
-// [NestedScrollViewState] can be obtained using a [GlobalKey].
-// Using the following setup, you can access the inner scroll controller
-// using `globalKey.currentState.innerController`.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -25,7 +18,6 @@ class MyApp extends StatelessWidget {
 
 final GlobalKey<NestedScrollViewState> globalKey = GlobalKey();
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

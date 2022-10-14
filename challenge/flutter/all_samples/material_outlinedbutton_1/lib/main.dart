@@ -1,12 +1,7 @@
-/// Flutter code sample for OutlinedButton
-
-// Here is an example of a basic [OutlinedButton].
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -26,7 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -34,7 +28,7 @@ class MyStatelessWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () {
-        print('Received click');
+        debugPrint('Received click');
       },
       child: const Text('Click Me'),
     );

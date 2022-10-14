@@ -1,16 +1,7 @@
-/// Flutter code sample for ListTile
-
-// Here is an example of an article list item with multiline titles and
-// subtitles. It utilizes [Row]s and [Column]s, as well as [Expanded] and
-// [AspectRatio] widgets to organize its layout.
-//
-// ![Custom list item b](https://flutter.github.io/assets-for-api-docs/assets/widgets/custom_list_item_b.png)
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -50,7 +41,6 @@ class _ArticleDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
-          flex: 1,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -76,7 +66,6 @@ class _ArticleDescription extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -153,7 +142,6 @@ class CustomListItemTwo extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

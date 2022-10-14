@@ -1,13 +1,7 @@
-/// Flutter code sample for TabBar
-
-// This sample shows the implementation of [TabBar] and [TabBarView] using a [DefaultTabController].
-// Each [Tab] corresponds to a child of the [TabBarView] in the order they are written.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -22,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

@@ -1,14 +1,7 @@
-/// Flutter code sample for SliverFillRemaining
-
-// In this sample the [SliverFillRemaining] sizes its [child] to fill the
-// remaining extent of the viewport in both axes. The icon is centered in the
-// sliver, and would be in any computed extent for the sliver.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -26,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

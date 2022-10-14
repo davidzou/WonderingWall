@@ -1,14 +1,7 @@
-/// Flutter code sample for SliverGridDelegateWithFixedCrossAxisCount
-
-// Here is an example using the [mainAxisExtent] property. On a device with a
-// screen width of 800.0, it creates a GridView with each tile with a width of
-// 200.0 and a height of 150.0.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -26,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

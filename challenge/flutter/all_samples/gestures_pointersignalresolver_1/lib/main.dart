@@ -1,24 +1,8 @@
-/// Flutter code sample for PointerSignalResolver
-
-// Here is an example that demonstrates the effect of not using the resolver
-// versus using it.
-//
-// When this example is set to _not_ use the resolver, then triggering the
-// mouse wheel over the outer box will cause only the outer box to change
-// color, but triggering the mouse wheel over the inner box will cause _both_
-// the outer and the inner boxes to change color (because they're both
-// receiving the event).
-//
-// When this example is set to _use_ the resolver, then only the box located
-// directly under the cursor will change color when the mouse wheel is
-// triggered.
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -74,7 +58,7 @@ class _ColorChangerState extends State<ColorChanger> {
       child: Listener(
         onPointerSignal: (PointerSignalEvent event) {
           if (widget.useResolver) {
-            GestureBinding.instance!.pointerSignalResolver.register(event,
+            GestureBinding.instance.pointerSignalResolver.register(event,
                 (PointerSignalEvent event) {
               rotateColor();
             });
@@ -94,7 +78,6 @@ class _ColorChangerState extends State<ColorChanger> {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -102,7 +85,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool useResolver = false;
 
@@ -127,7 +109,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           Align(
             alignment: Alignment.topLeft,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Switch(
                   value: useResolver,

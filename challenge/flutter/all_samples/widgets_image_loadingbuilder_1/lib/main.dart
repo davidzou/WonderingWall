@@ -1,13 +1,7 @@
-/// Flutter code sample for Image.loadingBuilder
-
-// The following sample uses [loadingBuilder] to show a
-// [CircularProgressIndicator] while an image loads over the network.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -22,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -35,7 +28,7 @@ class MyStatelessWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Image.network(
-        'https://example.com/image.jpg',
+        'https://flutter.github.io/assets-for-api-docs/assets/widgets/falcon.jpg',
         loadingBuilder: (BuildContext context, Widget child,
             ImageChunkEvent? loadingProgress) {
           if (loadingProgress == null) {

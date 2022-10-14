@@ -1,15 +1,7 @@
-/// Flutter code sample for ListTile
-
-// Here is an example of a custom list item that resembles a YouTube-related
-// video list item created with [Expanded] and [Container] widgets.
-//
-// ![Custom list item a](https://flutter.github.io/assets-for-api-docs/assets/widgets/custom_list_item_a.png)
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -112,7 +104,6 @@ class _VideoDescription extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

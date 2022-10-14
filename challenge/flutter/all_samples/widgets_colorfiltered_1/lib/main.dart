@@ -1,13 +1,7 @@
-/// Flutter code sample for ColorFiltered
-
-// These two images have two [ColorFilter]s applied with different [BlendMode]s,
-// one with red color and [BlendMode.modulate] another with a grey color and [BlendMode.saturation].
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -25,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -40,7 +33,8 @@ class MyStatelessWidget extends StatelessWidget {
               BlendMode.modulate,
             ),
             child: Image.network(
-                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
+              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+            ),
           ),
           ColorFiltered(
             colorFilter: const ColorFilter.mode(
@@ -48,7 +42,8 @@ class MyStatelessWidget extends StatelessWidget {
               BlendMode.saturation,
             ),
             child: Image.network(
-                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+            ),
           ),
         ],
       ),

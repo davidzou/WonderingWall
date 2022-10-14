@@ -1,9 +1,3 @@
-/// Flutter code sample for Flow
-
-// This example uses the [Flow] widget to create a menu that opens and closes
-// as it is interacted with, shown above. The color of the button in the menu
-// changes to indicate which one has been selected.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const FlowApp());

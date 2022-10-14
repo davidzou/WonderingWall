@@ -1,8 +1,3 @@
-/// Flutter code sample for Scaffold.of
-
-// Typical usage of the [Scaffold.of] function is to call it from within the
-// `build` method of a child of a [Scaffold].
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());

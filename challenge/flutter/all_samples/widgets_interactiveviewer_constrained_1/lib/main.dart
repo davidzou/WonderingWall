@@ -1,15 +1,7 @@
-/// Flutter code sample for InteractiveViewer.constrained
-
-// This example shows how to create a pannable table. Because the table is
-// larger than the entire screen, setting `constrained` to false is necessary
-// to allow it to be drawn to its full size. The parts of the table that
-// exceed the screen size can then be panned into view.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -27,14 +19,13 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const int _rowCount = 48;
-    const int _columnCount = 6;
+    const int rowCount = 48;
+    const int columnCount = 6;
 
     return InteractiveViewer(
       alignPanAxis: true,
@@ -42,14 +33,14 @@ class MyStatelessWidget extends StatelessWidget {
       scaleEnabled: false,
       child: Table(
         columnWidths: <int, TableColumnWidth>{
-          for (int column = 0; column < _columnCount; column += 1)
+          for (int column = 0; column < columnCount; column += 1)
             column: const FixedColumnWidth(200.0),
         },
         children: <TableRow>[
-          for (int row = 0; row < _rowCount; row += 1)
+          for (int row = 0; row < rowCount; row += 1)
             TableRow(
               children: <Widget>[
-                for (int column = 0; column < _columnCount; column += 1)
+                for (int column = 0; column < columnCount; column += 1)
                   Container(
                     height: 26,
                     color: row % 2 + column % 2 == 1

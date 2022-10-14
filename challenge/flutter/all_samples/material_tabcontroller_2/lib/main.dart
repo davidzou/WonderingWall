@@ -1,13 +1,7 @@
-/// Flutter code sample for TabController
-
-// This example shows how to listen to page updates in [TabBar] and [TabBarView]
-// when using [DefaultTabController].
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -28,7 +22,6 @@ const List<Tab> tabs = <Tab>[
   Tab(text: 'Second'),
 ];
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

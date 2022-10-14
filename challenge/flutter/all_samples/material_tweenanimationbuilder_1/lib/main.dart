@@ -1,15 +1,7 @@
-/// Flutter code sample for TweenAnimationBuilder
-
-// This example shows an [IconButton] that "zooms" in when the widget first
-// builds (its size smoothly increases from 0 to 24) and whenever the button
-// is pressed, it smoothly changes its size to the new target value of either
-// 48 or 24.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -29,7 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -37,7 +28,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   double targetValue = 24.0;
 

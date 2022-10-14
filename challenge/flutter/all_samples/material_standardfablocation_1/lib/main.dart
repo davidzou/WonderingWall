@@ -1,22 +1,7 @@
-/// Flutter code sample for StandardFabLocation
-
-// This is an example of a user-defined [FloatingActionButtonLocation].
-//
-// The example shows a [Scaffold] with an [AppBar], a [BottomAppBar], and a
-// [FloatingActionButton] using a custom [FloatingActionButtonLocation].
-//
-// The new [FloatingActionButtonLocation] is defined
-// by extending [StandardFabLocation] with two mixins,
-// [FabEndOffsetX] and [FabFloatOffsetY], and overriding the
-// [getOffsetX] method to adjust the FAB's x-coordinate, creating a
-// [FloatingActionButtonLocation] slightly different from
-// [FloatingActionButtonLocation.endFloat].
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -43,7 +28,6 @@ class AlmostEndFloatFabLocation extends StandardFabLocation
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -55,7 +39,7 @@ class MyStatelessWidget extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('FAB pressed.');
+          debugPrint('FAB pressed.');
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

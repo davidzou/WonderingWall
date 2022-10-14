@@ -1,23 +1,8 @@
-/// Flutter code sample for Shortcuts
-
-// This slightly more complicated, but more flexible, example creates a custom
-// [Action] subclass to increment and decrement within a widget (a [Column])
-// that has keyboard focus. When the user presses the up and down arrow keys,
-// the counter will increment and decrement a data model using the custom
-// actions.
-//
-// One thing that this demonstrates is passing arguments to the [Intent] to be
-// carried to the [Action]. This shows how actions can get data either from
-// their own construction (like the `model` in this example), or from the
-// intent passed to them when invoked (like the increment `amount` in this
-// example).
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -84,7 +69,6 @@ class DecrementAction extends Action<DecrementIntent> {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -92,7 +76,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Model model = Model();
 

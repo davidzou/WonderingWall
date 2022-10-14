@@ -1,18 +1,7 @@
-/// Flutter code sample for SliverFillRemaining
-
-// In this sample the [SliverFillRemaining]'s child stretches to fill the
-// overscroll area when [fillOverscroll] is true. This sample also features a
-// button that is pinned to the bottom of the sliver, regardless of size or
-// overscroll behavior. Try switching [fillOverscroll] to see the difference.
-//
-// This sample only shows the overscroll behavior on devices that support
-// overscroll.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -30,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

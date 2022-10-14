@@ -1,9 +1,3 @@
-/// Flutter code sample for BottomAppBar
-
-// This example shows the [BottomAppBar], which can be configured to have a notch using the
-// [BottomAppBar.shape] property. This also includes an optional [FloatingActionButton], which illustrates
-// the [FloatingActionButtonLocation]s in relation to the [BottomAppBar].
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -97,8 +91,8 @@ class _BottomAppBarDemoState extends State<BottomAppBarDemo> {
         floatingActionButton: _showFab
             ? FloatingActionButton(
                 onPressed: () {},
-                child: const Icon(Icons.add),
                 tooltip: 'Create',
+                child: const Icon(Icons.add),
               )
             : null,
         floatingActionButtonLocation: _fabLocation,

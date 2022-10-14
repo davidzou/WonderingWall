@@ -1,16 +1,7 @@
-/// Flutter code sample for Image.frameBuilder
-
-// The following sample demonstrates how to use this builder to implement an
-// image that fades in once it's been loaded.
-//
-// This sample contains a limited subset of the functionality that the
-// [FadeInImage] widget provides out of the box.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -25,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -46,10 +36,10 @@ class MyStatelessWidget extends StatelessWidget {
             return child;
           }
           return AnimatedOpacity(
-            child: child,
             opacity: frame == null ? 0 : 1,
             duration: const Duration(seconds: 1),
             curve: Curves.easeOut,
+            child: child,
           );
         },
       ),

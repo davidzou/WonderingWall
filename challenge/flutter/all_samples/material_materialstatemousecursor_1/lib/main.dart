@@ -1,14 +1,8 @@
-/// Flutter code sample for MaterialStateMouseCursor
-
-// This example defines a mouse cursor that resolves to
-// [SystemMouseCursors.forbidden] when its widget is disabled.
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -41,7 +35,6 @@ class ListTileCursor extends MaterialStateMouseCursor {
   String get debugDescription => 'ListTileCursor()';
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

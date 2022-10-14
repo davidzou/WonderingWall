@@ -1,12 +1,7 @@
-/// Flutter code sample for ScaffoldMessengerState.showMaterialBanner
-
-// Here is an example of showing a [MaterialBanner] when the user presses a button.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -26,7 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -39,8 +33,8 @@ class MyStatelessWidget extends StatelessWidget {
             content: Text('This is a MaterialBanner'),
             actions: <Widget>[
               TextButton(
-                child: Text('DISMISS'),
                 onPressed: null,
+                child: Text('DISMISS'),
               ),
             ],
           ),

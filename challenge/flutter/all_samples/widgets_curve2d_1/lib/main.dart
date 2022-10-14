@@ -1,13 +1,7 @@
-/// Flutter code sample for Curve2D
-
-// This example shows how to use a [Curve2D] to modify the position of a widget
-// so that it can follow an arbitrary path.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -39,7 +33,6 @@ final CatmullRomSpline path = CatmullRomSpline(
   ],
   startHandle: const Offset(0.93, 0.93),
   endHandle: const Offset(0.18, 0.23),
-  tension: 0.0,
 );
 
 class FollowCurve2D extends StatefulWidget {
@@ -74,15 +67,15 @@ class _FollowCurve2DState extends State<FollowCurve2D>
     animation = CurvedAnimation(parent: controller, curve: widget.curve);
     // Have the controller repeat indefinitely.  If you want it to "bounce" back
     // and forth, set the reverse parameter to true.
-    controller.repeat(reverse: false);
+    controller.repeat();
     controller.addListener(() => setState(() {}));
   }
 
   @override
   void dispose() {
-    super.dispose();
     // Always have to dispose of animation controllers when done.
     controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -97,7 +90,6 @@ class _FollowCurve2DState extends State<FollowCurve2D>
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -108,7 +100,6 @@ class MyStatelessWidget extends StatelessWidget {
       alignment: Alignment.center,
       child: FollowCurve2D(
         path: path,
-        curve: Curves.easeInOut,
         duration: const Duration(seconds: 3),
         child: CircleAvatar(
           backgroundColor: Colors.yellow,

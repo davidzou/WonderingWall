@@ -1,15 +1,7 @@
-/// Flutter code sample for showDateRangePicker
-
-// This sample demonstrates how to create a restorable Material date range picker.
-// This is accomplished by enabling state restoration by specifying
-// [MaterialApp.restorationScopeId] and using [Navigator.restorablePush] to
-// push [DateRangePickerDialog] when the button is tapped.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -25,7 +17,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key, this.restorationId}) : super(key: key);
 
@@ -35,7 +26,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 /// RestorationProperty objects can be used because of RestorationMixin.
 class _MyStatefulWidgetState extends State<MyStatefulWidget>
     with RestorationMixin {
@@ -44,8 +34,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget>
   @override
   String? get restorationId => widget.restorationId;
 
-  final RestorableDateTimeN _startDate =
-      RestorableDateTimeN(DateTime(2021, 1, 1));
+  final RestorableDateTimeN _startDate = RestorableDateTimeN(DateTime(2021));
   final RestorableDateTimeN _endDate =
       RestorableDateTimeN(DateTime(2021, 1, 5));
   late final RestorableRouteFuture<DateTimeRange?>
@@ -89,9 +78,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget>
           restorationId: 'date_picker_dialog',
           initialDateRange:
               _initialDateTimeRange(arguments! as Map<dynamic, dynamic>),
-          firstDate: DateTime(2021, 1, 1),
+          firstDate: DateTime(2021),
           currentDate: DateTime(2021, 1, 25),
-          lastDate: DateTime(2022, 1, 1),
+          lastDate: DateTime(2022),
         );
       },
     );

@@ -1,17 +1,7 @@
-/// Flutter code sample for NestedScrollView
-
-// This simple example shows a [NestedScrollView] whose header contains a
-// snapping, floating [SliverAppBar]. _Without_ setting any additional flags,
-// e.g [NestedScrollView.floatHeaderSlivers], the [SliverAppBar] will animate
-// in and out without floating. The [SliverOverlapAbsorber] and
-// [SliverOverlapInjector] maintain the proper alignment between the two
-// separate scroll views.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -26,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

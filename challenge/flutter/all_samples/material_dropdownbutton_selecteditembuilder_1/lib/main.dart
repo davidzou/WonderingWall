@@ -1,13 +1,7 @@
-/// Flutter code sample for DropdownButton.selectedItemBuilder
-
-// This sample shows a `DropdownButton` with a button with [Text] that
-// corresponds to but is unique from [DropdownMenuItem].
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -25,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -33,7 +26,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final List<String> items = <String>['1', '2', '3'];
   String selectedItem = '1';
@@ -52,8 +44,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         },
         items: items.map((String item) {
           return DropdownMenuItem<String>(
-            child: Text('Log $item'),
             value: item,
+            child: Text('Log $item'),
           );
         }).toList(),
       ),

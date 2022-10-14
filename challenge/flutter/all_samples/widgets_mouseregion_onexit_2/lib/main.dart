@@ -1,18 +1,7 @@
-/// Flutter code sample for MouseRegion.onExit
-
-// The following example shows a widget that hides its content one second
-// after being hovered, and also exposes the enter and exit callbacks.
-// Because the widget conditionally creates the `MouseRegion`, and leaks the
-// hover state, it needs to take the restriction into consideration. In this
-// case, since it has access to the event that triggers the disappearance of
-// the `MouseRegion`, it simply trigger the exit callback during that event
-// as well.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -93,7 +82,6 @@ class _MyTimedButton extends State<MyTimedButton> {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -101,7 +89,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Key key = UniqueKey();
   bool hovering = false;

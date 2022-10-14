@@ -1,19 +1,7 @@
-/// Flutter code sample for InputDecoration.prefixIconConstraints
-
-// This example shows the differences between two `TextField` widgets when
-// [prefixIconConstraints] is set to the default value and when one is not.
-//
-// Note that [isDense] must be set to true to be able to
-// set the constraints smaller than 48px.
-//
-// If null, [BoxConstraints] with a minimum width and height of 48px is
-// used.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -31,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

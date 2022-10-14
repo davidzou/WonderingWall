@@ -1,14 +1,7 @@
-/// Flutter code sample for Scrollbar
-
-// When isAlwaysShown is true, the scrollbar thumb will remain visible without the
-// fade animation. This requires that a ScrollController is provided to controller,
-// or that the PrimaryScrollController is available.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -26,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -34,7 +26,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final ScrollController _controllerOne = ScrollController();
 
@@ -42,7 +33,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: _controllerOne,
-      isAlwaysShown: true,
+      thumbVisibility: true,
       child: GridView.builder(
         controller: _controllerOne,
         itemCount: 120,

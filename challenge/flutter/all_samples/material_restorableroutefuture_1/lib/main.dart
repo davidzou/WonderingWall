@@ -1,8 +1,3 @@
-/// Flutter code sample for RestorableRouteFuture
-
-// This example uses a [RestorableRouteFuture] in the `_MyHomeState` to push a
-// new `MyCounter` route and to retrieve its return value.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());

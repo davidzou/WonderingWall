@@ -1,10 +1,3 @@
-/// Flutter code sample for PageStorage
-
-// This sample shows how to explicitly use a [PageStorage] to
-// store the states of its children pages. Each page includes a scrollable
-// list, whose position is preserved when switching between the tabs thanks to
-// the help of [PageStorageKey].
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -46,8 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Persistence Example'),
       ),
       body: PageStorage(
-        child: pages[currentTab],
         bucket: _bucket,
+        child: pages[currentTab],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentTab,

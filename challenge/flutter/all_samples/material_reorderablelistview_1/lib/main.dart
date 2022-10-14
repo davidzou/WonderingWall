@@ -1,10 +1,7 @@
-/// Flutter code sample for ReorderableListView
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -22,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -30,7 +26,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final List<int> _items = List<int>.generate(50, (int index) => index);
 
@@ -43,7 +38,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return ReorderableListView(
       padding: const EdgeInsets.symmetric(horizontal: 40),
       children: <Widget>[
-        for (int index = 0; index < _items.length; index++)
+        for (int index = 0; index < _items.length; index += 1)
           ListTile(
             key: Key('$index'),
             tileColor: _items[index].isOdd ? oddItemColor : evenItemColor,

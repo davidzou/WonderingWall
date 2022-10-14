@@ -1,8 +1,3 @@
-/// Flutter code sample for Autocomplete
-
-// This example shows how to create a very basic Autocomplete widget using the
-// default UI.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const AutocompleteExampleApp());
@@ -46,7 +41,7 @@ class AutocompleteBasicExample extends StatelessWidget {
         });
       },
       onSelected: (String selection) {
-        print('You just selected $selection');
+        debugPrint('You just selected $selection');
       },
     );
   }

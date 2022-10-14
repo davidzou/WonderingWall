@@ -1,14 +1,7 @@
-/// Flutter code sample for Card
-
-// This sample shows creation of a [Card] widget that can be tapped. When
-// tapped this [Card]'s [InkWell] displays an "ink splash" that fills the
-// entire card.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -26,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -37,7 +29,7 @@ class MyStatelessWidget extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
-            print('Card tapped.');
+            debugPrint('Card tapped.');
           },
           child: const SizedBox(
             width: 300,

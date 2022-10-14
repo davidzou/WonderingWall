@@ -1,13 +1,7 @@
-/// Flutter code sample for ScaffoldMessenger.of
-
-// Typical usage of the [ScaffoldMessenger.of] function is to call it in
-// response to a user gesture or an application state change.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -27,7 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

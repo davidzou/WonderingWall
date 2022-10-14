@@ -1,8 +1,3 @@
-/// Flutter code sample for RawAutocomplete
-
-// This example is similar to the previous example, but it uses a custom T data
-// type instead of directly using String.
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -51,7 +46,7 @@ class User {
   }
 
   @override
-  int get hashCode => hashValues(email, name);
+  int get hashCode => Object.hash(email, name);
 }
 
 class AutocompleteCustomTypeExample extends StatelessWidget {

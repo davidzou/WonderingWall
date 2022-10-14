@@ -1,13 +1,7 @@
-/// Flutter code sample for FittedBox
-
-// In this example, the image is stretched to fill the entire [Container], which would
-// not happen normally without using FittedBox.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -27,7 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -38,9 +31,9 @@ class MyStatelessWidget extends StatelessWidget {
       width: 300,
       color: Colors.red,
       child: FittedBox(
+        fit: BoxFit.fill,
         child: Image.network(
             'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
-        fit: BoxFit.fill,
       ),
     );
   }

@@ -1,8 +1,3 @@
-/// Flutter code sample for RawAutocomplete
-
-// This example shows how to create a very basic autocomplete widget using the
-// [fieldViewBuilder] and [optionsViewBuilder] parameters.
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

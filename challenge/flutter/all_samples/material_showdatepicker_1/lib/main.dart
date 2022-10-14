@@ -1,15 +1,7 @@
-/// Flutter code sample for showDatePicker
-
-// This sample demonstrates how to create a restorable Material date picker.
-// This is accomplished by enabling state restoration by specifying
-// [MaterialApp.restorationScopeId] and using [Navigator.restorablePush] to
-// push [DatePickerDialog] when the button is tapped.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -25,7 +17,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key, this.restorationId}) : super(key: key);
 
@@ -35,7 +26,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 /// RestorationProperty objects can be used because of RestorationMixin.
 class _MyStatefulWidgetState extends State<MyStatefulWidget>
     with RestorationMixin {
@@ -68,8 +58,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget>
           restorationId: 'date_picker_dialog',
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(2021, 1, 1),
-          lastDate: DateTime(2022, 1, 1),
+          firstDate: DateTime(2021),
+          lastDate: DateTime(2022),
         );
       },
     );

@@ -1,14 +1,7 @@
-/// Flutter code sample for PhysicalShape
-
-// This example shows how to use a [PhysicalShape] on a centered [SizedBox]
-// to clip it to a rounded rectangle using a [ShapeBorderClipper] and give it
-// an orange color along with a shadow.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -23,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -36,7 +28,15 @@ class MyStatelessWidget extends StatelessWidget {
       body: Center(
         child: PhysicalShape(
           elevation: 5.0,
+          clipper: ShapeBorderClipper(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          color: Colors.orange,
           child: const SizedBox(
+            height: 200.0,
+            width: 200.0,
             child: Center(
               child: Text(
                 'Hello, World!',
@@ -46,14 +46,7 @@ class MyStatelessWidget extends StatelessWidget {
                 ),
               ),
             ),
-            height: 200.0,
-            width: 200.0,
           ),
-          clipper: ShapeBorderClipper(
-              shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          )),
-          color: Colors.orange,
         ),
       ),
     );

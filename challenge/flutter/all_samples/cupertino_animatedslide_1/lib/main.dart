@@ -1,13 +1,7 @@
-/// Flutter code sample for AnimatedSlide
-
-// This code defines a widget that uses [AnimatedSlide] to translate a [FlutterLogo]
-// up or down by the amount of it's height with each press of the corresponding button.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -25,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -33,7 +26,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Offset offset = Offset.zero;
 
@@ -51,12 +43,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         ElevatedButton(
-          child: const Text('Slide up'),
           onPressed: _slideUp,
+          child: const Text('Slide up'),
         ),
         ElevatedButton(
-          child: const Text('Slide down'),
           onPressed: _slideDown,
+          child: const Text('Slide down'),
         ),
         Padding(
           padding: const EdgeInsets.all(50),

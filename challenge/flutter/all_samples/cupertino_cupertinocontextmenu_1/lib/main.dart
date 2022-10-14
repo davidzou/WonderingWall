@@ -1,14 +1,8 @@
-/// Flutter code sample for CupertinoContextMenu
-
-// This sample shows a very simple CupertinoContextMenu for an empty red
-// 100x100 Container. Simply long press on it to open.
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -23,7 +17,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -35,9 +28,6 @@ class MyStatelessWidget extends StatelessWidget {
           width: 100,
           height: 100,
           child: CupertinoContextMenu(
-            child: Container(
-              color: Colors.red,
-            ),
             actions: <Widget>[
               CupertinoContextMenuAction(
                 child: const Text('Action one'),
@@ -52,6 +42,9 @@ class MyStatelessWidget extends StatelessWidget {
                 },
               ),
             ],
+            child: Container(
+              color: Colors.red,
+            ),
           ),
         ),
       ),

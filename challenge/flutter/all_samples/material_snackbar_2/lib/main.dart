@@ -1,14 +1,7 @@
-/// Flutter code sample for SnackBar
-
-// Here is an example of a customized [SnackBar]. It utilizes
-// [behavior], [shape], [padding], [width], and [duration] to customize the
-// location, appearance, and the duration for which the [SnackBar] is visible.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -28,7 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

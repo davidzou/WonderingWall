@@ -1,15 +1,7 @@
-/// Flutter code sample for CheckboxListTile
-
-// ![Custom checkbox list tile sample](https://flutter.github.io/assets-for-api-docs/assets/material/checkbox_list_tile_custom.png)
-//
-// Here is an example of a custom LabeledCheckbox widget, but you can easily
-// make your own configurable widget.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -41,7 +33,7 @@ class LabeledCheckbox extends StatelessWidget {
   final String label;
   final EdgeInsets padding;
   final bool value;
-  final Function onChanged;
+  final ValueChanged<bool> onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +49,7 @@ class LabeledCheckbox extends StatelessWidget {
             Checkbox(
               value: value,
               onChanged: (bool? newValue) {
-                onChanged(newValue);
+                onChanged(newValue!);
               },
             ),
           ],
@@ -67,7 +59,6 @@ class LabeledCheckbox extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -75,7 +66,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool _isSelected = false;
 

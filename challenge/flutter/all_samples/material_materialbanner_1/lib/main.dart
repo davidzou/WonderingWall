@@ -1,12 +1,7 @@
-/// Flutter code sample for MaterialBanner
-
-// Banners placed directly into the widget tree are static.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -21,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -38,12 +32,12 @@ class MyStatelessWidget extends StatelessWidget {
         backgroundColor: Color(0xFFE0E0E0),
         actions: <Widget>[
           TextButton(
-            child: Text('OPEN'),
             onPressed: null,
+            child: Text('OPEN'),
           ),
           TextButton(
-            child: Text('DISMISS'),
             onPressed: null,
+            child: Text('DISMISS'),
           ),
         ],
       ),

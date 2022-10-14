@@ -1,15 +1,7 @@
-/// Flutter code sample for FloatingActionButton
-
-// This example shows how to display a [FloatingActionButton] in a
-// [Scaffold], with a pink [backgroundColor] and a thumbs up [Icon].
-//
-// ![](https://flutter.github.io/assets-for-api-docs/assets/material/floating_action_button.png)
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -24,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -39,8 +30,8 @@ class MyStatelessWidget extends StatelessWidget {
         onPressed: () {
           // Add your onPressed code here!
         },
-        child: const Icon(Icons.navigation),
         backgroundColor: Colors.green,
+        child: const Icon(Icons.navigation),
       ),
     );
   }

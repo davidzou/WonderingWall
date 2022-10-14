@@ -1,15 +1,7 @@
-/// Flutter code sample for NestedScrollView
-
-// This simple example shows a [NestedScrollView] whose header contains a
-// floating [SliverAppBar]. By using the [floatHeaderSlivers] property, the
-// floating behavior is coordinated between the outer and inner [Scrollable]s,
-// so it behaves as it would in a single scrollable.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -24,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

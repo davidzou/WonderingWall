@@ -1,15 +1,7 @@
-/// Flutter code sample for VerticalDivider
-
-// This sample shows how to display a [VerticalDivider] between an purple and orange box
-// inside a [Row]. The [VerticalDivider] is 20 logical pixels in width and contains a
-// horizontally centered black line that is 1 logical pixels thick. The grey
-// line is indented by 20 logical pixels.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -27,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -46,11 +37,11 @@ class MyStatelessWidget extends StatelessWidget {
             ),
           ),
           const VerticalDivider(
-            color: Colors.grey,
+            width: 20,
             thickness: 1,
             indent: 20,
             endIndent: 0,
-            width: 20,
+            color: Colors.grey,
           ),
           Expanded(
             child: Container(

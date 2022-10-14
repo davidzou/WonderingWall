@@ -1,15 +1,7 @@
-/// Flutter code sample for PreferredSize
-
-// This sample shows a custom widget, similar to an [AppBar], which uses a
-// [PreferredSize] widget, with its height set to 80 logical pixels.
-// Changing the [PreferredSize] can be used to change the height
-// of the custom app bar.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -65,7 +57,6 @@ class AppBarContent extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

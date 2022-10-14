@@ -1,13 +1,7 @@
-/// Flutter code sample for InputDecoration.label
-
-// This example shows a `TextField` with a [Text.rich] widget as the [label].
-// The widget contains multiple [Text] widgets with different [TextStyle]'s.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -25,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

@@ -1,22 +1,8 @@
-/// Flutter code sample for FocusableActionDetector
-
-// This example shows how keyboard interaction can be added to a custom control
-// that changes color when hovered and focused, and can toggle a light when
-// activated, either by touch or by hitting the `X` key on the keyboard when
-// the "And Me" button has the keyboard focus (be sure to use TAB to move the
-// focus to the "And Me" button before trying it out).
-//
-// This example defines its own key binding for the `X` key, but in this case,
-// there is also a default key binding for [ActivateAction] in the default key
-// bindings created by [WidgetsApp] (the parent for [MaterialApp], and
-// [CupertinoApp]), so the `ENTER` key will also activate the buttons.
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -123,7 +109,6 @@ class _FadButtonState extends State<FadButton> {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -131,7 +116,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,3 @@
-/// Flutter code sample for RestorationMixin
-
-// This example demonstrates how to make a simple counter app restorable by
-// using the [RestorationMixin] and a [RestorableInt].
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const RestorationExampleApp());

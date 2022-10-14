@@ -1,17 +1,7 @@
-/// Flutter code sample for IconButton
-
-// In this sample the icon button's background color is defined with an [Ink]
-// widget whose child is an [IconButton]. The icon button's filled background
-// is a light shade of blue, it's a filled circle, and it's as big as the
-// button is.
-//
-// ![](https://flutter.github.io/assets-for-api-docs/assets/material/icon_button_background.png)
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -29,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

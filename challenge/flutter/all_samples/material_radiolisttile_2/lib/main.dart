@@ -1,17 +1,8 @@
-/// Flutter code sample for RadioListTile
-
-// ![Radio list tile semantics sample](https://flutter.github.io/assets-for-api-docs/assets/material/radio_list_tile_semantics.png)
-//
-// Here is an example of a custom labeled radio widget, called
-// LinkedLabelRadio, that includes an interactive [RichText] widget that
-// handles tap gestures.
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -43,7 +34,7 @@ class LinkedLabelRadio extends StatelessWidget {
   final EdgeInsets padding;
   final bool groupValue;
   final bool value;
-  final Function onChanged;
+  final ValueChanged<bool> onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +46,7 @@ class LinkedLabelRadio extends StatelessWidget {
               groupValue: groupValue,
               value: value,
               onChanged: (bool? newValue) {
-                onChanged(newValue);
+                onChanged(newValue!);
               }),
           RichText(
             text: TextSpan(
@@ -66,7 +57,7 @@ class LinkedLabelRadio extends StatelessWidget {
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  print('Label has been tapped.');
+                  debugPrint('Label has been tapped.');
                 },
             ),
           ),
@@ -76,7 +67,6 @@ class LinkedLabelRadio extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -84,7 +74,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool _isRadioSelected = false;
 

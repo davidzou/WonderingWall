@@ -1,17 +1,7 @@
-/// Flutter code sample for DataTable
-
-// This sample shows how to display a [DataTable] with three columns: name, age, and
-// role. The columns are defined by three [DataColumn] objects. The table
-// contains three rows of data for three example users, the data for which
-// is defined by three [DataRow] objects.
-//
-// ![](https://flutter.github.io/assets-for-api-docs/assets/material/data_table.png)
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -29,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

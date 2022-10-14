@@ -1,16 +1,7 @@
-/// Flutter code sample for FutureBuilder
-
-// This sample shows a [FutureBuilder] that displays a loading spinner while it
-// loads data. It displays a success icon and text if the [Future] completes
-// with a result, or an error icon and text if the [Future] completes with an
-// error. Assume the `_calculation` field is set by pressing a button elsewhere
-// in the UI.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -25,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -33,7 +23,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final Future<String> _calculation = Future<String>.delayed(
     const Duration(seconds: 2),
@@ -76,9 +65,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           } else {
             children = const <Widget>[
               SizedBox(
-                child: CircularProgressIndicator(),
                 width: 60,
                 height: 60,
+                child: CircularProgressIndicator(),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 16),
@@ -89,7 +78,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: children,
             ),
           );

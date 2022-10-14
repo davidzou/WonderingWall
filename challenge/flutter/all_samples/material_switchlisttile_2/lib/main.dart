@@ -1,17 +1,8 @@
-/// Flutter code sample for SwitchListTile
-
-// ![Switch list tile semantics sample](https://flutter.github.io/assets-for-api-docs/assets/material/switch_list_tile_semantics.png)
-//
-// Here is an example of a custom labeled radio widget, called
-// LinkedLabelRadio, that includes an interactive [RichText] widget that
-// handles tap gestures.
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -43,7 +34,7 @@ class LinkedLabelSwitch extends StatelessWidget {
   final String label;
   final EdgeInsets padding;
   final bool value;
-  final Function onChanged;
+  final ValueChanged<bool> onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +52,7 @@ class LinkedLabelSwitch extends StatelessWidget {
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    print('Label has been tapped.');
+                    debugPrint('Label has been tapped.');
                   },
               ),
             ),
@@ -78,7 +69,6 @@ class LinkedLabelSwitch extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -86,7 +76,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool _isSelected = false;
 

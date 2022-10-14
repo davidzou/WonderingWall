@@ -1,8 +1,3 @@
-/// Flutter code sample for AnimatedList
-
-// This sample application uses an [AnimatedList] to create an effect when
-// items are removed or added to the list.
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +56,6 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
     return CardItem(
       animation: animation,
       item: item,
-      selected: false,
       // No gesture detector here: we don't want removed items to be interactive.
     );
   }
@@ -195,7 +189,6 @@ class CardItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: SizeTransition(
-        axis: Axis.vertical,
         sizeFactor: animation,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,

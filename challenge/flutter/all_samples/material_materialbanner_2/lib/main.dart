@@ -1,13 +1,7 @@
-/// Flutter code sample for MaterialBanner
-
-// MaterialBanner's can also be presented through a [ScaffoldMessenger].
-// Here is an example where ScaffoldMessengerState.showMaterialBanner() is used to show the MaterialBanner.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -22,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -43,8 +36,8 @@ class MyStatelessWidget extends StatelessWidget {
               backgroundColor: Colors.green,
               actions: <Widget>[
                 TextButton(
-                  child: Text('DISMISS'),
                   onPressed: null,
+                  child: Text('DISMISS'),
                 ),
               ],
             ),

@@ -1,20 +1,7 @@
-/// Flutter code sample for RawScrollbar
-
-// This sample shows an app with two scrollables in the same route. Since by
-// default, there is one [PrimaryScrollController] per route, and they both have a
-// scroll direction of [Axis.vertical], they would both try to attach to that
-// controller. The [Scrollbar] cannot support multiple positions attached to
-// the same controller, so one [ListView], and its [Scrollbar] have been
-// provided a unique [ScrollController].
-//
-// Alternatively, a new PrimaryScrollController could be created above one of
-// the [ListView]s.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -34,7 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -42,7 +28,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final ScrollController _firstController = ScrollController();
 
@@ -59,7 +44,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               // unique scroll controller to this scroll view prevents it
               // from attaching to the PrimaryScrollController.
               child: Scrollbar(
-                isAlwaysShown: true,
+                thumbVisibility: true,
                 controller: _firstController,
                 child: ListView.builder(
                     controller: _firstController,
@@ -77,7 +62,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               // ScrollController, so it is using the
               // PrimaryScrollController.
               child: Scrollbar(
-                isAlwaysShown: true,
+                thumbVisibility: true,
                 child: ListView.builder(
                     itemCount: 100,
                     itemBuilder: (BuildContext context, int index) {

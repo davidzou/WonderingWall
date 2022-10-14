@@ -1,13 +1,7 @@
-/// Flutter code sample for Scrollbar
-
-// This sample shows a [Scrollbar] that executes a fade animation as scrolling occurs.
-// The Scrollbar will fade into view as the user scrolls, and fade out when scrolling stops.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -25,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

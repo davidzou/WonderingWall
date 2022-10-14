@@ -1,14 +1,7 @@
-/// Flutter code sample for ScaffoldState.showBottomSheet
-
-// This example demonstrates how to use `showBottomSheet` to display a
-// bottom sheet when a user taps a button. It also demonstrates how to
-// close a bottom sheet using the Navigator.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -26,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

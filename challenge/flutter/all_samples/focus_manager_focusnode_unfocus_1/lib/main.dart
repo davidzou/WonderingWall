@@ -1,21 +1,8 @@
-/// Flutter code sample for FocusNode.unfocus
-
-// This example shows the difference between the different [UnfocusDisposition]
-// values for [unfocus].
-//
-// Try setting focus on the four text fields by selecting them, and then
-// select "UNFOCUS" to see what happens when the current
-// [FocusManager.primaryFocus] is unfocused.
-//
-// Try pressing the TAB key after unfocusing to see what the next widget
-// chosen is.
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -30,7 +17,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -38,7 +24,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   UnfocusDisposition disposition = UnfocusDisposition.scope;
 
@@ -82,7 +67,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         },
                         value: UnfocusDisposition.values[index],
                       ),
-                      Text(describeEnum(UnfocusDisposition.values[index])),
+                      Text(UnfocusDisposition.values[index].name),
                     ],
                   );
                 }),

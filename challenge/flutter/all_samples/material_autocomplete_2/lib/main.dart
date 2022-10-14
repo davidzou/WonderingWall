@@ -1,8 +1,3 @@
-/// Flutter code sample for Autocomplete
-
-// This example shows how to create an Autocomplete widget with a custom type.
-// Try searching with text from the name or email field.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const AutocompleteExampleApp());
@@ -49,7 +44,7 @@ class User {
   }
 
   @override
-  int get hashCode => hashValues(email, name);
+  int get hashCode => Object.hash(email, name);
 }
 
 class AutocompleteBasicUserExample extends StatelessWidget {
@@ -78,7 +73,7 @@ class AutocompleteBasicUserExample extends StatelessWidget {
         });
       },
       onSelected: (User selection) {
-        print('You just selected ${_displayStringForOption(selection)}');
+        debugPrint('You just selected ${_displayStringForOption(selection)}');
       },
     );
   }

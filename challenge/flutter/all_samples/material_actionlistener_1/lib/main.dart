@@ -1,13 +1,7 @@
-/// Flutter code sample for ActionListener
-
-// This example shows how ActionListener handles adding and removing of
-// the [listener] in the widget lifecycle.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -53,7 +47,6 @@ class _ActionListenerExampleState extends State<ActionListenerExample> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Padding(
@@ -92,13 +85,13 @@ class MyAction extends Action<MyIntent> {
   @override
   void addActionListener(ActionListenerCallback listener) {
     super.addActionListener(listener);
-    print('Action Listener was added');
+    debugPrint('Action Listener was added');
   }
 
   @override
   void removeActionListener(ActionListenerCallback listener) {
     super.removeActionListener(listener);
-    print('Action Listener was removed');
+    debugPrint('Action Listener was removed');
   }
 
   @override
@@ -111,7 +104,6 @@ class MyIntent extends Intent {
   const MyIntent();
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -119,7 +111,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {

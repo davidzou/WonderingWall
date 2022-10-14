@@ -1,18 +1,7 @@
-/// Flutter code sample for Focus
-
-// This example shows how to wrap another widget in a [Focus] widget to make it
-// focusable. It wraps a [Container], and changes the container's color when it
-// is set as the [FocusManager.primaryFocus].
-//
-// If you also want to handle mouse hover and/or keyboard actions on a widget,
-// consider using a [FocusableActionDetector], which combines several different
-// widgets to provide those capabilities.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -63,7 +52,6 @@ class FocusableText extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

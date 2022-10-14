@@ -1,15 +1,7 @@
-/// Flutter code sample for showModalBottomSheet
-
-// This example demonstrates how to use `showModalBottomSheet` to display a
-// bottom sheet that obscures the content behind it when a user taps a button.
-// It also demonstrates how to close the bottom sheet using the [Navigator]
-// when a user taps on a button inside the bottom sheet.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -27,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

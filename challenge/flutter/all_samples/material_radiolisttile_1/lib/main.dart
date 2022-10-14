@@ -1,15 +1,7 @@
-/// Flutter code sample for RadioListTile
-
-// ![RadioListTile sample](https://flutter.github.io/assets-for-api-docs/assets/material/radio_list_tile.png)
-//
-// This widget shows a pair of radio buttons that control the `_character`
-// field. The field is of the type `SingingCharacter`, an enum.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -29,7 +21,6 @@ class MyApp extends StatelessWidget {
 
 enum SingingCharacter { lafayette, jefferson }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -37,7 +28,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   SingingCharacter? _character = SingingCharacter.lafayette;
 

@@ -1,14 +1,7 @@
-/// Flutter code sample for OrderedTraversalPolicy
-
-// This sample shows how to assign a traversal order to a widget. In the
-// example, the focus order goes from bottom right (the "One" button) to top
-// left (the "Six" button).
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -41,7 +34,7 @@ class DemoButton extends StatelessWidget {
   final double order;
 
   void _handleOnPressed() {
-    print('Button $name pressed.');
+    debugPrint('Button $name pressed.');
     debugDumpFocusTree();
   }
 
@@ -58,7 +51,6 @@ class DemoButton extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

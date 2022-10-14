@@ -1,15 +1,25 @@
-/// Flutter code sample for BuildOwner
-
-// This example shows how to build an off-screen widget tree used to measure
-// the layout size of the rendered tree. For some use cases, the simpler
-// [Offstage] widget may be a better alternative to this approach.
-
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  print(measureWidget(const SizedBox(width: 640, height: 480)));
+  final Size size = measureWidget(const SizedBox(width: 640, height: 480));
+
+  // Just displays the size calculated above.
+  runApp(
+    WidgetsApp(
+      title: 'BuildOwner Sample',
+      color: const Color(0xff000000),
+      builder: (BuildContext context, Widget? child) {
+        return Scaffold(
+          body: Center(
+            child: Text(size.toString()),
+          ),
+        );
+      },
+    ),
+  );
 }
 
 Size measureWidget(Widget widget) {

@@ -1,8 +1,3 @@
-/// Flutter code sample for SliverAnimatedList
-
-// This sample application uses a [SliverAnimatedList] to create an animated
-// effect when items are removed or added to the list.
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +59,6 @@ class _SliverAnimatedListSampleState extends State<SliverAnimatedListSample> {
     return CardItem(
       animation: animation,
       item: item,
-      selected: false,
     );
   }
 
@@ -212,10 +206,8 @@ class CardItem extends StatelessWidget {
         left: 2.0,
         right: 2.0,
         top: 2.0,
-        bottom: 0.0,
       ),
       child: SizeTransition(
-        axis: Axis.vertical,
         sizeFactor: animation,
         child: GestureDetector(
           onTap: onTap,

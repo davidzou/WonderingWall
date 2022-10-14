@@ -1,15 +1,7 @@
-/// Flutter code sample for Expanded
-
-// This example shows how to use an [Expanded] widget in a [Row] with multiple
-// children expanded, utilizing the [flex] factor to prioritize available space.
-//
-// ![This results in a wide amber box, followed by a thin blue box, with a medium width amber box at the end.](https://flutter.github.io/assets-for-api-docs/assets/widgets/expanded_row.png)
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -24,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 
@@ -50,7 +41,6 @@ class MyStatelessWidget extends StatelessWidget {
               width: 50,
             ),
             Expanded(
-              flex: 1,
               child: Container(
                 color: Colors.amber,
                 height: 100,

@@ -1,17 +1,7 @@
-/// Flutter code sample for OverflowBar
-
-// This example defines a simple approximation of a dialog
-// layout, where the layout of the dialog's action buttons are
-// defined by an [OverflowBar]. The content is wrapped in a
-// [SingleChildScrollView], so that if overflow occurs, the
-// action buttons will still be accessible by scrolling,
-// no matter how much vertical space is available.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -31,7 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatelessWidget {
   const MyStatelessWidget({Key? key}) : super(key: key);
 

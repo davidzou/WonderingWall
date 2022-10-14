@@ -1,14 +1,7 @@
-/// Flutter code sample for FocusScope
-
-// This example demonstrates using a [FocusScope] to restrict focus to a particular
-// portion of the app. In this case, restricting focus to the visible part of a
-// Stack.
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -67,7 +60,6 @@ class Pane extends StatelessWidget {
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -75,7 +67,6 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool backdropIsVisible = false;
   FocusNode backdropNode = FocusNode(debugLabel: 'Close Backdrop Button');
@@ -83,9 +74,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   void dispose() {
-    super.dispose();
     backdropNode.dispose();
     foregroundNode.dispose();
+    super.dispose();
   }
 
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
@@ -118,7 +109,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 // This button would be not visible, but still focusable from
                 // the foreground pane without the FocusScope.
                 ElevatedButton(
-                  onPressed: () => print('You pressed the other button!'),
+                  onPressed: () => debugPrint('You pressed the other button!'),
                   child: const Text('ANOTHER BUTTON TO FOCUS'),
                 ),
                 DefaultTextStyle(
